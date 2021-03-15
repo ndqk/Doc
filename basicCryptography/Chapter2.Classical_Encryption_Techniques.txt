@@ -1,0 +1,65 @@
+Chapter 2:
+
+//
+2.1. Symmetric Cipher Model (Mô hình mã hóa đỗi xứng)
+- A sysmmetric encryption scheme has 5 ingredients:
+	+ Plaintext: the original intelligible message or data -> input
+	+ Encryption algorithm: performs various substitutions and transformations on the plaintext
+	+ Secret key: value independent of plaintext and algorithm -> input
+	+ Ciphertext: scrambled message produced -> output
+	+ Decryption algorithm: ciphertext + secret key -> plaintext
+- 2 reuirements for secure use of conventional encryption:
+	+ The encryption algorithm must be strong: the opponent should be unable to decrypt ciphertext or discover the key even if he or she has a number of ciphertexts together with the plaintext for each ciphertext
+	+ Sender and receiver must have obtained copies of the secret key in a secure fashion and must keep the key secure. If someone con discover the key and knows the algorithm, all communication using this key is readable
+	
+- 2.1.1. Cryptography (Mật mã học): Cryptographic system are characterized along 3 independent dimensions:
+	+ Type of operations for transforming plaintext to ciphertext
+	+ Number of keys used
+	+ How the plaintext is processed
+	
+- 2.1.2. Cryptanalysis (Phân tích mật mã)
+Objective of attacking an encryption system: recover the key in use rather then simply to recover the plaintext of single ciphertext. 2 general approaches to attacking a conventional encryption scheme:
+	+ Cryptanalysis: rely: nature of algorithm + knowledge of general characteristics of plaintext or some plaintext-ciphertext pair => specific plaintext | key being used
+	+ Brute-force attack: tries every possible key
+
+//
+2.2. Substitution Techniques (Phương pháp thay thế)
+A substitution technique is one in which the letters of plaintext are replaced by other letter or by numbers or symbols. If the plaintext is viewed as a sequence of bits, then substitution involves replacing plaintext bit patterns with cipher bit pattern
+
+- 2.2.1. Caesar Cipher
++ Earliest and simplest, by Julius Caesar
++ Replace each letter of the alphabet with the letter standing k = 3 places further down the alphabet
++ plain: a b c d e f g h i j k l m n o p q r s t u v w x y z
+ cipher: D E F G H I J K L M N O P Q R S T U V W X Y Z A B C
++ Algorithm:
+assign a numerical equivalent to each letter:
+a b c d e f g h i j k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+
+plaintext letter p -> ciphertext letter c
+=> c = E(k, p) = (p + k) mod 26
+=> d = D(k, c) = (c.k) mod 26
+
+- 2.2.2. Monoalphabetic Ciphers
++ Cipher line can be any permutation of the 26 alphabetic characters => 26! or greater than 4.10^26 possible key
++ Another line of attack
+
+- 2.2.3. Playfair Cipher
+- 2.2.4. Hill Cipher
+- 2.2.5. Polyalphabetic Ciphers
+- 2.2.6. One-Time Pad
+
+//
+2.3. Transposition Techniques
+
+//
+2.4. Rotor Machines
+
+//
+2.5. Steganography
+
+//
+2.6. Recommended Reading and Web Sites
+
+//
+2.7. Key Terms, Review Questions, and Problems

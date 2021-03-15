@@ -1,0 +1,87 @@
+2.1. Represent the Winburg mini case of Section 2.2 and 2.3 using waterfall model. Is this more or less effective than the evolution-tree model? Explain your answer.
+Answer: 
+-The waterfall model is less effective than the evolution-tree model because this model shows that the steps were followed, and feedback loop utilized, but does not show the order of event. This model does not give a clear picture of what actually happend in development. The evolution-tree model has a further advantage over the waterfall model. At the end of each episode we have a base line, that is, a complete set of artifacts. 
+
+//
+2.2. Assume that the programmer in the Winburg mini case study had used single-precision numbers from the beginning. Draw the resultiong evolution tree. 
+Answer:
+- Remove episode 2
+
+//
+2.3. What is the connection between Miller's Law and stepwise refinement?
+Answer:
+- Miller's Law: at any one time, we humans are capable of concentrating on only approximately 7 chunks (unit of information)
+- Stepwise refinement: we concentrate on thos aspects that are currently the most important and postpone until later those aspects that are currently less critical.
+=> Stepwise refinement is how to handel restriction on the amount of information in Miller's Law
+
+//
+2.4. Does stepwise refinement correspond to iteration or incrementation?
+Answer:
+- Stepwise refinement corresponds to incrementation because we might construct a requirement document by considering the 7 requirements we consider the most important. Then, we would consider the 7 next most important requirements, and so on
+=> Incrementation
+
+//
+2.5. How are a workflow, an artifacr, and a baseline relate?
+Answer:
+- Workflow: set of activities, creates or modifies an artifact/artifacts
+- Artifact: constituent (part of a whole) component of a software product
+- baseline: complete set of artifacts
+
+//
+2.6. What is the connection between the waterfall model and the iterative-and-incremental model?
+Answer:
+For each increment in turn, the requirements, analysis, design and implementation phases (in that order) are repeatedly performed on that increment until it is clear that no further iteration is needed. In other words, the project as a whole is broken up into a series of waterfall mini projects. Therefore, the reason the previous paragraph stated that the interative-and-incremental model is as regimented as the waterfall model is because the iterative-and-incremental model is the waterfall model, applied successively.
+
+//
+2.7. Suppose you have to build a product to determine the cube root of 9384.2034 to four decimal places. Once the product has been implemented and tested, it will be thrown away. Which life-cycle model would you use? Give reasons for your answer?
+Answer: Code-and-Fix Life-Cycle Model because this is a very small project. So the product can be implmented without requirement, analysic, or design. And once the product has been implemented and tested, it will be thrown away. => We dont care about postdelivery maintenance
+
+//
+2.8. You are a software engineering consultant and have been called in by the vice-president for finance of a corporation that manufactures tires and sells them via its large chain of retail outlets. She wants your organization to build a product that will monitor the company's stock, starting with the purchasing of the raw materials and keeping track of the tires as the are manufactured, distributed to the individual stores, and sold to customers. What criteria would you you in selecting a life-cycle model for the project?
+
+//
+2.9. List the risks involved in developing the software of Problem 2.8. How would you attempt to mmitigate each risk?
+
+//
+2.10. Your development of the stock control product for the tire company is so successful that your organization decides that it must be reimplemented as a package to be sold to a variety of different organizations that manufacture and sell products via their own retailers. The new product must therefore be portable and easily adapted to new hardware and/or operating systems. How would the criteria you use in selection a life-cycle model for this project differ from those in your answer to Problem 2.8?
+
+//
+2.11. Describe the sort of product that would be an ideal application for open-source software development.
+
+//
+2.12. Now describe the type of situation where open-source software development is inappropriate.
+
+//
+2.13. Describe the sort of product that would be an ideal application for an agile process.
+
+//
+2.14. Now describe the type of situation where an agile process is inappropriate.
+
+//
+2.15. Describe the sort of product that would be an ideal application for the spiral life-cycle model. 
+
+//
+2.16. Now describe the type of situation where the spiral life-cycle model is inappropriate.
+
+//
+2.17. Describe a risk inherent in using the waterfall life-cycle model.
+
+//
+2.18. Describe a risk inherent in using the code-and-fix life-cycle model. 
+
+//
+2.19. Describe a risk inherent in using the open-source life-cycle model.
+
+//
+2.20. Describe a risk inherent in using agile processes. 
+
+//
+2.21. Describe a risk inherent in using the spiral life-cycle model. 
+
+//
+2.22. (Term Project) Which software life-cycle model would you use for the Chocoholics Anonymous
+product described in Appendix A? Give reasons for your answer. 
+
+//
+2.23. (Readings in Software Engineering) Your instructor will distribute copies of [Rajlich, 2006]. Do
+you agree that software engineering has embarked on a new paradigm? Explain your answer.

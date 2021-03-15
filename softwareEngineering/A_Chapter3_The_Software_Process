@@ -1,0 +1,53 @@
+3.1. The Unified Process
+- Primary object-oriented methodology to day
+- 3 precursors: OMT, Booch's method, and Objectory
+- Not a specific series of steps that, if followed, will result in the construction of a software product. No such single "one size fits all" methodology could exist because of the wide variety of types of software product
+- Should be view as an adaptable methodology: it is modified for the specific software product to be developed
+
+//
+3.2. Iteration and Incrementation within the Object-Oriented Paradigm
+- The Object-oriented paradigm uses modeling throughout. A model is a set of UML(Unified Modeling Language) diagrams that represent one or more aspects of the software product to be developed.
+- The object-oritented paradigm is an iterative-and-incremental methodology. Each workflow consists of a number of steps
+- The nature of software products is such that virtally everything has to be developed interatively and incrementally
+
+//
+3.3. The Reqirement Workflow
+- The aim of the requirements workflow is for the development organization to determine the client's needs
+	+ 1st task of the development team is to acquire a basic understanding of the application domain
+- A vital aspect of software development is the business case, a documment that demonstates the cost-effectiveness of the target product
+	+ "cost" is not always purely financial
+- The task of the developer at this stage is to determine exactly what the client needs and to find out from the client what constraints exit
+	+ almost always the "deadline"
+	+ often "reliability"
+	+ "cost" is almost invariably
+	
+//
+3.4. The Analysic Workflow 
+(section 13.6, Chapter 13, Section 9.2, Chapter 12, Section 9.3 -> 9.5)
+- The aim of the analysic workflow is to analyze and refine the requirements to achieve the detailed understanding of the requirements essential for developing a software product correctly and maintaining it easily.
+- The key point is that  the output of the requirements workflow must be totally comprehended by the client. But all natural languages, without exception, are somewhat imprecise and lend themselves to misunderstanding
+=> Solution: 2 separate workflows:
+	+ The requirements workflow: is couched in the language of the client
+	+ The analysic workflow: in a more precise language that ensures that the design and implementation workflows are correctly carried out
+
+- The specifications should not include imprecise term like "suitable, convenient, ample, or enough", or similar terms that sound exact but in practise are equally imprecise, such as "optimal" or "98 percent complete"
+- The specifications are essential for both testing and maintenance
+	=> the imprecise specifications -> no way to test or maintenance
+- the Unified Process => use UML (Unified Model Language)
+- Mistakes:
+	+ ambiguity:
+	+ imcompleteness:
+	+ contradictions:
+- The specifications have been approved by the client, preparation of the software project management plan commences. Major components of the plan:
+	+ deliverables (what the client is going to get)
+	+ milestones (when the clients gets them)
+	+ budget (how much it is going to cost )
+- The plan describes the software process in fullest detail: life-cycle model, organizational structure of the development organization, tool, detailed schedules, budgets and resource allocations
+
+
+
+
+
+
+
+

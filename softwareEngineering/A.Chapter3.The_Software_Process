@@ -1,0 +1,209 @@
+3.1. The Unified Process
+- Primary object-oriented methodology to day
+- 3 precursors: OMT, Booch's method, and Objectory
+- Not a specific series of steps that, if followed, will result in the construction of a software product. No such single "one size fits all" methodology could exist because of the wide variety of types of software product
+- Should be view as an adaptable methodology: it is modified for the specific software product to be developed
+
+//
+3.2. Iteration and Incrementation within the Object-Oriented Paradigm
+- The Object-oriented paradigm uses modeling throughout. A model is a set of UML(Unified Modeling Language) diagrams that represent one or more aspects of the software product to be developed.
+- The object-oritented paradigm is an iterative-and-incremental methodology. Each workflow consists of a number of steps
+- The nature of software products is such that virtally everything has to be developed interatively and incrementally
+
+//
+3.3. The Reqirement Workflow
+- The aim of the requirements workflow is for the development organization to determine the client's needs
+	+ 1st task of the development team is to acquire a basic understanding of the application domain
+- A vital aspect of software development is the business case, a documment that demonstates the cost-effectiveness of the target product
+	+ "cost" is not always purely financial
+- The task of the developer at this stage is to determine exactly what the client needs and to find out from the client what constraints exit
+	+ almost always the "deadline"
+	+ often "reliability"
+	+ "cost" is almost invariably
+	
+//
+3.4. The Analysic Workflow 
+(section 13.6, Chapter 13, Section 9.2, Chapter 12, Section 9.3 -> 9.5)
+- The aim of the analysic workflow is to analyze and refine the requirements to achieve the detailed understanding of the requirements essential for developing a software product correctly and maintaining it easily.
+- The key point is that  the output of the requirements workflow must be totally comprehended by the client. But all natural languages, without exception, are somewhat imprecise and lend themselves to misunderstanding
+=> Solution: 2 separate workflows:
+	+ The requirements workflow: is couched in the language of the client
+	+ The analysic workflow: in a more precise language that ensures that the design and implementation workflows are correctly carried out
+
+- The specifications should not include imprecise term like "suitable, convenient, ample, or enough", or similar terms that sound exact but in practise are equally imprecise, such as "optimal" or "98 percent complete"
+- The specifications are essential for both testing and maintenance
+	=> the imprecise specifications -> no way to test or maintenance
+- the Unified Process => use UML (Unified Model Language)
+- Mistakes:
+	+ ambiguity:
+	+ imcompleteness:
+	+ contradictions:
+- The specifications have been approved by the client, preparation of the software project management plan commences. Major components of the plan:
+	+ deliverables (what the client is going to get)
+	+ milestones (when the clients gets them)
+	+ budget (how much it is going to cost )
+- The plan describes the software process in fullest detail: life-cycle model, organizational structure of the development organization, tool, detailed schedules, budgets and resource allocations
+
+//
+3.5. The Design Workflow
+- Shows how the product is to do it
+- The aim of the design workflow is to refine the artifacts of the analysic workflow until the material is in a form that can be implemented by the programmers
+- The team has completed the decomposition into modules (the architectural design), the detailed design is performed. For each module, algorithms are selected and data structure chosen
+- Object-oriented paradigm: the object-oriented counterpart of architectural design is performed as a part of the object-oriented analysic workflow, and the object-oritented counterpart of detailed design is part of the object-oriented design workflow
+- The team must keep a meticulous record of the design decisions that are made:
+	+ While the product is being designed, a dead end -> reached -> must backtrack and redesign certain pieces => record assists team
+	+ The design of product -> open-ended ->future enhancements -> done by adding new classes or replacing existing classes without affection the design as a whole => difficult to achieve. Dealine -> complete design that satisfies the original specifications, without worrying about any later enhancements. The product -> redesgined => easier if provide a record of the reasons for all the original design decisions.
+
+//
+3.6. The Implementation Workflow
+- The aim of the implementation workflow is to implement the target software product in the chosen implementation language(s).
+- A small software -> implemented by the designer. A large software -> partitioned -> smaller subsystem -> implemented by coding team. Subsytem -> consist: components or code artifacts -> implemented by individual programmer
+- The only documentation given a programmer is the relevant design artifact. In the case of the classical paradigm, programmer -> given detailed design of module -> provides enough information with no difficult. But, no way for individual programmer know if architectural design is correct. Only when integration
+=> This is yet another reason why it is so important for the design to be corract in every respect
+
+//
+3.7. The Test Workflow
+- There are 2 major aspects to testing:
+	+ developer & maintainer -> responsible for ensuring -> work is correct => software professional -> test & retest each artifact he or she develops or mantains
+	+ the software professional -> convinced -> correct => SQA -> test
+- The nature of the test workflow changes depending on the artifacts being tested. However, a feature important to all artifacts is traceability
+-- 3.7.1. Requirements Artifacts
+	+ to be testable over the life cycle of software product -> must have traceability
+	+ the requirements -> present: methodically, properly numbered, cross-referenced, and indexed -> little difficulty tracing through the subsequent artifacts -> ensuring -> true reflection of client's requirements
+	+ work of requirements team -> checked by SQA, traceability simplifies their task, too
+
+-- 3.7.2. Analysic Artifacts
+	+ A major source of faults -> in specifications -> not detected until the software -> installed
+	+ Both analysis tem & SQA group -> check analysis
+	+ Excellent way -> by means of a review. Representatives of analysis team & client -> present. The meeting -> chaired by member of SQA -> aim: determine whether the analysis artifacts are correct. 2 type of review: Walkthroughs and inspections
+	-> check -> detailed planning & estimating that takes place once the client has signed off on the specification. Every aspects of SPMP -> checked by: development team & SQA -> particular attention: duration & cost. With SPMP document -> excellent way: check it by a review similar the review of the analysis artifacts. Duration & cost -> satisfactory -> client will give permission for the project to proceed.
+
+-- 3.7.3. Design Artifacts
+	+ every part of the design can be linked to an analysis artifacts
+	+ design review <=> specifications. But client usually is not present. design team & SQA -> ensuring that the design is correct
+	+ type of faults to look for: logic faults, interface faults, lack of exception handling, and most important, nonconformance to the specifications
+	+ some analysis faults -> not detected 
+	
+-- 3.7.4. Implementation Artifacts
+	+ desk checking -> unit testing
+	+ code review: SQA representative
+	+ integration testing: check: components combine correctly -> achieve a product satisfies. Important: number, order, types of formal arguments match the number, order, and types of actual arguments
+	+ product testing: the functionality of the product as a whole is checked against the specifications. contraints listed in the specifications -> tested. Aim: determine whether the specifications have been correctly implemented
+	+ its robustness must also be tested: intentionally erroneous input data -> submitted -> product crash? | error-handling capabilities? 
+	+ acceptance testing: client-> test on: actual hardware, actual data
+	
+	+ COST software: alpha release -> beta release
+//
+3.8. Postdelivery Maintenance
+- not an activity grudgingly carried out after, it is an integral part of software proccess
+- a vital aspect of software production. 
+- common problem: documentation | lack of it
+- is the most challenging aspect of software production
+- 2 aspects to testing changes made to a product when PM is performed: checking reqired changes -> implemented correctly & ensuring that, changes -> no other inadvertent changes => regessiong testing. to assit: all previous test cases be retained, with result of running those test cases
+- major aspect of postdelivery maintenance is a record of all the changes made, togother with the reason of each change.
+
+//
+3.9. Retirement
+- proposed changes -> so drastic -> whole change => less expensive to redesign and reccode entire product
+- small change -> a drastic effect on the functionality of the product as a whole
+- documentation: !adequately maintained => increase  risk of a regression fault
+- hardware replaced => more economical to reimplement from scratch than to modify
+
+//
+3.10. The Phases of the Unified Process
+-- 3.10.1. The Inception Phase
++ Aim: determine whether it is worthwhile to develop the target software product | determinne whether the propose software product is economically viable
++ Requirements workflow: 2 steps: understand the domain & build a business model. have full comprehension of the domain -> build a business model | first: understand the domain itseft -> second: understand precisely how the client organizatiion operates in that domain
++ Delimiting the scope ò the propose  project
++ Begin make the initial business case: answer questions:
+	., Is the proposed software product cost effective? That is, will the benefits to be gained as a consequence of developing the software product outweigh the costs involved?
+	How long will it take to obtain a return on the investment needed to develop the proposed software products?
+	Alternatively, what will be the cost to the client if he or she decides not to develop the proposed software product?
+	If the software product is to be sold in the marketplace, have the necessary marketing studies been performed?
+	
+	., Can the proposed software product be delivered in time? That is, if the software product is delivered late to the market, will the organization still make a profit or will a competitive software product obtain the lion's share of the market?
+	Alternatively, if the software product is to be developed to support the client organization's own activities, what is the impact if the proposed software product is delivered late?
+	
+	., What risks are involved in developing the software product, and how can these risks be mitigated?
+	Do the team members who will develop the proposed software product have the necessary experience?
+	Is new hardware needed for this software product and, if so, is there a risk that it will not be delivered in time? If so, is there a way to mitigate that risk, perhaps by ordering backup hardware from another supplier?
+	Are software tools needed? Are they currently available? Do they have all the necessary functionality?
+	It is likely that a COTS package with all the functionality of the proposed custom software product will be put on the market while the project is under way, and how can this be determined?
++ identify the risks: 3 major risk categories:
+	., Technical risks
+	., Not getting the requirements right: can be mitigated by performing the requirements workflow correctly
+	,. Not getting the architecture right
++ Implementation workflow: frequently no coding is performed. However: build a proof-of-concept prototype
++ Test workflow commences at the start of the inception phase: Aim: ensure requirements are accurately determined
++ Planning - essentital part of every phase: insufficient information for entire -> planning for the inception itself
++ Documentations - essential part:
+	., The initial version of the domain model
+	., The initial verison of the business model
+	., The initial verison of the requirements artifacts
+	., A preliminary version of the analysis artifacts
+	., A preliminary verison of the architecture
+	., The initial list of risks
+	., The initial use cases
+	., The plan for the elaboration phase
+	., The initial version of the business case
+
+-- 3.10.2. The Elaboration Phase
++ Aim: refine the initial requirements, refine the architecture, monitor the risks and refine their priorities, refine the business case, and produce the software project management plan.
++ The deliverables of the elaboration phase include:
+	., The completed domain model
+	., The completed business model
+	., The completed requirements artifacts
+	., The completed analysis artifacts
+	., An updated version of the architecture
+	., An updated list of risks
+	., The software project management plan
+	., The completed business case
+
+-- 3.10.3. The Construction Phase
++ Aim: produce the first operational-quality version of the software product, the so-called beta release
++ The deliverables of the construction phase include:
+	., The initial user manual and other manuals, as appropriate
+	., All the artifacts (beta release version)
+	., The completed architecture
+	., The updated risk list
+	., The software project management plan (for the remainder of the project)
+	., If necessray, the updated business case
+
+-- 3.10.4. The Transition Phase
++ Aim: ensure that the client's requirements have indeed been met
++ The deliverables of the transition phase include:
+	., All the artifacts (final version)
+	., The completed mannuals
+
+//
+3.11. One-versus Two-Dimensional Life-Cycle Models 
+
+//
+3.12. Improving the Software Process
+
+//
+3.13. Capability Maturity Models
+
+//
+3.14. Other Software Process Improvement Initiatives
+
+//
+3.15. Costs and Benefits of Software Process Improvement
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

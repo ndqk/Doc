@@ -1,0 +1,77 @@
+* Các mô hình tấn công cơ bản:
+1. Tấn công chỉ bằng bản mã (COA: Ciphertext Only Attack):
+	- Chỉ biết bản mã
+	- Yếu nhất
+ 
+2. Tấn công bằng bản rõ đã biết (KPA: Know Plaintẽt Attack):
+	- truy cập đến 1 danh sách giới hạn các cặp bản rõ và bản mã tương ứng
+	- độ khó tấn công cao hơn
+	- cặp m - c
+	- biết càng nhiều -> tấn công càng mạnh
+	
+3. Tấn công bằng bản rõ chọn trước (CPA: Chosen-Plantext Attack):
+	- A có thể chọn trước 1 số bản rõ
+	- mi->ci
+	- truy cập không giới hạn đến bộ mã hóa
+	
+2,3:
+- Giống:
+- Khác:
+	
+4. Tấn công bằng bản mã chọn trước (CCA: Chose-ciphertext Attack):
+	- ci->mi
+	- Chống: c2->m1, c2->m2, c2->m3, m3 có nghĩa nhưng là bản rõ giả. Chia theo phiên
+
+* Độ an toàn
+1. Độ an toàn tính toán (computational security):
+2. Độ an toàn không điều kiện (uncoditional security): 
+
+//Example
+P = {a, b}; p(a) = 1/4, p(b) = 3/4
+K = {k1, k2, k3}; p(k1) = 1/2, p(k2) = p(k3) = 1/4
+C = {1,2,3,4} 
+e_k1(a) = 1, e_k1(b) = 2, e_k2(a) = 2, e_k2(b) = 3, e_k3(a) = 3, e_k3(b) = 4
+p(ci) = ?
+p(a|2), p(a|3) = ?
+
+
+p(1) = p(a)*p(k1) =1/4 * 1/2 = 1/8
+p(2) = 3/4 * 1/2 + 1/4 *1/4 = 7/16
+p(3) = 3/4 * 1/4 + 1/4 * 1/4 = 1/4
+p(4) = 3/4 * 1/4 = 3/16
+
+p(a|1) = p(a, 1) / p(1) = (1/4 * 1/2) : 1/8 = 1
+p(a|2) = p(a, 2) / p(2) = (1/4 * 1/4) : 7/16 = 1/7
+p(a|3) = p(3|a)*p(a) / p(3) =  (1/4 * 1/4) : 1/4 = 1/4
+p(a|4) = 0
+
+p(b|1) = 0
+p(b|2) = p(2|b)*p(b) / p(2) =  (3/4 * 1/2) : 7/16 = 6/7
+p(b|3) = (3/4 * 1/4) : 1/4 = 3/4
+p(b|4) = p(4|b)*p(b) / p(4) =  (3/4 * 1/4) : 3/16 = 1
+
+Giả sử bắt c = 2 => p(a|2) = 1/7 && p(b|2) = 6/7 => 
+
+// Tấn công phân biệt (distinguishing attack) (phụ, gắn vào 1 kiểu tấn công nào đó):
+- Đầu vào: m1, m2 -> c
+=> p(m1|c) >= 1/2 
+=> p(m1|c) = 1/2 + delta ; 0 <= delta <= 1/2
+delta k đáng kể  (negligible)
+ING-CPA
+
+delta = f(n), n độ dài đầu vào m
+negligible function với biến n
+f(n), n > n0 để cho f(n) < 10^(-6)
+n > n0 để cho f(n) < a cho trước
+=> Hệ mật an toàn
+
+
+
+
+
+
+
+
+
+
+

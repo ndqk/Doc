@@ -1,0 +1,831 @@
+--1
+acceptance testing 7
+adaptive maintenance 8
+analysis phase 7
+architectural design 7
+artifact 18
+attribute 25
+bug 25
+classical paradigm 18
+clickware 23
+client 23
+coding 7
+commercial-off-the-shelf (COTS) software 23
+contract software 23
+corrective maintenance 8
+defect 25
+design by contract 20
+design document 7
+design phase 7
+detailed design 7
+developer 23
+development-then-maintenance model 9
+documentation phase 17
+encapsulation 20
+enhancement 8
+error 25
+ethics 26
+failure 25
+fault 25
+field 25
+implementation phase 7
+instance variable 25
+integration 7
+internal software development 23
+life cycle 6
+life-cycle model 6
+Linus’s Law 23
+maintenance 10
+message 19
+member function 26
+method 19
+methodology 24
+mistake 25
+module 7
+object-oriented paradigm 25
+open-source software 23
+operational definition (of maintenance) 10
+paradigm 24
+perfective maintenance 8
+phase 6
+planning phase 16
+postdelivery maintenance 7
+process 5
+product 24
+program 24
+property 25
+quality 17
+regression fault 20
+requirements phase 7
+responsibility-driven design 20
+retirement 8
+send a message 26
+shrink-wrapped software 23
+software 24
+software crisis 4
+software depression 5
+software engineering 2
+software project management plan 7
+software repair 8
+specification document 7
+specification phase 7
+state variable 25
+structured paradigm 18
+system 24
+systems analysis 24
+systems design 24
+technique 25
+temporal definition (of maintenance) 9
+testing phase 17
+traditional paradigm 25
+unit testing 7
+user 23
+validation 17
+verifi cation 17
+waterfall model 7
+--2
+agile process 60
+analysis workflow 44
+architecture 49
+artifact 41
+baseline 41
+code-and-fix life-cycle model 52
+core group 57
+core workflow 44
+design workflow 44
+evolution-tree life-cycle model 40
+extreme programming 59
+failure report 57
+fault report 57
+feature creep 43
+freeze 62
+implementation workflow 44
+incrementation 44
+iteration 44
+iterative-and-incremental life-cycle model 44
+life-cycle model 40
+Miller’s Law 44
+mitigate risk 63
+model 40
+moving-target problem 43
+open-source software 56
+pair programming 59
+peripheral group 57
+proof-of-concept prototype 63
+rapid prototype 55
+rapid-prototyping life-cycle model 55
+refactoring 60
+regression fault 43
+requirements workflow 44
+risk 50
+robustness 49
+spiral life-cycle model 63
+stabilize 62
+stand-up meeting 60
+stepwise refinement 44
+story 59
+synchronize 62
+synchronize-and-stabilize life-cycle model 62
+task 59
+test-driven development 59
+test workflow 44
+timeboxing 60
+waterfall life-cycle model 41
+workflow 44
+--3
+acceptance testing 86
+alpha release 86
+ambiguity 81
+analysis workflow 80
+application domain 78
+architectural design 82
+beta release 86
+budget 82
+business case 79
+business model 89
+capability maturity model (CMM) 95
+class 82
+code artifact 83
+component 83
+concept exploration 79
+construction phase 92
+contradiction 81
+core workflow 78
+cost 79
+deadline 79
+defined level 96
+deliverable 82
+design workflow 82
+detailed design 82
+domain 78
+elaboration phase 91
+implementation workflow 83
+inception phase 89
+incompleteness 81
+initial level 95
+integration testing 86
+International Organization for Standardization (ISO) 98
+ISO 9000-3 98
+ISO 9001 98
+ISO/IEC 15504 99
+key process area (KPA) 98
+managed level 96
+maturity 95
+milestone 82
+model 76
+module 82
+optimizing level 96
+product testing 86
+regression testing 87
+reliability 79
+repeatable level 96
+requirements workflow 78
+retirement 88
+SPICE 99
+test workflow 84
+traceability 84
+transition phase 92
+Unified Modeling Language (UML) 76
+Unifi ed Process 76
+unit testing 85
+--4
+backup programmer 111
+Brooks’s Law 108
+chief programmer 111
+chief programmer team 110
+democratic team 109
+egoless programming 109
+hierarchy 111
+key process area (KPA) 119
+librarian 112
+pair programming 118
+programmer 112
+programming secretary 112
+specialization 111
+superprogrammer 113
+task 118
+team 107
+team leader 114
+team manager 114
+--5
+activity 137
+assumptions 131
+back-end tool 136
+baseline 145
+browser 138
+build tool 146
+CASE 124
+coding tool 138
+confi guration 143
+confi guration control 145
+confi guration-control tool 145
+consistency checker 136
+cost–benefit analysis 130
+data dictionary 136
+derivation 144
+divide-and-conquer 132
+e-mail 138
+environment 137
+formatter 138
+freeze 145
+front-end tool 135
+interactive source-level debugger 140
+lookahead 129
+lowerCASE tool 136
+metrics 133
+online documentation 138
+online interface checker 139
+operating system front end 140
+pretty printer 138
+private workspace 145
+process metric 133
+product metric 133
+programming-in-the-large 138
+programming-in-the-many 138
+programming-in-the-small 138
+report generator 136
+revision 141
+screen generator 136
+separation of concerns 132
+source-level debugger 140
+spreadsheet 138
+stepwise refinement 124
+structure editor 138
+syntax-directed editor 139
+systems engineering 135
+tool 135
+upperCASE tool 135
+variation 142
+version 141
+word processor 138
+workbench 137
+--6
+correctness 166
+correctness proof 167
+defect 155
+desk check 175
+error 155
+execution-based testing 163
+failure 155
+fault 155
+fault density 162
+fault detection efficiency 162
+fault detection rate 162
+follow-up 160
+inspection 159
+inspection rate 162
+loop invariant 169
+managerial independence 156
+mean time between failures 164
+mean time to repair 164
+mistake 155
+model checking 174
+moderator 160
+non-execution-based testing 157
+overview 159
+performance 165
+preparation 159
+quality 156
+reader 160
+recorder 160
+regression testing 176
+reliability 164
+rework 160
+robustness 165
+simulator 164
+software quality assurance (SQA) 156
+systematic testing 175
+test workflow 155
+testing 155
+utility 164
+V & V 155
+validation 155
+verification 155
+--7
+abstract data type 207
+abstraction 201
+aggregation 213
+aspect-oriented programming (AOP) 230
+association 214
+binding 186
+class 211
+cohesion 186
+coincidental cohesion 187
+common coupling 193
+communicational cohesion 190
+content coupling 192
+context 186
+control coupling 195
+coupling 186
+data abstraction 202
+data coupling 196
+data encapsulation 201
+dynamic binding 216
+encapsulation 202
+fl owchart cohesion 190
+fragile base class problem 219
+functional cohesion 190
+generalization 213
+information hiding 209
+informational cohesion 191
+inheritance 211
+isA relationship 213
+learning curve 219
+logic 186
+logical cohesion 188
+module 184
+navigation triangle 214
+note 213
+object 211
+operation 186
+polymorphism 216
+procedural abstraction 202
+procedural cohesion 189
+specialization 213
+stamp coupling 195
+strength 186
+subclass 212
+temporal cohesion 189
+--8
+abstract class 239
+abstract factory design pattern 244
+abstract method 239
+accidental reuse 226
+adapter design pattern 239
+aggregate 241
+application framework 234
+application programming interface (API) 227
+architecture pattern 237
+behavioral design patterns 246
+bridge design pattern 240
+business logic tier 237
+COBOL program logic structure 230
+collection 241
+component-based software engineering 237
+container 241
+core asset 236
+creational design patterns 245
+cursor 241
+data access logic tier 237
+deliberate reuse 226
+design pattern 235
+driver 240
+element access 241
+element traversal 241
+framework 234
+functional module 230
+hot spot 234
+iterator 241
+iterator design pattern 241
+model-driven architecture (MDA) 259
+model-view-controller (MVC) architecture pattern 237
+not invented here (NIH) syndrome 228
+opportunistic reuse 226
+portable 226
+presentation logic tier 237
+reuse 226
+software architecture 236
+software product line 236
+source computer 250
+structural design patterns 245
+systematic reuse 226
+target computer 250
+three-tier architecture 237
+toolkit 233
+widget 241
+wrapper 235
+--9
+activity 283
+algorithmic cost estimation model 277
+application composition model 281
+baseline 284
+bottom-up approach 277
+COCOMO 278
+COCOMO II 281
+cone of uncertainty 269
+cost 271
+cost estimate 271
+Delphi technique 276
+documentation 291
+duration 282
+duration estimate 271
+early design model 281
+efficiency 273
+expert judgment by analogy 276
+external cost 271
+FFP metric 273
+function point (FP) 273
+IEEE software project management plan 286
+internal cost 271
+lines of code (LOC) 272
+milestone 284
+money 284
+nominal effort 278
+planning 268
+postarchitecture model 281
+price 271
+productivity 273
+project function 283
+Rayleigh distribution 282
+resources 282
+review 284
+software development effort multipliers (SPMP) 278
+task 283
+technical complexity factor (TCF) 274
+test planning 288
+thousand delivered source instructions (KDSI) 272
+training 290
+unadjusted function points (UFP) 273
+work package 284
+work product 283
+--10
+activity 311
+analysis workflow 303, 307
+baseline 309
+build tool 309
+CASE 308
+cohesion 310
+computer-aided software engineering 308
+confi guration 309
+confi guration-control tool 309
+core workflows 303
+cost estimate 311
+cost–benefit analysis 308
+coupling 310
+data coupling 310
+data dictionary 308
+defect 309
+design workflow 303, 307
+duration estimate 311
+environment 309
+error 309
+failure 309
+fault 309
+implementation workflow 303, 307
+incrementation 303
+information hiding 310
+inspection 309
+iteration 303
+iterative-and-incremental life-cycle model 303
+life cycle 301
+life-cycle model 301
+metric 308
+milestone 311
+Miller’s Law 303
+mistake 309
+model 306
+money 311
+moving-target problem 302
+project function 311
+project management workbench 309
+quality 309
+report generator 308
+requirements workfl ow 303, 307
+requirements, analysis, and design workbench 309
+resources 310
+reuse 310
+review 309
+reviews 311
+screen generator 308
+software project management plan 310
+software quality assurance (SQA) 309
+stepwise refi nement 303
+task 311
+team 307
+test workflow 303, 307
+tool 308
+Unified Modeling Language (UML) 306
+Unified Process 306
+versions 309
+version control tool 309
+walkthrough 309
+waterfall life-cycle model 301
+work 311
+work package 311
+work product 311
+workbench 309
+workflow 303
+--11
+actor 318
+application domain 314
+business model 316
+direct observation 317
+domain 314
+form 317
+functional requirement 320
+glossary 315
+graphical user interface (GUI) 350
+human factors 350
+i«include » relationship 335
+model 318
+negotiation 354
+nonfunctional requirement 320
+platform constraint 320
+point and click 350
+quality requirement 320
+questionnaire 317
+rapid prototype 348
+reliability 320
+requirements analysis 315
+requirements capture 315
+requirements elicitation 315
+requirements engineering 315
+requirements workflow 314
+response time 320
+structured interview 316
+unstructured interview 316
+use case 318
+use-case description 323
+use-case diagram 325
+user-friendliness 350
+videotape camera 317
+--12
+abstract initial state 389
+Anna 392
+bag 383
+Communicating Sequential Processes (CSP) 392
+constraint 360
+data fl ow 365
+data fl ow diagram (DFD) 365
+data immediate-access diagram (DIAD) 370
+data store 365
+enable 384
+entity-relationship modeling (ERM) 374
+event 377
+extended finite state machine 378
+final state 377
+finite state machine (FSM) 376
+formal specifi cation 376
+Gist 392
+given set 388
+horizontal schema definition 389
+informal specification 362
+inhibitor arc 385
+initial state 377
+input 377
+input function 383
+logical data flow 365
+marked Petri net 384
+marking 384
+multiset 383
+natural language 362
+operation 390
+output function 383
+Petri net 383
+place 383
+predicate 377
+process 365
+PSL/PSA 373
+SADT 374
+schema 388
+semiformal specification 373
+solution strategy 361
+source or destination of data 365
+specification document 360
+SREM 374
+state 377
+state definition 388
+state transition diagram (STD) 376
+structural analysis (SA) 374
+structured systems analysis 365
+token 384
+transition 383
+transition function 377
+transition rule 377
+vertical schema definition 389
+Vienna definition method (VDM) 392
+Z 387
+--13
+abstract noun 411
+actor 407
+analysis workflow 405
+attribute 411
+backtrack 430
+boundary class 405
+class diagram 411
+class–responsibility–collaboration (CRC) cards 413
+communication diagram 435
+control class 406
+dynamic modeling 406
+entity class 405
+entity class modeling 406
+event 431
+exception scenario 408
+fl ow of events 440
+functional modeling 406
+interaction diagram 435
+legacy system 405
+millennium bug 405
+normal scenario 408
+noun-extraction method 411
+object-oriented analysis (OOA) 404
+realize (in the Unified Theory context) 435
+responsibility-driven design 408
+role 457
+scenario 406
+sequence diagram 435
+specification document 456
+state 418
+state variable 418
+statechart 414
+stereotype 406
+test workflow 417
+transition 431
+use case 407
+use-case realization 435
+worker 457
+Y2K problem 405
+--14
+abstract data type design 476
+accessor 482
+architect 486
+architectural design 466
+class diagram 476
+cyclomatic complexity 491
+data fl ow analysis (DFA) 467
+data-oriented design 465
+design workfl ow 483
+detailed design 466
+fan-in 491
+fan-out 491
+general design 466
+high-level design 466
+length 491
+logical design 466
+low-level design 466
+modular design 466
+mutator 482
+object-oriented design (OOD) 476
+operation-oriented design 465
+package 486
+physical design 466
+point of highest abstraction of input 467
+point of highest abstraction of output 467
+program description language (PDL) 471
+pseudocode 471
+real-time software 488
+responsibility-driven design 477
+subsystem 486
+trade-off 486
+transaction 473
+transaction analysis 475
+transaction-driven inspections 487
+--15
+acceptance testing 535
+all-defi nition-use-path coverage 526
+behavioral testing 517
+black-box testing 517
+bottom-up integration 513
+boundary value analysis 521
+branch coverage 526
+Cleanroom 529
+code artifact 516
+coding standards 509
+complexity 527
+component 516
+consistent variable names 504
+cyclomatic complexity 527
+data-driven testing 517
+debugging 533
+defensive programming 512
+driver 511
+end-user programming 503
+environment 538
+equivalence class 521
+execution-based testing 516
+fi rst-generation language 501
+fourth-generation language (4GL) 501
+functional analysis 523
+functional testing 517
+glass-box testing 517
+good programming practice 504
+Hungarian Naming Conventions 505
+implementation workfl ow 516
+input/output-driven testing 517
+integrated environment 538
+integration 510
+integration testing 535
+linear code sequences 526
+logic artifact 511
+logic-driven testing 517
+meaningful variable names 504
+method-based environment 539
+non-execution-based testing 516
+nonprocedural 502
+operational artifact 511
+path coverage 526
+path-oriented testing 517
+portable common tool environment (PCTE) 540
+procedural 502
+process integration 538
+product testing 535
+programming-in-the-many 498
+prologue comments 506
+reliable 520
+sandwich integration 514
+second-generation language 501
+self-documenting code 505
+statement coverage 526
+static method 515
+stress testing 536
+structural test 526
+structural testing 517
+structured testing 528
+stub 510
+technique-based environment 538
+test case selection 527
+testing fault rate 530
+testing to code 517
+testing to specifi cations 517
+third-generation language 501
+tool 538
+tool integration 538
+top-down integration 511
+user interface integration 538
+valid 520
+unit testing 516
+volume testing 536
+white-box testing 517
+workbench 538
+--16
+adaptive maintenance 553
+corrective maintenance 553
+defect 554
+defect report 557
+defect-tracking tool 565
+encapsulation 560
+evolution 552
+forward engineering 563
+fragile base class problem 562
+inheritance 562
+legacy system 563
+moving-target problem 559
+perfective maintenance 553
+postdelivery maintenance 551
+reengineering 563
+refactoring 564
+regression fault 554
+regression testing 554
+restructuring 564
+reverse engineering 563
+--17
+action 582
+activation box 579
+activity 582
+activity diagram 583
+actor 577
+aggregation 573
+association 576
+association class 577
+class diagram 572
+collaboration diagram 580
+communication diagram 580
+component diagram 586
+composition 575
+deployment diagram 586
+discriminator 576
+event 581
+extend relationship 578
+fork 584
+generalization 576
+guard 580
+guillemets 578
+include relationship 578
+interaction diagram 579
+join 584
+multiplicity 574
+note 577
+package 585
+part–whole relationship 573
+return 580
+self-call 580
+sequence diagram 579
+statechart 581
+stereotype 578
+superstate 583
+swimlane 585
+transition 581
+use case 577
+use-case diagram 577
+--18
+advice 591
+aspect 591
+aspect-oriented programming (AOP) 591
+aspect-oriented programming language 592
+aspect-oriented software development (AOSD) 593
+component-based technology 594
+composing 594
+composition 592
+concern 591
+core concern 591
+cross-cutting concern 591
+dancing pigs problem 598
+early aspects 593
+model-driven architecture (MDA) 593
+pointcut 591
+separation of concerns 591
+service 595
+service consumers 595
+service providers 595
+social computing 596
+weaver 592

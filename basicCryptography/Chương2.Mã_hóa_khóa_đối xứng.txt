@@ -1,0 +1,4 @@
+Cung cấp về hệ mật khóa đối xứng cũng như nguyên tắc mã hóa, giải mã của một số thuật toán mã hóa khóa đối xứng. Trình bày 1 số ưu và nhược điểm của các kỹ thuật mã hóa khóa đối xứng.
+
+2.1. Giới thiệu về mã hóa khóa đối xứng
+

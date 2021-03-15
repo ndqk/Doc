@@ -1,0 +1,21 @@
+--11
+capital 320
+closing costs 322
+deposit 320
+escrow account 321
+interest 321
+mortgage 320
+P & I 321
+points 322
+principal 320
+--12
+button 378
+door 381
+elevator 378
+elevator button 378
+elevator controller 380
+fl oor button 378
+illumination 379
+timeout 380
+--13
+
