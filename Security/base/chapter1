@@ -1,6 +1,238 @@
 * Nội dung:
 1. Khái quát về an toàn thông tin
+
+Tại sao cần phảm đảm bảo an toàn cho thông tin và hệ thống thông tin? 
+- Do chúng ta sống trong "thế giới kế nối" với mức độ ngày càng "sâu"
+	+ Mọi thiết bị tính toán & truyền thông đề có kết nối internet;
+	+ Các hệ thống kết nối "sâu và rộng" ngày càng phổ biến
+		., Smart community
+		., Smart city
+		., Smart home
+	+ Các khái niệm kết nối mọi vật, kết nối tất cả trở nên "nóng":
+		., IoT
+		., IoE
+	+ Các hệ thống không có kết nối có khả năng sử dụng hạn chế	
+- Ngày càng có nhiều nguy cơ, đe dọa mất an toàn thông tin, hệ thống, mạng
+	+ Bị tấn công từ tin tặc
+	+ Bị tấn công hoặc làm dụng từ người dùng
+	+ Lây nhiễm các phần mềm độc hại (vi-rút, sâu, ...)
+	+ Nguy cơ bị nghe trộm, đánh cắp và sửa đổi thông tin
+	+ Lỗi hoặc các khiếm khuyết phần cứng, phần mềm
+
+Hệ thống thông tin là gì?
+- Hệ thống thông tin (IS - Information System) là 1 hệ thống tích hợp các thành phần nhằm phục vụ việc thu nhập, lưu trữ, xử lý thông tin và chuyển giao thông tin, tri thức và các sản phẩm số
+- Các doanh nghiệp và các tổ chức sử dụng các hệ thống thông tin (HTTT) để thực hiện và quản lý các hoạt động:
+	+ Tương tác với khách hàng
+	+ Tương tác với các nhà cung cấp
+	+ Tương tác với các cơ quan chính quyên
+	+ Quảng bá thương hiệu và sản phẩm
+	+ Cạnh tranh với các đối thủ trên thị trường
+	
+Các loại hệ thống thông tin (mô hình tháp): gồm 4 loại theo đối tượng sử dụng:
+- Hệ thống xử lý giao dịch (Transactional Processing System) với người sử dụng là các nhân viên (Workers)
+- Hệ thống thông tin quản lý (Management Information Systems) với người sử dụng là các quản lý bộ phận (Middle Managers)
+- Hệ thống trợ giúp đưa ra quyết định (Decision Support Systems) với người sử dụng và các quản lý cấp cao (Senior Managers)
+- Hệ thống thông tin điều hành (Executive Information Systems) với người dùng là các giám đốc điều hành (Executives)
+
+Một số hệ thống thông tin điển hình:
+- Các kho dữ liệu (data warehouse)
+- Các hệ lập kế hoạch nguồn lực doanh nghiệp (enterprise resource planning)
+- Các hệ thống thông tin doanh nghiệp (enterprise systems)
+- Các hệ thống chuyên gia (expert systems)
+- Các máy tìm kiếm (search engines)
+- Các hệ thống thông tin địa lý (geographic information system)
+- Các hệ thống thông tin toàn cầu (global  information system)
+- Các hệ tự động hóa văn phòng (office automation)
+
+Một hệ thống thông tin dựa trên máy tính (Computer-Based Information System) là 1 hệ tghống thông tin sử dụng công nghệ máy tính để thực thực thi các nhiệm vụ.
+
+Các thành phần của hệ thống thôn tin dựa trên máy tính:
+	- Hardware: phần cứng để thi nhập, lưu chữ, xử lý và biểu diễn dữ liệu
+	- Software: phần phềm chạy trên cần phần cững đặc biệt
+	- Database: lưu trữ dữ liệu
+	- Networks: Hệ thống truyền dẫn thông tin, dữ liệu
+	- Procedures: tập hợp các lệnh kết hợp các bộ phần nêu trên để xử lý dữ liệu, đua ra kết quả mong muôn
+
+An toàn thông tin (Information Security) là gì?
+- An toàn thông tin là việc bảo vệ chống truy nhập (access), sử dụng (use), tiết lộ (disclose), sửa đổi (modify), hoặc phá hủy (destroy) thông tin một cách trái phép (unauthorised)
+
+Hai lĩnh vực chính của an toàn thông tin (ATTT):
+- An toàn công nghệ thông tin (IT Security):
+	+ Đôi khi còn gọi là an toàn máy tính (Computer Security) là ATTT áp dụng cho các hệ thống công nghệ
+	+ Các hệ thống công nghệ thông tin của 1 tổ chức cần được đảm bảo an toàn khỏi các tấn công mạng
+	
+- Đảm bảo thông tin (Information Assurance):
+	+ Đảm bảo thông tin không bị mất khi xảy ra các sự cố (thiên tai, hỏng hóc, hệ thống, trộm cắp, phá hoại, ...)
+	+ Thường được sử dụng kỹ thuật tạo dự phòng ngoại vi (offsite backup)
+	
+An toàn hệ thống thống thông tin (ISS - Information Systems Security): là việc đảm bảo các thuộc tính an ninh an toàn của hệ thống thông tin, bao gồm:
+- Bí mật (Confidentiality)
+- Toàn vẹn (Integrity)
+- Sẵn dùng (Availability)
+	
+
 2. Các yêu cầu đảm bảo ATTT và an toàn hệ thống thông tin
+Tính bí mật (Confidentiality): chỉ người dùng có thẩm quyển mới được truy nhập thông tin
+Các thông tin bí mật có thể gồm:
+- Dữ liệu riêng của cá nhân
+- Các thông tin thuộc quyền sở hữu trí tuệ của các doanh nghiệp hay các cơ quan/tổ chức
+- Các thông tin có liên quan đến an ninh quốc gia
+Tính bí mật có thể đảm bảo bằng kênh mã hóa VPN
+
+Tính toàn vẹn (Integrity): thông tin chỉ có thể được sửa đổi bởi những người dùng có thẩm quyền
+Tình toàn vẹn liên quan đến tính hợp lệ (validity) và chính xác (accuracy) của dữ liệu
+- Trong nhiều tổ chức, thông tin có giá trị rất lớn, như bản quyển phần mềm, bản quyền âm nhạcm bản quyền phát minh, sáng chế
+- Mọi thay đổi không có thẩm quyền có thể ảnh hưởng rất nhiều đến giá trị của thông tin
+Dữ liệu là toàn vẹn nếu:
+- Dữ liệu không bị thay đổi
+- Dữ liệu hợp lệ
+- Dữ liệu chính xác
+
+Tính sẵn dùng (Availability): thông tin có thể truy nhập bởi người dùng hợp pháp bất cứ khi nào họ có yêu cầu
+Tính sẵn dùng có thể được đo bằng các yếu tố:
+- Thời gian cung cấp dịch vụ (Uptime)
+- Thời gian ngừng cung cấp dịch vụ (Downtime)
+- Tỷ lệ phục vụ: A = (Uptime) / (Uptime + Downtime)
+- Thời gian trung bình giữa các sự cố
+- Thời gian trung bình ngừng để sửa chữa
+- Thời gian không phục sau sự cố
+
+
 3. Các thành phần của ATTT
-4. Các mối đe dọa & nguy cơ trong các cùng hạ tầng CNTT
+An toàn máy tính và dữ liệu (Computer and data security)
+- Đảm bảo an toàn hệ điều hành, ứng dụng, dịch vụ
+- Vấn đề điều khiển truy nhập
+- Vấn đề mã hóa và bảo mật dữ liệu
+- Vấn đề phòng chống phần mềm độc hại
+- Việc sao lưu tạo dự phòng dữ liệu, đảm bảo dữ liệu lưu trong máy tính không bị mất mát khi xảy ra sự cố
+
+An ninh mạng (Network security)
+- Các tường lửa, proxy cho lọc gói tin và điểu khiển truy nhập
+- Mạng riêng ảo và các kỹ thuật bảo mật thông tin truyền như SSL/TLS, PGP
+- Các kỹ thuật và hệ thống phát hiện, ngăn chặn tấn công, xâm nhập
+- Vấn đề giám sát mạng
+
+Quản lý ATTT (Management of information security)
+- Quản lý rủi ro
+	+ Nhận dạng
+	+ Đánh giá
+- Thực thi quản lý an toàn thông tin
+	+ Lập kế hoạch (Plan)
+	+ Thực thi kế hoạch (Do/ Implement)
+	+ Giám sát kết quả thực hiện (Monitor)
+	+ Thực hiện các kiểm soát (Control)
+
+Chính sách ATTT (Policy)
+- Chính sách an toàn ở mức vậy lý (Physical security policy)
+- Chính sách an toàn ở mức tổ chức (Organization security policy)
+- Chính sách an toàn ở mức logic (Logical security policy)
+
+
+4. Các mối đe dọa & nguy cơ trong các vùng hạ tầng CNTT
+Các vùng trong hạ tầng CNTT:
+- Vùng người dùng (User domain)
+- Vùng máy trạm (Workstation domain)
+- Vùng mạng LAN (LAN domain)
+- Vùng LAN-to-WAN (LAN-to-WAM domain)
+- Vùng WAN (WAN domain)
+- Vùng truy nhập từ xa (Remote Access domain)
+- Vùng hệ thống/ ứng dụng (Systems/ Applications domain)
+
+Các đe dọa (threats):
+- Vùng người dùng:
+	+ Thiếu ý thức về vấn đề an ninh an toàn
+	+ Coi nhẹ các chính sách an ninh an toàn
+	+ Vi phạm chính sách an ninh an toàn
+	+ Đưa CD/DVD/USB với các files cá nhân vào hệ thống
+	+ Tải ảnh, âm nhạc, video
+	+ Phá hoại dữ liệu, ứng dụng và hệ thống
+	+ Tấn công phá hoại từ các nhân viên bất mãn
+	+ Nhân viên có thể tống tiền hoặc chiếm đoạt thông tin quan trọng
+- Vùng máy trạm
+	+ Truy nhập trái phép vào máy trạm
+	+ Truy nhập trái phép và hệ thống, ứng dụng và dữ liệu
+	+ Các lỗ hổng an ninh trong hệ điều hành máy trạm
+	+ Các lỗ hổng an ninh trong các phần mềm ứng dụng máy trạm
+	+ Các hiểm họa từ virus, mã độc và các phần mềm độc hại
+	+ Người dùng đưa CD/DVD/USB với các files cá nhân vào hệ thống
+	+ Người dùng tải nhạc, âm nhạc, video
+- Vùng LAN
+	+ Truy nhập trái phép vào mạng LAN vật lý
+	+ Truy nhập trái phép vào hệ thống, ứng dụng và dữ liệu
+	+ Các lỗ hổng an ninh trong hệ điều hành máy chủ
+	+ Các lỗ hổng an ninh trong các phần mềm ứng dụng máy chủ
+	+ Nguy cơ từ người dùng giả mạo trong mạng WLAN
+	+ Tính bí mật dữ liệu trong mạng WLAN có thể bị đe dọa
+	+ Các hướng dẫn và chuẩn cấu hình cho máy chủ LAN chưa được tuân thủ
+- Vùng LAN-to-WAN
+	+ Thăm dò và rà quét trái phép các cổng dịch vụ
+	+ Truy nhập trái phép
+	+ Lỗ hổng an ninh trong các bộ định tuyến, tường lửa và các thiết bị mạng khác
+	+ Người dùng cụ bộ (trong LAN) có thể tải các file không xác định nội dung từ nguồn không xác định)
+- Vùng WAN
+	+ Rủi ro từ việc dữ liệu có thể được truy nhập trong môi trường công cộng và mở
+	+ Hầu hết dữ liệu được truyền dưới dạng rõ (cleartext, plaintext)
+	+ Dễ bị nghe trộm
+	+ Dễ bị tấn công phá hoại
+	+ Dễ bị tấn công từ chối dịch vụ (DoS) và từ chối dịch vụ phân tán (DDoS)
+	+ Kẻ tấn công có thể tự do, dễ dàng gửi email có đính kém virus, sâu và các phần mềm độc hại
+- Vùng truy nhập từ xa
+	+ Tấn công kiểu vét vạn vào tên người dùng và mật khẩu
+	+ Tấn công vào hệ thống đăng nhập và điều khiển truy cập
+	+ Truy nhập trái phép vào hệ thống CNTT, ứng dụng và dữ liệu
+	+ Thông tin bí mật có thể bị đánh cắp từ xa
+	+ Dò rỉ dữ liệu do vi phạm các tiêu chuẩn phân loại dữ liệu
+- Vùng hệ thống/ ứng dụng:
+	+ Truy nhập trái phép đến trung tâm dữ liệu, phòng máy or tủ cáp
+	+ Khó khăn trong quản lý các máy chủ yêu cầu tính sẵn dùng cao
+	+ Lỗ hổng trong quản lý các phần mềm ứng dụng cảu hệ điều hành máy chủ
+	+ Các vẫn đề an ninh trong các môi trường ảo của điện toán đám mây
+	+ Vấn đề hognr học hoặc mất dữ liệu
+	
+	
 5. Mô hình tổng quát đảm bảo ATTT và an toàn hệ thống thông tin
+Nguyên tắc đảm bảo ATTT, hệ thống và mạng:
+- Phòng vệ nhiều lớp có chiều sâu (Defence in Depth):
+	+ Tạo ra nhiều lớp bảo vệ, kết hợp tính năng tác dụng của mỗi lớp để đảm bảo an toàn tối đa cho thông tin, hệ thống và mạng
+	+ Một lớp, một công cụ phòng vệ riêng rẽ thường không đảm bảo an toàn
+- Không tồn tại HTTT an toàn tuyệt đối
+	+ Thường HTTT an toàn tuyệt đối là hệ thống đóng kín và không hoặc ít có giá trị sử dụng
+	+ Cần cân bằng giữa an toàn, tính hữu dụng và chi phí
+	
+Cần cân bằng giữa Usability (Tính hữu dụng), Cost (Chi phí) và Security (An toàn)
+
+Mô hình Layered Security Model hoặc Defence in Depth
+
+Các lớp phòng vệ điển hình:
+- Lớp an ninh cơ quan/tổ chức (Plant Security)
+	+ Lớp bảo vệ vật lý
+	+ Lớp chính sách & thủ tục đảm bảo ATTT
+- Lớp an ninh mạng (Network Security)
+	+ Lớp an ninh cho từng thành phần mạng
+	+ Tường lửa, mạng riêng ảo
+- Lớp an ninh hệ thống (System Integrity)
+	+ Lớp tăng cường an ninh hệ thống
+	+ Lớp quản trị tài khoản và phân quyền người dùng
+	+ Lớp quản lý các bản vá và cập nhật phần mềm
+	+ Lớp phát hiện và ngăn chặn phần mềm độc hại
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
