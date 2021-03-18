@@ -1,0 +1,327 @@
+* Nội dung
+1. Khái quát về mối đe dọa và tấn công
+2. Các công cụ hỗ trợ tấn công
+3. Các dạng tấn công phá hoại
+4. Các dạng phần mềm độc hại
+
+...............................................................................
+3.1. Khái quát về mối đe dọa và tấn công
+_Mối đe dọa (Threat): Mối đe dọa là bất kỳ một hành động nào có thể gây hư hại đến các tài nguyên hệ thống (gồm phần cứng, phần mềm, CSDL, các file, dữ liệu, hoặc hạ tầng mạng vật lý, ...)
+
+_Điểm yếu (Weakness): Điểm yếu là một lỗi hoặc một khiếm khuyết tồn tại trong hệ thống. Các hệ thống luôn tồn tại các điểm yếu
+
+_Lỗ hổng (Vulnerability): Lỗ hổng là bất kỳ điểm yếu nào trong hệ thống cho phép mối đe dọa có thể gây tác hại
+
+_Quan hệ giữa mối đe dọa và lỗ hổng:
+	- Các mối đe dọa thường khai thác 1 hoặc 1 số lỗ hổng đã biết đã thực hiện các cuộc tấn công phá hoại
+	- Nếu tồn tại 1 lỗ hổng trong hệ thống, sẽ có khả năng 1 mối đe dọa trở thành hiện thực
+	- Không thể triệt tiêu được hết các mối đe dọa, nhưng có thể giảm thiểu các lỗ hổng, qua đó giảm thiểu khả năng bị tận dụng để tấn công
+
+_Các mối đe dọa thường gặp:
+	- Phần mềm độc hại
+	- Hư hỏng phần cứng hoặc phần mềm
+	- Kẻ tấn công ở bên trong
+	- Kẻ tấn công ở bên ngoài
+	- Mất trộm các thiết bị
+	- Tại họa thiên nhiên
+	- Gián điệp thống điệp
+	- Khủng bố phá hoại
+
+_Không phải tất cả các mối đe dọa là độc hại (malicious)
+	- Một số là cố ý
+	- Một số có thể là ngẫu nhiên, vô tình
+	
+_Các lỗ hổng tồn tại trong cả 7 vùng của nền tảng CNTT
+	- Lỗ hổng trong vùng người dùng
+	- Lỗ hổng trong vùng máy trạm
+	- Lỗ hổng trong vùng mạng LAN
+	- Lỗ hổng trong vùng LAN-To_WAN
+	- Lỗ hổng trong vùng WAN
+	- Lỗ hổng trong vùng truy nhập từ xa
+	- Lỗ hổng trong vùng hệ thống/ứng dụng
+	
+_Các lỗ hổng tồn tại trong hệ điều hành và các phần mềm ứng dụng:
+	- buffer overflow
+	- unvalidated input
+	- access-control problems
+	- weaknesses in authentication, authorization
+	- weaknesses in cryptographic practices
+
+_Tấn công độc hại/phá hoại (malicious attacks)
+	- Một cuộc tấn công (attack) vào hệ thống máy tính hoặc các tài nguyên mạng được thực hiện bằng cách khai thác các lỗ hổng trong hệ thống
+	- Tấn công = Mối đe dọa + Lỗ hổng
+
+_Các loại tấn công: 4 loại chính:
+	- Giả mạo (Fabrications): giả mạo thông tin thường để đánh lừa người dùng thông thường
+	- Chặn bắt (Interceptions): liên quan đến việc nghe trộm trên đường truyền và chuyển hướng thông tin để sử dụng trái phép
+	- Gây ngắt quãng (Interruptions): gây ngắt kênh truyền thông ngăn cản việc truyền dữ liệu
+	- Sửa đổi (Modifications): liên quan đến việc sửa đổi thông tin trên đường truyền hoặc sửa đổi dữ liệu file
+
+_Hai kiểu tấn công:
+	- Tấn công chủ động (active attacks)
+		+ Sửa đổi dữ liệu trên đường truyền
+		+ Sửa đổi dữ liệu trong file
+		+ Giành quyền truy nhập trái phép vào máy tính hoặc hệ thống mạng
+		+ Tấn công chủ động là 1 đột nhập (intrusion) về mặt vật lý
+	- Tấn công thụ động (passive attacks)
+		+ Không gây ra thay đổi trên hệ thống
+		+ Nghe trộm
+		+ Giám sát lưu lượng trên đường truyền
+		
+_Một số dạng tấn công điển hình:
+	- Tấn công vào mật khẩu
+	- Tấn công bằng mã độc
+	- Tấn công từ chối dịch vụ
+	- Tấn công giả mạo địa chỉ, nghe trộm
+	- Tấn công kiểu phát lại và người đứng giữa
+	- Tấn công bằng bom thư và thư rác
+	- Tấn công sử dụng cửa hậu
+	- Tấn công kiểu Social Engineering
+	- Tấn công phising, pharming
+	
+...........................................................................................
+3.2. Các công cụ hỗ trợ tấn công
+_Công cụ tấn công (attack tools): là các công cụ phần cứng, phần mềm, hoặc các kỹ thuật hỗ trợ giúp kẻ tấn công (attacker) tấn công vào các hệ thống máy tính hoặc các tài nguyên mạng
+_Một số công cụ và kỹ thuật hỗ trợ tấn công:
+	- Công cụ quét lỗ hổng (vulnerability scanners)
+		+ Thu thập các thông tin về các điểm yếu/lỗ hổng đã biết của hệ thống máy tính hoặc mạng
+		+ Gửi những thông điệp được tạo đặc biệt để kiểm tra điểm yếu/lỗ hổng đến hệ thống máy tính cần rà quét. Nếu hệ thống có phản hồi -> điểm yếu vẫn tồn tại
+		+ kẻ tấn công sử dụng kết quả rà quét điểm yếu/lỗ hổng để quyết định dạng tấn công có khả năng thành công cao nhất
+		+ một số công cụ quét lỗ hổng cho người quản trị:
+			. Microsoft Baseline Security Analyzer:
+				• Rà quét các lỗ hổng an ninh trong hệ điều hành Windows và các phần mềm của Microsoft;
+				• Phân tích tình trạng lỗ hổng và có hướng dẫn khắc phục.
+			. Nessus vulnerability scanner;
+				• Quét hệ thống hệ thống tìm lỗ hổng, điểm yếu
+				• Độc lập với các nền tảng.
+			. Acunetix Web Vulnerability Scanner
+				• Rà quét các ứng dụng web/trang web tìm các lỗ hổng.
+				
+	- Công cụ quét cổng dịch vụ (port scanners)
+		+ Các cổng TCP/IP, UDP nằm trong khoảng từ 0 - 65535
+			. Các cổng 0 - 1024 là các cổng chuẩn
+			. Cổng lớn hơn 1024 là các cổng tùy gán
+		+ kẻ tấn công thường sử dụng các công cụ quét cổng để nhận dạng các điểm yếu trong hệ thống
+		+ công cụ quét cổng dịch vụ (port scanners)
+			. công cụ quét cổng kết nối đến máy tính để xác định cổng nào được mở và có thể truy cập vào máy tính. Từ đó xác định được dịch vụ/ứng dụng nào đang chạy trên hệ thống:
+				• Cổng 80/443 mở -> dịch vụ web đang chạy
+				• Cổng 25 mở ->  dịch vụ email SMTP đang chạy
+				• Cổng 1433 mở -> Máy chủ CSDL MS SQL Server đang chạy
+				• Cổng 53 mở -> dịch vụ DNS đang chạy,...
+		+ nguyên tắc tối thiểu các cổng được mở
+			. đóng tất cả các cổng không sử dụng
+			. chỉ mở những cổng có dịch vụ cần thiết cho người dùng
+		+ một số công cụ quét cổng:
+			 Nmap
+			 Portsweep
+			 Advanced Port Scanner (http://www.radmin.com)
+			 Angry IP Scanner
+			 Superscan
+			 NetScanTools
+			
+	- Công cụ nghe lén (sniffers)
+		+ công cụ nghe lén cho phép bắt các gói tin khi chúng được truyền trên mạng
+		+ công cụ nghe lén có thể là mô-đun phần cứng, phần mềm hoặc kết hợp
+		+ các thông tin nhạy cảm như mật khẩu nếu không được mã hóa thì có thể bị kẻ tấn công nghe lén khi được truyền từ máy trạm đến máy chủ và bị lạm dụng
+		+ một số công cụ cho phép bắt gói tin truyền:
+			 Tcpdump
+			 Pcap / Wincap (packet capture)
+			 IP Tools (http://www.softpedia.com)
+			 Wireshark
+			
+	- Công cụ ghi phím gõ (keyloggers)
+		+ công cụ ghi phím gõ là 1 dạng công cụ giám sát có thể bằng phần cứng hoặc phần mềm có khả năng ghi lại mọi phím người dùng gõ là lưu vào 1 file
+		+ sau đó file đã ghi có thể được gửi cho kẻ tấn công theo địa chỉ định trước hoặc sao chép trực tiếp
+		+ người quản lý có thể cài đặt keylogger vào máy tính của nhân viên để theo dõi hoạt động của nhân viên
+		+ cài đặt keyloggers:
+			. Bằng phần cứng: thường được cài như 1 khớp nối kéo dài giữa máy tính và dây bàn phím
+			. Bằng phần mềm: kẻ tấn công có thể tích hợp công cụ keylogger vào 1 phần mềm thông thường và lừa người dùng cài đặt vào máy tính của mình
+			
+...............................................................................
+3.3. Các dạng tấn công phá hoại thường gặp
+_Tấn công vào mật khẩu
+_Tấn công bằng mã độc
+_Tấn công từ chối dịch vụ
+_Tấn công giả mạo địa chỉ
+_Tấn công nghe trộm
+_Tấn công kiểu người đứng giữa
+_Tấn công bằng bom thư và thư rác
+_Tấn công sử dụng cửa hậu
+_Tấn công kiểu social engineering
+_Tấn công phishing, pharming
+
+3.3.1. Tấn công vào mật khẩu
+- là dạng tấn công nhằm đánh cắp mật khẩu và thông tin tài khoản để lạm dụng
+	+ tên người dùng và mật khẩu không được mã hóa có thể bị đánh cắp trên đường truyền từ máy khách đến máy chủ
+	+ tên người dùng và mật khẩu có thể bị đánh cắp thông qua các dạng tấn công XSS hoặc social engineering (lừa đảo, bẫy người dùng cung cấp thông tin)
+	+ nếu kẻ tấn công có tên người dùng và mật khẩu -> có thể đăng nhập vào tài khoản và thực hiện các thao tác như người dùng bình thường
+- các dạng tấn công vào mật khẩu:
+	+ tấn công dựa trên từ điển (dictionary attacks): ng dùng có xu hướng chọn mật khẩu là các từ đơn giản có trong từ điển cho dễ nhớ -> kẻ tấn công thử các từ có tần suất sử dụng cao làm mật khẩu trong từ điển
+	+ tấn công vét cạn (brute force attacks): sử dụng tổ hợp các ký tự và thử tự động
+		. phương pháp này thường sử dụng với các mật khẩu đã được mã hóa
+		. kẻ tấn công sử dụng tổ hợp ký tự, sau đó mã hóa với cùng thuật toán hệ thống sử dụng, và so sánh chuỗi mã hóa với chuỗi mà mật khẩu thu được. Nếu 2 bản mã trùng nhau -> tổ hợp ký tự là mật khẩu
+		
+- phòng chống:
+	+ chọn mật khẩu mạnh: độ dài >= 8 ký tự gồm chữ cái hoa, thường, chữ số và ký tự đặc biệt
+	+ định kỳ thay đổi mật khẩu
+	
+- một số công cụ khôi phục mật khẩu:
+	 Password Cracker (http://www.softpedia.com)
+	 Ophcrack
+	 Offline NT Password & Registry Editor
+	 PC Login Now
+	 L0phtCrack
+	 John the Ripper
+
+3.3.2. Tấn công bằng mã độc
+- gồm 1 số dạng:
+	+ lợi dụng các lỗ hổng về lập trình, lỗ hổng cấu hình hệ thống để chèn và thực hiện mã độc trên hệ thống nạn nhân
+		. Tấn công lợi dụng lỗi tràn bộ đệm
+		. Tấn công lợi dụng lỗi không kiểm tra đầu vào
+			., tấn công chèn mã SQL
+			., tấn công script kiểu XSS, CSRF
+	+ lừa người dùng tải, cài đặt và thực hiện các phần mềm độc hại
+		. Các phần mềm Adware, Spyware
+		. Virus
+		. Trojan
+		
+3.3.3. Tấn công từ chối dịch vụ
+- DoS - Denial of Service Attacks là dạng tấn công cản trở người dùng hợp pháp truy nhập các dạng tài nguyên hệ thống
+- 2 loại tấn công DoS:
+	+ tấn công logic (logic attacks): tấn công dựa vào các lỗi phần mềm làm dịch vụ ngừng hoạt động hoặc làm giảm hiệu năng hệ thống
+	+ tấn công gây ngập lụt (flooding attacks): kẻ tấn công gửi 1 lượng lớn yêu cầu gây cạn kiệt tài nguyên hệ thống hoặc băng thông đường truyền mạng
+- các kỹ thuật tấn công DoS:
+	+ SYN flood
+	+ Smurf
+	+ UPD flood
+	+ HTTP flood
+	+ Teardrop
+	+ LandAttack
+	+ Ping of death
+
+3.3.4. Tấn công giả mạo địa chỉ
+- IP Spoofing:
+	+ là dạng tấn công trong đó kẻ tấn công sử dụng địa chỉ IP giả, thường để đánh lừa máy nạn nhân để vượt qua các hàng rào kiểm soát an ninh
+	+ nếu kẻ tấn công giả mạo địa chỉ IP là địa chỉ cục bộ của mạng LAN, hắn có thể có nhiều cơ hội đột nhập vào các máy khác trong LAN do chính sách kiểm soát an ninh với các máy trong mạng LAN thường được giảm nhẹ
+	+ nếu router or firewall của mạng không được cấu hình để nhận ra IP giả mạo của mạng LAN nội bộ -> kẻ tấn công có thể thực hiện
+
+3.3.5. Tấn công nghe trộm
+- Sniffing / Eavesdropping:
+	+ là dạng tấn công sử dụng thiết bị phần cứng hoặc phần mềm, lắng nghe trên card mạng, hub, switch, hoặc router để bắt các gói tin dùng cho phân tích về sau
+
+3.3.6. Tấn công kiểu người đứng giữa
+- Man in the middle:
+	+ lợi dụng quá trình chuyển gói tin đi qua nhiều trạm (hop) thuộc các mạng khác nhau
+	+ kẻ tấn công chặn bắt các thông điệp giữa 2 bên tham gia truyền thống, có thể xem, sửa đổi và chuyển thông điệp lại cho bên kia
+	+ thường được sử dụng để đánh cắp thông tin
+	
+3.3.7. Tấn công bằng bom thư và thư rác
+- Mail bombing: là dạng tấn công DoS khi kẻ tấn công chuyển 1 lượng lớn email đến nạn nhân
+	+ có thể thực hiện bằng kỹ thuật social engineering
+	+ hoặc khai thác lỗ hổng trong hệ thống gửi nhận email SMTP
+	+ kẻ tấn công có thể lợi dụng các máy chủ email không được cấu hình tốt để gửi email cho chúng
+- Spam emails:
+	+ Spams là những email không mong muốn, thường là các email quảng cáo
+	+ Spams gây lãng phí tài nguyên tính toán và thời gian của ng dùng (phải lọc, xóa)
+	+ Spams cũng có thể dùng để chuyển các phần mềm độc hại
+	
+3.3.8. Tấn công sử dụng cửa hậu
+Backdoor:
+- Cửa hậu thường được các lập trình viên tạo ra, dùng để gỡ rối và test chương trình
+- Cửa hậu thường cho phép truy nhập trực tiếp vào hệ thống mà không qua các thủ tục kiểm tra an ninh thông thường
+- Khi cửa hậu được lập trình viên tạo ra để truy cập hệ thống bất hợp pháp, nó trở thành 1 mối đe dọa đến an ninh hệ thống
+- Rất khó phát hiện ra cửa hậu vì nó thường được thiết kế và cài đặt khéo léo: cửa hậu chỉ được kích hoạt trong 1 ngữ cảnh nào đó
+
+3.3.9. Tấn công kiểu social engineering
+- Là dạng tấn công sử dụng các kỹ thuật xã hội nhằm thuyết phục người dùng tiết lộ thông tin truy nhập hoặc các thông tin có giá trị cho kẻ tấn công:
+	+ kẻ tấn công có thể giả danh làm người có vị trí cao hơn so với nạn nhân để có được sự tin tưởng
+	+ kẻ tấn công có thể mạo nhận là người được ủy quyền của người có thẩm quyền để yêu cầu các nhân viên tiết lộ thông tin về cá nhân/ tổ chức
+	+ kẻ tấn công có thể lập trang web giả để đánh lừa người dùng cung cấp các thông tin cá nhân và thông tin tài khoản, thẻ tín dụng
+	
+3.3.10. Tấn công kiểu phishing
+1 dạng của tấn công social enginerring, lừa người dùng để lấy thông tin cá nhân, thông tin tài khoản, thẻ tín dụng
+- kẻ tấn công có thể giả mạo trang web của các tổ chức tài chính, ngân hàng
+- chúng gửi email cho người dùng (địa chỉ email thu thập trên mạng), yêu cầu xác thực thông tin
+- nếu người dùng làm theo hướng dẫn -> cung cấp các thông tin cá nhân, thông tin tài khoản, thẻ tín dụng cho kẻ tấn công
+
+3.3.11. Tấn công kiểu pharming
+là kiểu tấn công vào trình duyệt người dùng
+- ng dùng gõ địa chỉ 1 website, trình duyệt lại yêu cầu 1 website khác
+- kẻ tấn công thường sử dụng sâu, viruss hoặc các phần mềm độc hại cài vào hệ thống để điều khiển trình duyệt của người dùng
+- kẻ tấn công cũng có thể tấn công vào hệ thống dns để thay đổi kết quả truy vấn: thay địa chỉ IP của website hợp pháp thành IP của website độc hại
+
+........................................................................................
+3.4. Các dạng phần mềm độc hại
+_Cần chương trình chủ:
+	- backdoors
+	- logic bombs
+	- trojan horses
+	- rootkits
+	- adware & spyware
+	- viruses
+_Không cần chương trình chủ:
+	- worms
+	- zombie
+
+3.4.1. Logic bombs
+- thường được nhúng vào các chương trình bình thường và thường hẹn giờ để phát nổ trong 1 số điều kiện cụ thể
+- điều kiện để bomb phát nổ có thể là
+	+ sự xuất hiện hoặc biến mất của các files cụ thể
+	+ một ngày nào đó, hoặc 1 ngày trong tuần
+- khi phát nổ bom logic có thể xóa dữ liệu, files, tắt cả hệ thống
+
+3.4.2. Trojan horses
+- chứa mã độc, thường giả danh những chương trình có ích, nhằm lừa dùng kích hoạt chúng
+- thường được sử dụng để thực thi gián tiếp các tác vụ, mà tác giả của chúng không thể thực hiện trực tiếp do không có quyền truy cập
+
+3.4.3. Zombie
+_Zombie (còn gọi là bot hoặc automated agent) là 1 chương trình được thiết kế để giành quyền kiểm soát một máy tính có kết nối Internet, và sử dụng máy tính bị kiểm soát để tấn công các hệ thống khác
+_Các zimbies thường được dùng để gửi thư rác và tấn công DDoS các máy chủ, các website lớn
+_rất khó để lần vết và phát hiện ra tác giả tạo ra và điều khiển các zombies
+
+3.4.4. Viruses
+_Virus là 1 chương trình có thể "nhiễm" vào các chương trình khác, bằng cách sửa đổi các chương trình này
+_Nếu các chương trình đã bị sửa đổi chứa virus được kích hoạt thì virus sẽ tiếp tục "lây nhiễm" sang các chương trình khác
+_Giống như virus sinh học, virus máy tính cũng có khả năng tự nhân bản, tự lây nhiễm sang các chương trình khác mà nó tiếp xúc
+_Có nhiều con đường lây nhiễm virus: sao chép file, gọi các ứng dụng và dịch vụ qua mạng, emnail
+_Virus có thể thực hiện được mọi việc mà một chương trình thông thường có thể thực hiện. Khi đã lây nhiễm vào 1 chương trình, virus tự động được thực hiện khi chương trình này chạy
+_4 giai đoạn của vòng đời virus:
+	+ giai đoạn "nằm im": virus trong giai đoạn không được kích hoạt. Trong giai đoạn này, virus có thể được kích hoạt nhờ 1 sự kiện nào đó
+	+ giai đoạn phát tán: virus "cài" 1 bản sao của nó vào các chương trình khác
+	+ giai đoạn kích hoạt: virus được kích hoạt để thực thi các tác vụ đã thiết lập sẵn. Virus cũng thường được kích hoạt dựa trên 1 sự kiện nào đó
+	+ giai đoạn thực hiện: thực thi các tác vụ. Một số virus có thể vô hại, nhưng 1 số khác có thể xóa dữ liệu, chương trình
+	
+_Các loại virus:
+	+ boot virus: lây nhiễm vào cung khởi động của đĩa
+	+ file virus: lây nhiễm vào các file chương trình, hoặc 1 số file tài liệu
+	+ macro virus: lây nhiễm vào các file tài liệu của bộ chương trình Microsoft Office
+	+ email virus: lây nhiễm thông qua việc gửi, nhận và xem email
+	
+3.4.5. Worms
+_Worms có khả năng tự lây nhiễm từ máy này sang máy khác mà không cần sự trợ giúp của người dùng
+_Khi sâu lây nhiễm vào 1 máy, nó sử dụng máy này làm "bàn đạp" để tiếp tục tấn công các máy khác
+_Các sâu trên mạng sử dụng kết nối mạng để lây lan từ máy này sang máy khác
+_Khi sâu hoạt động, nó tương tự virus
+_Các phương pháp lây lan của sâu:
+	+ lây lan qua thư điện tử: sử dụng email để gửi bản copy của sâu đến các máy khác
+	+ lây lan thông qua khả năng thực thi từ xa: sâu thực thi 1 bản copy của nó trên một máy khác nhờ lợi dụng các lỗ hổng an ninh của hệ điều hành, các dịch vụ hoặc phần mềm ứng dụng
+	+ lây lan thông quan khả năng login từ xa: sâu đăng nhập vào hệ thống sở xa như 1 user và sử dụng lệnh để copy bản thân từ máy này sang máy khác
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

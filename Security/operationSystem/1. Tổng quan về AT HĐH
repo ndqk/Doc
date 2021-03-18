@@ -1,0 +1,230 @@
+* Nội dung
+1. Giới thiệu an toàn HĐH
+2. Các vấn đề về kiến trúc an toàn
+3. Chính sách an toàn
+4. Nhân an toàn
+
+..........................................................................................
+1.1. Giới thiệu an toàn HĐH
+_Khái quát về HĐH
+_Tổng quan về an toàn hệ điều hành
+
+//
+1.1.1. Khái quát về HĐH
+_HĐH là gì?
+- Operating system - OS là 1 chương trình quản lý các tài nguyên phần cứng và phần mềm của 1 thiết bị tính toán
+- HĐH cung cấp:
+	+ Môi trường cho các chương trình ứng dụng hoạt động
+	+ Giao diện giữa người dùng và phần cứng máy tính/ thiết bị tính toán
+	+ Một số dịch vụ và ứng dụng cơ bản cho ng dùng (tùy chọn)
+
+_Một số họ HĐH thông dụng
+	- DOS:
+		+ MS-DOS
+		+ PC-DOS, FreeDOS
+	- Microsoft Windows:
+		+ Window 3.0, 3.1
+		+ Window 95, 98, Me
+		+ Windows 2000
+		+ Windows NT 3, 4
+		+ Windows XP, Windows Vista, Windowns 7, 8, 10
+		+ Windows NT 3, 4 Server, Windows 2003, 2008 R2 servers
+		+ Windows 2012, 2012 r2 server, Windows 2016, 2019 servers
+	- Unix:
+		+ System V
+		+ BSD, FreeBSD, OpenBSD
+		+ Solaris, Opensolaris, illumos
+		+ HP Unix, IBM Unix
+	- Linux:
+		+ Debian Linux: Ubuntu, Kloppix, Linux Mint, ...
+		+ RedHat Linux: Redhat Enterprise, Fedora, CentOS, Oracle Linux
+		+ SUSE Linux, OpenSUSE
+
+	- MacOS:
+	- HĐH di dộng, nhúng:
+		+ Apple iOS
+		+ Android
+		+ ChromeOS
+		+ Raspberry Pi OS
+		+ Cisco IOS
+	- HĐH ảo hóa:
+		+ VMWare ESX, ESXi
+		+ Microsoft Hyper V
+		+ Oracle VM Server
+
+_Các thành phần của HĐH
+	
+_Các chức năng của HĐH
+	- Process management
+	- Memory management
+	- Disk and file systems
+	- networking
+	- gui
+	- device drivers
+	- security
+	
+_Vấn đề điều phối truy cập tài nguyên
+	- Yêu cầu về điều phối truy cập tài nguyên
+		+ cung cấp cơ chế quản lý, sử dụng tài nguyên hiệu quả: xác định rõ phương thức cấp phát, giải phóng sử dụng tài nguyên
+		+ cung cấp cơ chế điều độ giữa các tiến trình người dùng đảm bảo việc sử dụng tài nguyên công bằng
+		+ kiểm soát việc truy cập tới các tài nguyên sao cho tiến trình người dùng không ảnh hưởng 1 cách vô tình hay cố ý tới tiến trình khác
+
+//		
+1.1.2. Tổng quan về an toàn HĐH
+_Khái niệm
+	- An toàn hệ điều hành là 1 tiến trình nhằm đảm bảo tính bí mật, tính toàn vẹn và tính sẵn dùng của HĐH
+	- gồm:
+		+ các bước | biện pháp cụ thể được sử dụng để bảo vệ HĐH khỏi các mối đe dọa, virus, worms, phần mềm độc hại hoặc sự xâm nhập của tin tặc từ xa
+		+ các kỹ thuật kiểm soát phòng ngừa, nhằm bảo vệ mọi tài sản máy tính có khả năng bị đánh cắp, chỉnh sửa | xóa
+	- các yếu tối giúp xây dựng HĐH an toàn gồm:
+		+ Mục tiêu an toàn
+		+ Mô hình đe dọa
+		+ Mô hình tin cậy
+		+ Cơ chế bảo vệ
+		
+- Mục tiêu an toàn:
+	+ xác định các thao tác có thể thực hiện bởi hệ thống trong khi ngăn chặn các truy cập trái phép
+	+ các mục tiêu an toàn xác định các yêu cầu mà thiết kế hệ thống cần phải thỏa mã và việc triển khai đúng đẵn phải thỏa mãn các yêu cầu nào
+	+ cần thỏa mã các thuộc tính an toàn HĐH:
+		. tính bí mật
+		. tính toàn vẹn
+		. tính sẵn dùng
+	+ truy cập hệ thống được mô tả = chủ thể (chương trình | ng dùng) có thể thực hiện các thao tác (đọc | ghi) lên các đối tượng (file | socket)		
+	+ mô tả thuộc tính an toàn HĐH
+		. tính bí mật giới hạn các đối tượng có thể được truy cập
+		. tính toàn vẹn hạn chế các đối tượng mà chủ thể có thể ghi / sửa đổi để đảm bảo thao tác được thực hiện đúng đắn trong quan hệ với các thao tác của chủ thể khác
+		. tính sẵn dùng hạn chế các tài nguyên mà chủ thể có thể sử dụng do các chủ thể này có thể làm cạn kiệt các tài nguyên đó
+	+ mục tiêu an toàn có thể được xây dựng dựa trên:
+		. tính bí mật: như thực hiện mô hình bảo mật Bell-LaPadula (hạn chế rò rỉ thông tin thông qua kiểm soát truy cập bắt buộc)
+		. các chức năng thông qua nguyên tắc "Đặc quyền tối thiểu"
+			, các chương trình chỉ được thực hiện các thao tác cần thiết cho hoạt động của chúng
+			, tuy nhiên, hạn chế chức năng không làm tăng tính an toàn của hệ thống mà chỉ làm giảm khả năng bị tấn công
+			
+- Mô hình tin cậy:
+	+ mô hình tin cậy của hệ thống định nghĩa tập phần mềm và dữ liệu mà hệ thống sử dụng để đảm bảo thực hiện chính xác các mục tiêu an toàn của hệ thống
+	+ các phần mềm được sử dụng trong mô hình tin cậy được gọi là phần mềm tin cậy
+	+ các phần mềm tin cậy bao gồm:
+		. phần mềm xác định các yêu cầu an toàn của hệ thống
+		. phần mềm đảm bảo thực thi các yêu cầu này
+	+ vd phần mềm tin cậy: các phần mềm đăng nhập, xác thực ng dùng, truy cập tài nguyên
+	+ ng phát triển HĐH an toàn phải chứng minh hệ thống của mình hỗ trợ mô hình tin cậy
+		. các phần mềm tin cậy phải thực hiện toàn bộ các thao tác nhạy cảm đảm bảo an toàn
+		. chứng minh tính đúng đắn của phần mềm và dữ liệu tin cậy
+		. chứng minh việc thực thi của các phần mềm k bị phá vỡ bởi các chương trình k nằm trong các phần mềm tin cậy:
+			, tính toàn vẹn của các phần mềm tin cậy phải được bảo vệ khỏi các mối đe dọa tới hệ thống
+			, nếu 1 phần mềm bị xâm nhập thì phần mềm đó không được tin cậy
+				
+	
+- Mô hình đe dọa:
+	+ xây dựng tập các thao tác mà người tấn công có thể dùng để vô hiệu hóa hệ thống: Tập thao tác này không hạn chế theo nghĩa ng tấn công có thể áp dụng bất cứ thao tác có thể để xâm phạm mục tiêu an toàn của hệ thống
+	+ nhiệm vụ cảu ng xây dựng HĐH an toàn là bảo vệ các phần mềm tin cậy khỏi các mối de dọa trong mô hình đe dọa
+		. chương trình ng dùng có thể k tin cậy song hệ thống có thể hạn chế việc nó truy cập tới dữ liệu nhạy cảm của hệ thống nhằm hạn chế rò rỉ hay sửa đổi các thông tin này
+	+ mục tiêu an toàn được đảm bảo bất kể hành vi hay hoạt động của các chương trình người dùng
+	+ người phát triển hệ thống phải:
+		. nhận biết được các mối đe dọa
+		. đánh giá ảnh hưởng của các mối đe dọa lên an toàn hệ thống
+		. cung cấp biên pháp phòng ngừa hiệu quả những đe dọa này
+		
+- Cơ chế an toàn:
+	+ các cơ chế bảo vệ là các cơ chế bảo vệ/kiểm soát thực thi truy cập đến các tài nguyên hệ thống: cụ thể là cơ chế bảo vệ, kiểm soát các chủ thể thực (subject) thực hiện các thao tác (operation) lên các đối tượng (object) trong hệ thống
+	+ các vấn đề liên quan đến hệ thống được bảo vệ:
+		. trạng thái bảo vệ: mô tả các thao tác mà chủ thể của hệ thống có thể thực hiện lên các đối tượng trong hệ thống
+		. tập các thao tác lên trạng thái bảo vệ làm thay đổi các trạng thái này
+		. hệ thống bảo vệ xác định các yêu cầu an ninh của HĐH và thực hiện việc quản lý các yêu cầu này
+	+ một số cơ chế, biện pháp bảo vệ, biểu diễn trạng thái bảo vệ:
+		. ma trận kiểm soát truy cập (access control matrix - ACM): các trạng thái bảo vệ của hệ thống được biểu diễn bằng mã trận truy nhập:
+			., tập chủ thể S
+			., tập các đối tượng O
+			., cũng có thể được sử dụng để mô tả miền bảo vệ (protection domain)
+			., miền bảo vệ gồm:
+				_ tập các đối tượng (tài nguyên) mà tiến trình có thể truy cập
+				_ các thao tác mà tiến trình có thể sử dụng để truy cập tới các đối tượng
+				
+		. danh sách kiểm soát truy cập (access control list - ACL)
+			
+		. hệ thống bảo vệ bắt buộc:
+			., mô hình bảo vệ sử dụng ma trận kiểm soát truy cập làm nảy sinh vấn đề với an toàn HĐH: các tiến trình không tin cậy có thể xâm nhập hệ thống bảo vệ: Lợi dịch các thao tác lên trạng thái bảo vệ, tiến trình ng dùng k tin cậy có thể sửa đổi ma trận truy nhập bằng cách thêm chủ thể, đối tượng mới | thực hiện các thao tác lên các ô của ma trận
+			., bài toán an toàn hệ thống yêu cầu không cho phép mọi truy cập trái phép xảy ra => triển khai hệ thống bảo vệ bắt buộc
+			
+	+// Hệ thống bảo vệ bắt buộc:
+	. là hệ thống chỉ có thể được sửa đổi bởi người quản trị tin cậy thông qua phần mềm tin cậy
+	. hệ thống này gồm các trạng thái:
+		., trạng thái bảo vệ bắt buộc: trạng thái mà các thủ thể và các đối tượng được biểu diễn bằng các nhãn. Các trạng thái mô tả các thao tác mà các nhãn chủ thể có thể được thực hiện lên các nhãn đối tượng
+		., trạng thái dán nhãn: để ánh xạ các tiến trình và các đối tượng tài nguyên hệ thống tới các nhãn 
+		., trạng thái dịch chuyển: mô tả cách thức hợp lệ mà các tiến trình và các đối tượng có thể được dán nhãn lại
+	. trong hđh an toàn, nhãn là các định danh khái quát
+	. việc gán quyền cho nhãn xác định ngữ nghĩa an toàn của chúng
+	. các nhãn này chống lại việc xâm nhập nhờ:
+		., tập các nhãn này được xây dựng bởi người quản trị tin cậy sử dụng phần mềm tin cậy
+		., tập các nhãn không thay đổi được bởi các tiến trình không tin cậy của ng dùng
+	. ng quản trị tin cậy xây dựng các nhãn của ma trận kiểm soát truy cập và xác lập các thao tác mà chủ thể với nhãn nhất định được phép thực hiện lên trên đối tượng với nhãn cho trước
+		., hệ thống này cho phép miễn nhiễm với các tiến trình không tin cậy
+		., điều này là vì tập các nhãn k thể thay đổi qua việc thực thi của các tiến trình ng dùng: có thể chứng minh được các mục tiêu an toàn được thực thi qua ma trận và trong suốt quá trình hoạt động của hệ thống
+		
+........................................................................................
+1.2. Các vấn đề về kiến trúc an toàn
+_Đặt vấn đề
+_Một số nguyên tắc kiến trúc an toàn
+	
+//
+1.2.1. Đặt vấn đề
+- Xây dựng hệ thống máy tính cần phải cân đối rất nhiều các yêu cầu như tính năng, độ linh hoạt, hiệu năng, tính dễ dùng và chi phí
+- an toàn đơn giản là 1 dạng yêu cầu khác và nếu có xung đột các tính năng, an toàn phải cân đối với các tính năng khác tùy theo mức độ quan trọng của hệ thống
+- kiến trúc an toàn là mô tả chi tiết toàn bộ các khía cạnh của hệ thống liên quan đến vấn đề an toàn cùng với các nguyên tắc thiết kế
+	+ kiến trúc an toàn giống như thiết kế tổng thể mô tả ở mức khái quát quan hệ giữa các bộ phận then chốt theo cách mà chúng phải thoả mãn các yêu cầu về an toàn
+	+ kiến trúc an toàn cần mô tả các chi tiết của quá trình xây dựng hệ thống mà qua đó các yêu cầu an toàn được đảm bảo
+- tại thời điểm bắt đầu xây dựng hệ thống, kiến trúc an toàn có thể được mô tả bằng các vấn đề an toàn ở mức cao:
+	+ chính sách an toàn, mức độ đảm bảo mong muốn
+	+ tác động của an toàn lên quá trình xây dựng hệ thống
+	+ các nguyên tắc hướng dẫn chung
+- ở các giao đoạn tiếp theo:
+	+ kiến trúc an toàn cần phản ảnh cấu trúc hệ thống và mức độ chi tiết tăng dần theo các bước thiết kế
+	+ kiến trúc an toàn cần đi trước 1 bước để định hướng cho việc hoàn thành công việc thiết kế
+
+//	
+1.2.2. Một số nguyên tắc kiến trúc an toàn
+1. Xem xét vấn đề an toàn ngay từ đầu
+2. Lường trước các yêu cầu về an toàn
+3. Giảm thiểu và cách ly các biện pháp an toàn
+4. Thực hiện quyền tối thiểu
+5. Giữ các tính năng an ninh thân thiện
+6. An toàn không dựa trên tính bí mật
+
+.................................................................................................
+1.3. Chính sách an toàn
+- Security policy: mô tả các kiểm soát hành động, và quy trình cần được thực hiện cho hệ thống thông tin
+- các chính sách cần đề cập và xử lý các mối đe dọa tới hệ thống bao gồm cả con người, thông tin và tài sản cụ thể
+- việc truy cập các tài nguyên hệ thống cũng như xử lý chúng chịu sự ràng buộc và hạn chế thể hiện trong các chính sách của cơ quan / tổ chức và do người quản trị thực thi thông qua các công cụ quản trị hệ thống
+
+
+
+.................................................................................................
+1.4. Nhân an toàn
+
+1.4.1. Khái quát về nhân an toàn
+1.4.2. Các yêu cầu về an toàn
+1.4.3. Giám sát tham chiếu
+1.4.4. Định hướng xây dựng nhân an toàn
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

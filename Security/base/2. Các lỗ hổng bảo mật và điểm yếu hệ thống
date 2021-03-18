@@ -1,0 +1,206 @@
+* Nội dung
+1. Tổng quan về lỗ hổng bảo mật và các điểm yếu hệ thống
+2. Các dạng lỗ hổng trong hệ điều hành và phần mềm ứng dụng
+3. Quản lý, khắc phục các lỗ hổng bảo mật và tăng cường khả năng đề kháng cho hệ thống
+4. Giới thiệu một số công cụ rà quét lỗ hổng bảo mật
+
+//
+2.1. Tổng quan về lỗ hổng bảo mật và các điểm yếu hệ thống
+Các thành phần của hệ thống máy tính
+- Hệ thống phần cứng
+	+ CPU, ROM, RAM, Bus
+	+ Các giao diện ghép nối và các thiết bị ngoại vi
+- Hệ thống phần mềm
+	+ Hệ điều hành
+		. Nhân hệ điều hành, các trình điều khiển thiết bị
+		. Các trình cung cấp dịch vụ, tiện ích
+	+ Các phần mềm ứng dụng
+		. Các dịch vụ (máy chủ web, CSDL, DNS, ...)
+		. Trình duyệt web, các ứng dụng giao tiếp
+		. Các bộ ứng dụng văn phòng, lập trình
+
+Khái niệm điểm yếu hệ thống và các lỗ hổng bảo mật
+- Các điểm yếu hệ thống (system weaknesses) là các lỗi hay các khiếm khuyết (thiết kế, cài đặt, phần cứng hoặc phần mềm) tồn tại trong hệ thống
+	+ Có điểm yêu đã biết và đã được khắc phục
+	+ Có điểm yếu đã biết và chưa được khắc phục
+	+ Có điểm yếu chưa biết/chưa được phát hiện
+- Lỗ hổng bảo mật (Security vulnerability) là một điểm yếu trong một hệ thống cho phép kẻ tấn công khai thác gây tổn hại đến các thuộc tính an ninh, an toàn của hệ thống đó:
+	+ Toàn vẹn (integrity)
+		. Mọi sửa đổi đến thống tin/ hệ thống chỉ được thực hiện bởi các bên có đủ thẩm quyền
+		. Kẻ tấn công có thể lợi dụng điểm yếu an ninh để lặng lẽ sửa đổi thông tin/ hệ thống -> phá vỡ tính toàn vẹn
+		. VD: Thông thường trong hệ thống kiểm soát truy nhập, chỉ người quản trị có quyền thay đổi quyền truy nhập đến mọi file. Một điểm yếu hệ thống cho 			phép người dùng bình thường thay đổi quyền truy nhập đến mọi file tương tự người quản trị
+	+ Bí mật (confidentiality)
+		. Chỉ những người có thẩm quyền được phép truy nhập đến thông tin/ hệ thống
+		. Kẻ tấn công có thể lợi dụng điểm yếu an ninh để truy nhập trái phép -> phá vỡ tính bí mật
+		. VD: Một điểm yếu an ninh cho phép người dùng web thông thường đọc được nội dung 1 file mà lẽ ra người đó không được quyền đọc. Một điểm yếu trong 			hệ thống kiểm soát truy nhập cho phép một nhân viên bình thường đọc được các báo cáo "mật" của công ty mà chỉ Ban Giám đốc được phép đọc.
+	+ Sẵn dùng (avaialability)
+		. Đảm bảo khả năng truy nhập đến thông tin/ hệ thống cho người dùng hợp pháp
+		. Kẻ tấn công có thể lợi dụng điểm yếu an ninh để ngăn chặn hoặc gây khó khăn cho người dùng hợp pháp truy nhập vào thông tin/ hệ thống
+		. VD: Một điểm yếu an ninh có thể cho phép kẻ tấn công làm máy chủ ngừng hoạt động -> không thể cung cấp dịch vụ cho người dùng hợp pháp -> phá vỡ tính 			sẵn dùng. Kẻ tấn công cũng có thể gửi 1 lượng lớn yêu cầu giả mạo đến máy chủ gây cạn kiệt tài nguyên hoặc tắc nghẽn đường truyền -> người dùng hợp 			pháp không thể truy cập -> phá vỡ tính sẵn dùng.
+- Mức độ nghiêm trọng của lỗ hổng bảo mật:
+	+ 4 mức độ nghiêm trọng theo Microsoft:
+		. Nguy hiểm (Critical)
+		. Quan trọng (Important)
+		. Trung bình (Moderate)
+		. Thấp (Low)
+	+ 3 mức độ nguyên trọng theo một số tổ chức khác:
+		. Cao (High)
+		. Trung bình (Medium)
+		. Thấp (Low)
+		
+Phân bố các lỗ hổng bảo mật:
+- Phần cứng / Phần mềm
+- Các hệ điều hành phổ biến
+- Các ứng dụng phổ biến
+
+//
+2.2. Các dạng lỗ hổng trong HĐH và phần mềm ứng dụng
+Các dạng lỗ hổng bảo mật thường gặp trong HĐH và các phần mềm ứng dụng:
+- Lỗi tràn bộ đệm (buffer overflows)
+- Không kiểm tra đầu vào (unvalidated input)
+- Các vấn đề với điều khiển truy cập (access-control problems)
+- Các điểm yếu trong xác thực, trao quyền hoặc các hệ mật mã (weakness in authentication, authorization, or cryptographic)
+- Các lỗ hổng bảo mật khác
+
+2.2.1. Lỗi tràn bộ đệm (buffer overflow)
+- Xảy ra khi một ứng ụng cố gắng ghi dữ liệu vượt khỏi phạm vi bộ đệm (giới hạn cuối hoặc cả giới hạn đầu của bộ đệm)
+- Có thể khiến ứng dụng ngừng hoạt động, gây mất dữ liệu hoặc thậm chí giúp kẻ tấn công kiểm soát hệ thống
+- Lỗi tràn bộ đệm là lỗi trong khâu lập trình phần mềm và nó chiếm 1 tỷ lệ lớn cho số các lỗi gây lỗ hổng bảo mật
+- Không phải tất cả các lỗi tràn bộ đệm có thể bị khai thác bởi kẻ tấn công
+
+_Các vùng nhớ chứa bộ đệm của ứng dụng:
+	- Ngăn xếp (Stack): vùng nhớ lưu các tham số gọi hàm, thủ tục, phương thức và dữ liệu cục bộ của chúng
+	- Vùng nhớ cấp phát động (Heap): là vùng nhớ chung lưu dữ liệu cho ứng dụng
+_Các biện pháp phòng chống lỗi tràn bộ đệm:
+	- Kiểm tra mã nguồn thủ công để tìm và khắc phục các điểm có khả năng xảy ra lỗi tràn bộ đệm
+	- Sử dụng các công cụ phân tích mã tự động tìm các điểm có khả năng xảy ra lỗi tràn bộ đệm
+	- Đặt cơ chế không cho phép thực hiện mã trong Stack (DEP - Data Excution Prevention)
+	- Sử dụng các cơ chế bảo vệ Stack:
+		+ Thêm một số ngẫu nhiên (canary) phía trước địa chỉ trở về
+		+ Kiểm tra số ngẫu nhiên này trước khi trở về chương trình gọi để xác định khả năng bị thay đổi địa chỉ trở về
+	- Sử dụng các ngôn ngữ/ công cụ lập trình không gây tràn (trong trường hợp có thể)
+		+ Các ngôn ngữ không gây tràn: Java, .Net
+		+ Các thư viện an toàn
+		
+2.2.2. Không kiểm tra đầu vào (unvalidated input)
+- Các dữ liệu đầu vào (input data) cần được kiểm tra để đảm bảo đạt các yêu cầu về định dạng và kích thước
+- Các dạng dữ liệu nhập điển hình cần kiểm tra:
+	+ Các trường dữ liệu text
+	+ Các lệnh được truyền qua URL để kích hoạt chương trình
+	+ Các file âm thanh, hình ảnh, hoặc đồ họa do người dùng hoặc các tiến trình khác cung cấp
+	+ Các đối số đầu vào trong dòng lệnh
+	+ Các dữ liệu từ mạng hoặc các nguồn không tin cậy
+- Kẻ tấn công có thể kiểm tra các dữ liệu đầu vào và thử tất cả các khả năng có thể để khai thác
+
+_Các biện pháp phòng chống:
+	- Kiểm tra tất cả các dữ liệu đầu vào, đặc biệt dữ liệu nhập từ người dùng và từ các nguồn không tin cậy
+	- Kiểm tra định dạng và kích thước dữ liệu đầu vào
+	- Kiểm tra sự hợp lý của nội dung dữ liệu
+	- Tạo các bộ lọc để lọc bỏ các ký tự đặc biệt và các từ khóa của các ngôn ngữ trong các trường hợp cần thiết mà kẻ tấn công có thể sử dụng:
+		+ Các ký tự đặc biệt: *, ', =. --
+		+ Các từ khóa: SELECT, INSERT, UPDATE, ...
+
+2.2.3. Các vấn đề với điều khiển truy nhập (access-control problems)
+- Điều khiển truy nhập (Access Control) liên quan đến việc điều khiển ai (chủ thể) được truy cập đến cái gì (đối tượng) ?
+- Điều khiển truy nhập có thể được thiết lập bởi hệ điều hành hoặc mỗi ứng dụng, thường gồm 2 bước:
+	+ Xác thực (Authentication): xác thực thông tin nhận dạng chủ thể
+	+ Trao quyền (Authorization): cấp quyền truy nhập cho chủ thể sau khi thông tin nhận dạng được xác thực
+- Các chủ thể được cấp quyền truy nhập vào hệ thống theo các cấp độ khác nhau dựa trên chính sách an ninh của tổ chức
+- Nếu kiểm soát truy nhập bị lỗi, một người dùng bình thường có thể đoạt quyền của người quản trị  và toàn quyền truy nhập vào hệ thống
+- Một kẻ tấn công có thể lợi dụng lỗ hổng bảo mật của hệ thống kiểm soát truy nhập để truy nhập vào các file trong hệ thống
+- Một ứng dụng chạy trên user quản trị có toàn quyền truy nhập vào hệ thống:
+	+ Nếu một kẻ tấn công chiếm được quyền điều khiển chương trình sẽ có toàn quyền truy nhập vào hệ thống
+
+_Phương pháp phòng chống:
+	- Không dùng uer quản trị (root hoặc admin) để chạy các chương trình ứng dụng
+	- Luôn chạy các chương trình ứng dụng với quyền tối thiểu - vừa đủ để thực thi các tác vụ
+	- Kiểm soát chặt chẽ người dùng, xóa bỏ hoặc cấp truy nhập với những người dùng ngầm định kiểu everyone
+	- Thực thi chính sách mật khẩu an toàn
+	- Cấp quyền vừa đủ cho người dùng thực thi nhiệm vụ
+
+2.2.4. Các vấn đề với xác thực, trao quyền và mật mã
+_Xác thực:
+	- Mật khẩu được lưu dưới dạng bản rõ (plaintext) -> nguy cơ bị lộ mật khẩu rất cao trong quá trình truyền thông tin xác thực
+	- Sử dụng mật khẩu đơn giản, dễ đoán, hoặc dùng mật khẩu trong thời gian dài
+	- Sử dụng cơ chế xác thực không đủ mạnh: ví dụ các cơ chế xác thực của giao thưc HTTP
+
+_Trao quyền:
+	- Cơ ché thực hiện trao quyền không đủ mạnh, dễ bị vươt qua
+	- VD: một trang web chỉ thực hiện ẩn các links đến các trang web mà người dùng không truy nhập mà không thực sự kiểm tra quyền truy nhập đến từng trang. Nếu 		người dùng tự gõ URL của trang thì vẫn có thể truy nhập
+
+_Các vấn đề với các hệ mật mã:
+	- Sử dụng giải thuật mã hóa/giải mã, hàm băm yếu, lạc hậu, hoặc có lỗ hổng (DES, MD4, MD5)
+	- Sử dụng khóa mã hóa/giải mã yếu
+		+ Khóa có chiều dài ngắn
+		+ Khóa dễ đoán
+	- Các vấn đề trao đổi khóa bí mật
+	- Các vấn đề xác thực người gửi/ người nhận
+	- Chi phí tính toán lớn (đặc biệt đối với các hệ mã hóa khóa công khai)
+
+2.2.5. Các điểm yếu bảo mật khác
+_Các thao tác không an toàn với file:
+	- Thực hiện đọc/ghi file lưu ở những nơi mà người dùng khác cũng có thể ghi ở đó
+	- Không kiểm tra chính xác loại file, định danh thiết bị, các links hoặc các thuộc tính khác của file trước khi sử dụng
+	- Không kiểm tra mã trả về sau mỗi thao tác với file
+	- Giả thiết 1 file có đường dẫn cục bộ là file cục bộ và bỏ qua các thủ tục kiểm tra:
+		+ File ở xa có thể được ánh xạ vào hệ thống file cục bộ -> có đường dẫn cục bộ
+		
+_Các điều kiện đua tranh (race conditions)
+	- Một điều kiện đua tranh tồn tại khi có sự thay đổi trật tự của 2 hay 1 số sự kiện gây ra sự thay đổi hành vi của hệ thống
+	- Đây là 1 dạng lỗi nếu chương trình chỉ có thể thực hiện đúng chức năng nếu các sự kiện phải xảy ra theo đúng trật t
+	- Kẻ tấn công có thể lợi dụng khoảng thời gian giữa 2 sự kiện để chèn mã độc, đổi tên file hoặc can thiệp vào quá trình hoạt động bình thường của hệ thống
+	VD: Các file tạm thời (Temporary files) thường được lưu ở 1 thư mục chung quản lý bởi HĐH. Tiến trình cảu nhiều ngừoi dùng cùng có thể đọc/ghi file tạm 		thời. Nếu 1 tiến trình tạo các cặp khóa bí mật và công khai, và lưu chúng vào 1 file tạm thời và sau đó đọc lại để lưu vào CSDL. Kẻ tấn công có thể tạo 		1 race condition trong khoảng thời gian tiến trình chuyển từ ghi sang đọc các cặp khóa:
+		+ Thay file tạm của tiến trình = file chứa khóa của hắn -> tiến trình sẽ đọc và lưu khóa của kẻ tấn công -> mọi thông điệp mã hóa sử dụng khóa trên 			có thể được giải mã
+		+ Đọc file tạm của tiến trình để đánh cắp các cặp khóa
+		
+
+//
+2.3. Quản lý, khắc phục các lỗ hổng bảo mật và tăng cường khả nang đề kháng cho hệ thống
+_Nguyên tắc: cần bằng giữa An toàn (Secure), Hữu dụng (Usable) và Rẻ tiền (Cheap)
+
+_Một số biện pháp cụ thể:
+	- Thường xuyên cập nhật thông tin về các điểm yếu, lỗ hổng bảo mật từ các trang web chính thức
+		• http://cve.mitre.org/ (CVE - Common Vulnerabilities and Exposures)
+		• http://www.cvedetails.com/ (CVE Details)
+		• http://web.nvd.nist.gov (National Vulnerability Database)
+		• https://www.owasp.org/index.php/Category:Vulnerability
+	- Định kỳ cập nhật các bản vá, nâng cấp hệ điều hành và các phần mềm ứng dụng
+		+ Sử dụng các hệ thống quản lý các bản vá và tự động cập nhật định kỳ
+			. Microsoft Windows Updates
+			. Tiện ích Update trên Linux
+			. Tính năng tự động Update của các ứng dụng (Như Google Update service)
+		+ Với các lỗ hổng nghiêm trọng, cần cập nhật tức thời
+	- Cần có chính sách quản trị người dùng, mật khẩu và quyền truy nhập chặt chẽ ở mức hệ điều hành và mức ứng dụng:
+		+ người dùng chỉ được cấp quyền truy nhập vừa đủ để thực hiện công việc được giao
+		+ Nếu được cấp nhiều quyền hơn mức cần thiết -> lạm dụng
+	- Sử dụng các biện pháp phòng về ở lớp ngoài như tường lừa, proxies
+		+ Chặn các dịch vụ/ cổng không thực sự cần thiết
+		+ Ghi logs các hoạt động truy nhập mạng
+	- Sử dụng các phần mềm rà quét lỗ hổng, rà quét các phần mềm độc hại:
+		+ Có thể giảm thiểu nguy cơ bị lợi dụng, khai thác lỗ hổng bảo mật
+		
+//
+2.4. Giới thiệu một số công cụ rà quét lỗ hổng bảo mật
+_Công cụ quét cổng dịch vụ:
+	- nmap
+	- Angry IP Scanner
+	- SuperScan
+
+_Công cụ rà quét lỗ hổng bảo mật hệ thống
+	- Microsoft Baseline Security Analyser
+	- Nessus Vulnerability Scanner
+
+_Công cụ rà quét lỗ hổng ứng dụng web
+	- Acunetix Web Vulnerability Scanner
+	- IBM AppScan
+	- Beyond Security AVDS
+	- SQLMap
+	
+
+
+
+
+
+
+
+

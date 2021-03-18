@@ -1,0 +1,96 @@
+* Nội dung
+1. Đặt vấn đề
+2. Hỗ trợ các tiến trình
+3. Bảo vệ bộ nhớ
+4. Kiểm soát thao tác vào ra
+5. Ảo hóa
+
+
+...................................................................................
+2.1. Đặt vấn đề
+❖ Để hệ điều hành hoạt động ổn định và hiệu quả, nó cần phải phân biệt được:
+	▪ Các hoạt động của bản thân HĐH;
+	▪ Các hoạt động của chương trình người dùng.
+	
+❖ Việc phân biệt các hoạt động khá phức tạp do bản thân HĐH cũng là một chương trình;
+
+❖ HĐH sử dụng một số cơ chế bảo vệ để kiểm soát toàn bộ các hoạt động và đảm bảo các hoạt động này không vi phạm chính sách an toàn:
+	▪ Một số cơ chế bảo vệ được thực hiện bằng phần mềm;
+	▪ Một số cơ chế bảo vệ được thực hiện bằng phần cứng.
+
+❖ Các cơ chế bảo vệ được thực hiện bằng phần cứng có các ưu điểm so với cơ chế bảo vệ được thực hiện bằng phần mềm:
+	▪ Ổn định và ít lỗi hơn do không bị tác động bởi các phần mềm khác;
+	▪ Thực thi nhanh hơn, cho hiệu năng cao hơn;
+	▪ Các tính năng an toàn tích hợp vào phần cứng giúp kiến trúc hệ thống trong sáng hơn.
+	
+....................................................................................
+2.2. Hỗ trợ các tiến trình
+❖ Yêu cầu cơ bản của HĐH an toàn gồm:
+	▪ Cách ly các tiến trình người dùng với nhau;
+	▪ Hỗ trợ trao đổi thông tin giữa các tiến trình người dùng qua các kênh được kiểm soát.
+	
+❖ Với các HĐH đa nhiệm hiện nay:
+	▪ Các chương trình người dùng chạy song song với nhau nên việc chuyển đổi ngữ cảnh của các chương trình cần được thực hiện một cách nhanh chóng và hiệu quả.
+	==> Phần cứng (CPU – bộ VXL) giúp làm đơn giản hóa việc chuyển đổi ngữ cảnh thông qua cơ chế “khởi động” lại cách chương trình bị dừng bằng cách lưu lại trạng thái của các tiến trình và khôi phục đồng thời các thanh ghi mà chương trình sử dụng.
+	
+❖ Các bộ xử lý hỗ trợ việc cung cấp các không gian tách biệt để chạy các chương trình với các đặc quyền khác nhau:
+	▪ Các không gian này thường được biểu diễn như là chế độ hệ thống (đặc quyền) và người dùng (thông thường);
+	▪ Không gian hệ thống có được truy nhập không giới hạn tới các tài nguyên của hệ thống máy tính như toàn bộ không gian nhớ, các câu lệnh;
+	▪ Không gian người dùng bị hạn chế truy nhập tới bộ nhớ và tập hạn chế các câu lệnh.
+	
+❖ Một cách tổng quát, hệ thống phân cấp các không gian thực thi thành các lớp bảo vệ (protection rings)
+	
+	
+//Lớp bảo vệ không gian thực thi – Mô hình
+❖ Các lớp tiêu biểu trong không gian thực thi:
+	▪ Lớp 0 (Ring 0): Nhân hệ điều hành
+	▪ Lớp 1 (Ring 1): Phần còn lại của hệ điều hành
+	▪ Lớp 2 (Ring 2): Các trình điều khiển vào/ra và tiện ích
+	▪ Lớp 3 (Ring 3): chương trình ứng dụng
+	
+❖ Các lớp bảo vệ đặt ra các ranh giới chặt chẽ và các mô tả các tài nguyên được phép truy cập và các thao tác được phép thực hiện cho mỗi tiến trình hoạt động trong từng lớp.
+
+❖ Các chương trình nằm ở các lớp bên trong có nhiều đặc quyền hơn là nằm ở lớp ngoài.
+▪ Lớp có số thứ tự thấp hơn sẽ có nhiều đặc quyền hơn lớp có số lớn hơn.
+▪ Số lượng các lớp tùy thuộc vào mục đích và nhu cầu cụ thể của hệ điều hành.
+
+❖ Các thành phần của hệ điều hành hoạt động tại lớp (lớp 0 / lớp 1):
+	▪ Cung cấp truy cập tới vị trí bộ nhớ, thiết bị ngoại vi, trình điều khiển hệ thống;
+	▪ Thực hiện chỉnh sửa các tham số cấu hình hệ thống.
+	
+❖ Chính vì trực tiếp truy cập/sử dụng các tài nguyên quan trọng nên đây là các lớp được bảo vệ chặt chẽ nhất.
+
+❖ Các tiến trình người dùng chịu sự giám sát và hạn chế truy cập đến bộ nhớ và các thiết bị phần cứng:
+	▪ Tiến trình người dùng gửi yêu cầu truy cập tài nguyên thông qua các chức năng của hệ điều hành hay lời gọi hệ thống;
+	▪ Nếu tiến trình người dùng cố yêu cầu CPU thực hiện các lệnh vượt quá quyền hạn thì CPU xử lý những yêu cầu này như là lỗi hoặc cố gắng khóa tiến trình lại.
+	
+
+//Lớp bảo vệ không gian thực thi – Triển khai
+❖ Các lớp bảo vệ được triển khai bằng cách kế hợp giữa phần cứng và hệ điều hành trên thực tế:
+	▪ Phần cứng (CPU/VXL) được cấu hình để hoạt động với một số lớp nhất định;
+	▪ Hệ điều hành được xây dựng sao cho cùng hoạt động ở các lớp này
+
+❖ Các lớp bảo vệ hình thành nên:
+	▪ Các rào cản giữa chủ thể và đối tượng;
+	▪ Thực thi việc giám sát truy cập khi các chủ thể thực hiện việc truy cập tới các đối tượng:
+	• Mỗi đối tượng và chủ thể được gán một số thể hiện cấp độ của lớp bảo vệ;
+	• Chủ thể có cấp độ thấp thì không thể truy cập trực tiếp đối tượng có cấp độ cao hơn.
+	• Trong trường hợp cần thiết, chủ thể có cấp độ thấp có thể gửi yêu cầu truy cập đối tượng có cấp độ cao hơn thông qua lời gọi hệ thống. Hệ điều hành sẽ thực hiện việc kiểm soát và hoàn tất thực thi truy cập.	
+	
+❖ Việc thay đổi không gian thực thi của chương trình chỉ được thực hiện thông qua lời gọi hàm call tới các mục hợp lệ được phép cho trước.
+	▪ Các hệ thống triển khai cơ chế gọi hàm như vậy dưới dạng các bẫy tới các con trỏ hay vị trí xác định trước trong không gian nhớ hệ thống.
+	▪ Với kiến trúc lớp, việc thay đổi lớp (như R1, R2) chỉ được hoàn tất thông qua câu lệnh call tới vị trí xác định trước trong phần nhớ đặc biệt gọi là cổng (gate) mà chúng được gán làm điểm khởi đầu cho lớp bên trong.
+	▪ Các cổng được sử dụng để ngăn chặn các tiến trình thực hiện lời gọi hàm vào lớp trong và được thực hiện tại bất kỳ vị trí nhớ nào.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

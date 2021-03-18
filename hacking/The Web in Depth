@@ -1,0 +1,56 @@
+1. HTTP basic
+- Request Headers:
+	+ Host: indicates the desired host handling the request
+	+ Accept: indicates what MIME type(s) are accepted by the client, often used to specify JSON or XML output for web-services
+	+ Cookie: passes cookie data to server
+	+ Referer: page leading to request (note: this is not passed to other servers when using HTTPS on the origin)
+	+ Authorization: used for base auth' pages (mainly). Takes the form "Basic <base64'd username:password>"
+
+2. Cookie security
+
+3. HTML parsing
+- Parsing: HTML should be parsed according to the relevant spec, generally HTML5 now. But when you're talking about security, is's often not just parsed by your browser, but also Web-Application Firewalls and other filters. Wherever there's a discrepancy in how these 2 items parse things, there's probably a vul
+
+- Legacy Parsing: Due to decades of bad HTML, browsers are quite excellent at cleaning up after authors, and these conditions are often exploitable
+	+ <script> tag its own will automatically be closed at the and of the page
+	+ A tag missing its closing angle bracket will automatically be closed by the angle bracks of the next tag on the page
+
+4. MIME sniffing
+- The browser will often not just look at the Content-Type header that the server is passing, but also the contents of the page. If it looks enough like HTML, it'll be parsed as HTML
+- This led to IE 6/7-era bugs where image and text file containing HTML tags would execute as HTML
+- Imagine a site with a file upload function for profile pictures. If that file contains enough HTML to trigger the sniffing heuristics, an attacker could upload a picture and then link it to victims. This is one of the reasons why Facebook and other sites use a separate domain to host such content
+
+5. Encoding sniffing
+- Similarly, the encoding used on a document will be sniffed by (mainly older) browsers. If you don't specify an encoding for an HTML document, the browser will apply heuristics to determine it. If you are able to control the way browser decodes text, you may be able to alter the parsing
+//
+
+6. Same-Origin Policy
+- What is SOP? Same-Origin Policy is how the browser restricts a number of security-critical features:
+	+ What domains you can contact via XMLHttpRequest
+	+ Access to the DOM across separate frames/windows
+- Origin Matching: The way origin matching of SOP works is much mor strict than cookies:
+	+ Protocol must match -- no crossing HTTP/HTTPS boundaries
+	+ Port numbers must match
+	+ Domain names must be exact match -- no wildcarding or subdomain walking
+- SOP loosening: 
+	it's possible for developers to loosen the grip that SOP has on their communications, by changing document.domain, posting messages between windows, and by using CORS (cros-origin resource sharing).
+	all of these open up interesting avenues for attack.
+	anyone can call postMessage into an IFrame --how many pages validate messages properly?
+	
+	CORS is still very new, but enables some very risky situations. In essence, you're allowed to make XMLHttpRequests to domains outsite of your origin, but they have special headers to signfy where the request originates, what custom header are added, etc. It's possible to even have it pass the receiving domain's cookies, allowing attackers to potentially compromise logged-in users. The security prospects here are still largely unexplored
+
+7. CSRF (Cross-Site Request Forgery)
+- What is CSRF ? Cross-Site Request Forgery is when an attackers tricks a victim into going to a page controlled by the attacker, which then submits data to the target site as the victim. It is one of the most common vulnerabilities today, and enables a whole host of others, namely rXSS
+
+
+
+
+
+
+
+
+
+
+
+
+
