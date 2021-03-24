@@ -245,23 +245,41 @@ Phương pháp hướng đối tượng.
 - unit testing 85
 **4
 - backup programmer 111
+Lập trình viên dự vị cho trưởng nhóm hay còn gọi là sếp dự bị. Có kỹ năng tương đương với sếp trong quản lý và code. Nắm rõ dự án tương đương sếp. Lập kế hoạch test hộp đen (black-box) và các công việc độc lập với tiến trình thiết kế.
 - Brooks’s Law 108
+Khi đưa thêm người mới vào dự án đang có nguy cơ bị trễ, thì không giải quyết được vấn đề trễ, thậm chí còn làm dự án trễ thêm
 - chief programmer 111
+Trưởng nhóm lập trình hay còn gọi là sếp của nhóm code. Người có kỹ năng cao trong cả quản lý và code. Thực hiện phần thiết kế kiến trúc rồi phân chia công việc code cho các thành viên. Code các thành phần chính và khó nhất. Tạo các giao diện để tích hợp các modul. Xem lại code của tất cả các thành viên. Chịu trách nhiệm về từng dòng code của nhóm
 - chief programmer team 110
+Nhóm lập trình có sếp. Thường có 1 sếp, 1 thư ký , 1 sếp dự bị và 1 đến 3 lập trình viên
 - democratic team 109
+Nhóm lập trình bình đẳng. Các thành viên bình đẳng về chức vụ. Mỗi người tự do thiết kế, code và test modul của mình. Việc có lỗ được coi là việc bình thường. Cả đội sẽ xây dựng 1 tính năng hay cả sản phẩm và sản phẩm là của cả đội
 - egoless programming 109
+Là 1 phong cách lập trình trong đó có yếu tố cá nhân được giảm thiể để chất lượng có thể được cải thiện
 - hierarchy 111
+Hệ thống phần cấp
 - key process area (KPA) 119
 - librarian 112
+	= programming secretary
 - pair programming 118
+
 - programmer 112
+Lập trình viên. Chỉ làm việc duy nhất là lập trình
 - programming secretary 112
+Thư ký lập trình. Có kỹ năng cao, được trả lương cao và là thành viên chủ chốt của nhóm. Chịu trách nhiệm về tài liệu cho toàn bộ dự án:
+	+ Liệt kê danh sách mã nguồn mở
+	+ Ngôn ngữ điều khiển công việc (JCL)
+	+ Dữ liệu test
+	+ Biên dịch code, kiểm tra code convention 
+	+ Chạy các test case
 - specialization 111
 - superprogrammer 113
 - task 118
 - team 107
 - team leader 114
+Người quản lý kĩ thuật của team. Review toàn bộ code và hỗ trợ kỹ thuật cho các thành viên
 - team manager 114
+Sếp chỉ quản lý các vấn đề phi kỹ thuật: thu nhập, bình đẳng, năng lực của các thành viên. Không review code nhưng khi họp có thể tham gia để hỗ trợ kỹ thuật cho các thành viên
 **5
 - activity 137
 - assumptions 131

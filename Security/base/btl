@@ -1,0 +1,43 @@
+Tìm hiểu về các giải thuật băm SHA0, 1, 2, 3; các điểm yếu, các dạng tấn công vào SHA. Cài đặt thử nghiệm SHA1.
+Nội dung: Kiến trúc/giải thuật/các điểm yếu/các dạng tấn công/ứng dụng
+.........................................................................
+1. Khái quát về hàm băm mật mã
+- Giới thiệu sơ lược về hàm băm mật mã
+Hàm băm (hash function) là 1 hàm toán học h có tối thiểu 2 thuộc tính:
+	+ Nén (Compression): h là 1 ánh xạ từ chuỗi đầu vào x có chiều dài bất kỳ sang 1 chuỗi đầu ra h(x) có chiều dài cố định n bit
+	+ Dễ tính toán (Ease of computating): cho trước hàm h và đầu vào x, việc tính toán h(x) là dễ dàng
+- Phân loại:
+	+ Theo khóa sử dụng: hàm băm không khóa (unkeyed) h(x) và hàm băm có khóa (keyed) h(x, K)
+	+ Theo chức năng: 
+
+- Tính chất của hàm băm mật mã
+- Ứng dụng của hàm băm
+
+2. Các giải thuật hàm băm SHA
+- Giới thiệu SHA: 
+	Thuật toán SHA (Secure Hash Algorithm) được phát triển bởi Viện Tiêu chuẩn và Kỹ thuật Quốc gia (National Institute of Standards and Technology - NIST) và được xuất bản như một tiêu chuẩn xử lý thông tin liên bang (FIPS 180) vào năm 1993; một phiên bản sửa đổi được ban hành với tên FIPS 180-1 vào năm 1995.
+	SHA được yêu cầu sử dụng với Digital Signature Algorithm (DSA) như đã được chỉ ra trong Digital Signature Standard (DSS) và bất cứ khi nào cần có thuật toán băm an toàn cho các ứng dụng liên bang. Đối với thông điệp có độ dài < 2^64 bit, SHA tạo ra một chuỗi giá trị băm đầu ra 160 bit.
+	SHA được thiết kế để có cái tính chất:
+		- Không khả thi về mặt tính toán để tìm 1 tin với 1 tin đã cho
+		- Không tìm được 2 tin khác nhau từ 1 tin được băm
+- Các giải thuật SHA	
+* SHA0:
+- Giải thuật: 
+	+ Thông điệp được chia thành các khổi 512 bit. Nếu kích thước thông điệp không là bội số của 512 thì nối thêm số bit còn thiếu
+	
+- Các điểm yếu:
+
+
+* SHA1:
+* SHA2:
+* SHA3:
+
+
+3. Các điểm yếu, các dạng tấn công vào hàm băm
+- Các điểm yếu của SHA
+- Các dạng tấn công vào SHA
+	+ Tấn công va chạm
+	+ Tấn công hàm Hash theo kiểu ngày sinh nhật
+	+ Tấn công hàm Hash theo kiểu gặp nhau ở giữa
+	
+4. Ứng dụng

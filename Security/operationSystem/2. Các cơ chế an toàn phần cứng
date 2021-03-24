@@ -8,89 +8,160 @@
 
 ...................................................................................
 2.1. Đặt vấn đề
-❖ Để hệ điều hành hoạt động ổn định và hiệu quả, nó cần phải phân biệt được:
-	▪ Các hoạt động của bản thân HĐH;
-	▪ Các hoạt động của chương trình người dùng.
-	
-❖ Việc phân biệt các hoạt động khá phức tạp do bản thân HĐH cũng là một chương trình;
-
-❖ HĐH sử dụng một số cơ chế bảo vệ để kiểm soát toàn bộ các hoạt động và đảm bảo các hoạt động này không vi phạm chính sách an toàn:
-	▪ Một số cơ chế bảo vệ được thực hiện bằng phần mềm;
-	▪ Một số cơ chế bảo vệ được thực hiện bằng phần cứng.
-
-❖ Các cơ chế bảo vệ được thực hiện bằng phần cứng có các ưu điểm so với cơ chế bảo vệ được thực hiện bằng phần mềm:
-	▪ Ổn định và ít lỗi hơn do không bị tác động bởi các phần mềm khác;
-	▪ Thực thi nhanh hơn, cho hiệu năng cao hơn;
-	▪ Các tính năng an toàn tích hợp vào phần cứng giúp kiến trúc hệ thống trong sáng hơn.
+- Để hệ điều hành hoạt động ổn định và hiệu quả, nó cần phải phân biệt được:
+	+ Các hoạt động của bản thân HĐH
+	+ Các hoạt động của chương trình người dùng
+- Việc phân biệt các hoạt động khá phức tạp do bản thân HĐH cũng là 1 chương trình
+- HĐH sử dụng một số cơ chế bảo vệ để kiểm soát toàn bộ các hoạt động và đảm bảo các hoạt động này không vi phạm chính sách an toàn:
+	+ Một số cơ chế bảo vệ được thực hiện bằng phần mềm
+	+ Một số cơ chế bảo vệ được thực hiện bằng phần cứng
+- Các cơ chế bảo vệ được thực hiện bằng phần cứng có các ưu điểm so với cơ chế bảo vệ được thực hiện bằng phần mềm:
+	+ Ổn định và ít lỗi hơn do không bị tác động bởi các phần mềm khác
+	+ Thực thi nhanh hơn, cho hiệu năng cao hơn
+	+ Các tính năng an toàn tích hợp vào phần cứng giúp kiến trúc hệ thống trong sáng h
 	
 ....................................................................................
 2.2. Hỗ trợ các tiến trình
-❖ Yêu cầu cơ bản của HĐH an toàn gồm:
-	▪ Cách ly các tiến trình người dùng với nhau;
-	▪ Hỗ trợ trao đổi thông tin giữa các tiến trình người dùng qua các kênh được kiểm soát.
+- Yêu cầu cơ bản của HĐH an toàn gồm:
+	+ Cách ly các tiến trình người dùng với nhau
+	+ Hỗ trợ trao đổi thông tin giữa các tiến trình người dùng qua các kênh được kiểm soát
 	
-❖ Với các HĐH đa nhiệm hiện nay:
-	▪ Các chương trình người dùng chạy song song với nhau nên việc chuyển đổi ngữ cảnh của các chương trình cần được thực hiện một cách nhanh chóng và hiệu quả.
-	==> Phần cứng (CPU – bộ VXL) giúp làm đơn giản hóa việc chuyển đổi ngữ cảnh thông qua cơ chế “khởi động” lại cách chương trình bị dừng bằng cách lưu lại trạng thái của các tiến trình và khôi phục đồng thời các thanh ghi mà chương trình sử dụng.
+- Với các HĐH đa nhiệm hiện nay:
+	+ Các chương trình người dùng chạy song song với nhau nên việc chuyển đổi ngữ cảnh của các chương trình cần được thực hiện 1 cách nhanh chóng và hiệu quả => phần cứng (CPU - bỗ VXL) giúp làm đơn giản hóa việc chuyển đổi ngữ cảnh thông qua cơ chế "khởi động" lại các chương trình bị dừng bằng cách lưu lại trạng thái của các tiến trình và khôi phục đồng thời các thanh ghi mà chương trình sử dụng
 	
-❖ Các bộ xử lý hỗ trợ việc cung cấp các không gian tách biệt để chạy các chương trình với các đặc quyền khác nhau:
-	▪ Các không gian này thường được biểu diễn như là chế độ hệ thống (đặc quyền) và người dùng (thông thường);
-	▪ Không gian hệ thống có được truy nhập không giới hạn tới các tài nguyên của hệ thống máy tính như toàn bộ không gian nhớ, các câu lệnh;
-	▪ Không gian người dùng bị hạn chế truy nhập tới bộ nhớ và tập hạn chế các câu lệnh.
-	
-❖ Một cách tổng quát, hệ thống phân cấp các không gian thực thi thành các lớp bảo vệ (protection rings)
-	
-	
-//Lớp bảo vệ không gian thực thi – Mô hình
-❖ Các lớp tiêu biểu trong không gian thực thi:
-	▪ Lớp 0 (Ring 0): Nhân hệ điều hành
-	▪ Lớp 1 (Ring 1): Phần còn lại của hệ điều hành
-	▪ Lớp 2 (Ring 2): Các trình điều khiển vào/ra và tiện ích
-	▪ Lớp 3 (Ring 3): chương trình ứng dụng
-	
-❖ Các lớp bảo vệ đặt ra các ranh giới chặt chẽ và các mô tả các tài nguyên được phép truy cập và các thao tác được phép thực hiện cho mỗi tiến trình hoạt động trong từng lớp.
+- Các bộ xử lý hỗ trợ việc cung cấp các không gian tách biệt để chạy các chương trình với các đặc quyền khác nhau:
+	+ Các không gian này thường được biểu diễn như là chế độ hệ thống (đặc quyền) và người dùng (thông thường)
+	+ Không gian hệ thống có được truy nhập không giới hạn tới các tài nguyên của hệ thống máy tính như toàn bộ không gian nhớ, các câu lệnh
+	+ Không gian người dùng bị hạn chế truy nhập tới bộ nhớ và tập hạn chế các câu lệnh
 
-❖ Các chương trình nằm ở các lớp bên trong có nhiều đặc quyền hơn là nằm ở lớp ngoài.
-▪ Lớp có số thứ tự thấp hơn sẽ có nhiều đặc quyền hơn lớp có số lớn hơn.
-▪ Số lượng các lớp tùy thuộc vào mục đích và nhu cầu cụ thể của hệ điều hành.
+- Một cách tổng quát, hệ thống phân cấp các không gian thực thi thành các lớp bảo vệ (protection rings)
 
-❖ Các thành phần của hệ điều hành hoạt động tại lớp (lớp 0 / lớp 1):
-	▪ Cung cấp truy cập tới vị trí bộ nhớ, thiết bị ngoại vi, trình điều khiển hệ thống;
-	▪ Thực hiện chỉnh sửa các tham số cấu hình hệ thống.
+* Lớp bảo vệ không gian thực thi - Mô hình
+- Các lớp tiêu biểu trong không gian thực thi:
+	+ Lớp 0 (Ring 0): Nhân hệ điều hành
+	+ Lớp 1 (Ring 1): Phần còn lại của hệ điều hành
+	+ Lớp 2 (Ring 2): Các trình điều khiển vào/ra và tiện ích
+	+ Lớp 3 (Ring 3): Chương trình ứng dụng
 	
-❖ Chính vì trực tiếp truy cập/sử dụng các tài nguyên quan trọng nên đây là các lớp được bảo vệ chặt chẽ nhất.
+- Các lớp bảo vệ đặt ra các ranh giới chặt chẽ và các mô tả các tài nguyên được phép truy cập và các thao tác được phép thực hiện cho mỗi tiến trình hoạt động trong từng lớp
+- Các chương trình nằm ở các lớp bên trong có nhiều đặc quyền hơn là nằm ở lớp ngoài
+	+ Lớp có số thứ tự thấp hơn sẽ có nhiều quyền đặc quyền hơn lớp có số lớn hơn
+	+ Số lượng các lớp tùy thuộc vào mục đích và nhu cầu cụ thể của hệ điều hành
+	
+- Các thành phần của hệ điều hành hoạt động tại lớp 0/1: 
+	+ Cung cấp truy cập tới vị trí bộ nhớ, thiết bị ngoại vi, trình điều khiển hệ thống
+	+ Thực hiện chỉnh sửa các tham số cấu hình hệ thống
+Chính vì trực tiếp truy cập/sử dụng các tài nguyên quan trọng nên đây là các lớp được bảo vệ chặt chẽ nhất
 
-❖ Các tiến trình người dùng chịu sự giám sát và hạn chế truy cập đến bộ nhớ và các thiết bị phần cứng:
-	▪ Tiến trình người dùng gửi yêu cầu truy cập tài nguyên thông qua các chức năng của hệ điều hành hay lời gọi hệ thống;
-	▪ Nếu tiến trình người dùng cố yêu cầu CPU thực hiện các lệnh vượt quá quyền hạn thì CPU xử lý những yêu cầu này như là lỗi hoặc cố gắng khóa tiến trình lại.
+- Các tiến trình người dùng chịu sự giám sát và hạn chế truy cập đến bộ nhớ và các thiết bị phần cứng:
+	+ Tiến trình người dùng gửi yêu cầu truy cập tài nguyên thông qua các chức năng của hệ điều hành hay lời gọi hệ thống
+	+ Nếu tiến trình người dùng cố yêu cầu CPU thực hiện các lệnh vượt quá quyền hạn thì CPU xử lý những yêu cầu này như là lỗ hoặc cố gắng khóa tiến trình lại
 	
+* Lớp bảo vệ không gian thực thi - Triển khai
+- Các lớp bảo vệ được triển khai bằng cách kết hợp giữa phần cứng và hệ điều hành trên thực tế:
+	+ Phần cứng (CPU/VXL) được cấu hình để hoạt động với 1 số lớp nhất định
+	+ Hệ điều hành được xây dựng sao cho cùng hoạt động ở các lớp này
+	
+- Các lớp bảo vệ hình thành nên:
+	+ Các rào cản giữa chủ thể và đối tượng
+	+ Thực thi việc giám sát truy cập khi các chủ thể thực hiện việc truy cập tới các đối tượng:
+		. Mỗi đối tượng và chủ thể được gán 1 số thể hiện cấp độ của lớp bảo vệ
+		. Chủ thể có cấp độ thấp thì không thể truy cập trực tiếp đối tượng có cấp độ cao hơn
+		. Trong trường hợp cần thiết, chủ thể cấp độ thấp có thể gửi yêu cầu truy cập đối tượng có cấp độ cao hơn thông qua lời gọi hệ thống. HĐH sẽ thực hiện việc kiểm soát và hoàn tất thực thi truy cập
+		
+- Việc thay đổi không gian thực thi của chương trình chỉ được thực hiện thông qua lời gọi hàm call tới các mục hợp lệ được cho phép trước
+	+ Các hệ thống triển khai cơ chế gọi hàm như vậy dưới dạng các bẫy tới các con trỏ hay vị trí xác định trước trong không gian nhớ hệ thống
+	+ Với kiến trúc lớp, việc thay đổi lớp (như R1, R2) chỉ được hoàn tất thông qua câu lệnh call tới vị trí xác định trước trong phần nhớ đặc biệt gọi là cổng (gate) mà chúng được chán làm điểm khởi đầu cho lớp bên trong
+	+ Các cổng được sử dụng để ngăn chặn các tiến trình thực hiện lời gọi hàm vào lớp trong và được thực hiện tại bất kỳ vị trí nhớ nào
 
-//Lớp bảo vệ không gian thực thi – Triển khai
-❖ Các lớp bảo vệ được triển khai bằng cách kế hợp giữa phần cứng và hệ điều hành trên thực tế:
-	▪ Phần cứng (CPU/VXL) được cấu hình để hoạt động với một số lớp nhất định;
-	▪ Hệ điều hành được xây dựng sao cho cùng hoạt động ở các lớp này
+- Cấu trúc mô tả phần nhớ cồng (gate):
+	+ Mức các lớp được truy cập (R1, R2, R3) phần nhớ
+	+ Các thao tác được phép thực hiện (R-Read, W-Write, E-Execute)
+	(R1, R2, R3, W, R, E, RING, GATE)
+- Phương thức truy cập:
+	+ R1 mức ghi (W): nếu R1 = 3 -> các lớp 0, 1, 2, 3 có thể ghi phần nhớ
+	+ R2 mức đọc (R): nếu R2 = 1 -> các lớp 0, 1 có thể đọc phần nhớ
+	+ R3 mức thực hiện (E): nếu R3 = 2 -> các lớp 0, 1, 2 có thể thực hiện phần nhớ
+- Số thứ tự lớp hiện thời sẽ chỉ thay đổi khi có phần nhớ cổng và câu lệnh call được kích hoạt
+	
+	
+......................................................................................................
+2.3. Bảo vệ bộ nhớ
+- Yêu cầu bảo vệ bố nhớ của hệ điều hành:
+	+ Các tiến trình người dùng cần được cách ly về không gian bộ nhớ với nhau
+	+ Các tiến trình người dùng cần được cách ly về không gian bộ nhớ với các tiến trình hệ thống (của bản thân HĐH)	
+=> Hệ điều hành cần phải giám sát và ngăn chặn mọi yêu cầu truy cập trái phép của một tiến trình người dùng đến không gian bộ nhớ của 1 tiến trình khác
 
-❖ Các lớp bảo vệ hình thành nên:
-	▪ Các rào cản giữa chủ thể và đối tượng;
-	▪ Thực thi việc giám sát truy cập khi các chủ thể thực hiện việc truy cập tới các đối tượng:
-	• Mỗi đối tượng và chủ thể được gán một số thể hiện cấp độ của lớp bảo vệ;
-	• Chủ thể có cấp độ thấp thì không thể truy cập trực tiếp đối tượng có cấp độ cao hơn.
-	• Trong trường hợp cần thiết, chủ thể có cấp độ thấp có thể gửi yêu cầu truy cập đối tượng có cấp độ cao hơn thông qua lời gọi hệ thống. Hệ điều hành sẽ thực hiện việc kiểm soát và hoàn tất thực thi truy cập.	
+- Nhiều HĐH hỗ trợ cơ chế ảo hóa bộ nhớ:
+	+ Không gian bộ nhớ vật lý (bộ nhớ ROM, RAM, đĩa, ...) được ảo hóa thành không gian bộ nhớ chung được đánh địa chỉ thống nhất
+	+ Việc ảo hóa bộ nhớ trong suốt với tiến trình người dùng:
+		. Các tiến trình người dùng truy cập bộ nhớ thông qua bảng chỉ số và con trỏ mô tả phần không gian nhớ logic của tiến trình
+		. Chỉ có hệ điều hành mới truy cập trực tiếp bộ nhớ nhờ các lệnh sử dụng đặc quyền
+
+- Đặc quyền của các lệnh được bộ xử lý kiểm tra trong quá trình thực thi bằng cách so sánh mức độ đặc quyền của câu lệnh với không gian nhớ được yêu cầu
+- Việc này giúp:
+	+ Ngăn chặn các truy cập của các tiến trình người dùng nhằm lấy các thông tin về bộ nhớ vật lý của hệ thống
+	+ Ngăn chặn các xung đột bộ nhớ giữa các tiến trình người dùng
 	
-❖ Việc thay đổi không gian thực thi của chương trình chỉ được thực hiện thông qua lời gọi hàm call tới các mục hợp lệ được phép cho trước.
-	▪ Các hệ thống triển khai cơ chế gọi hàm như vậy dưới dạng các bẫy tới các con trỏ hay vị trí xác định trước trong không gian nhớ hệ thống.
-	▪ Với kiến trúc lớp, việc thay đổi lớp (như R1, R2) chỉ được hoàn tất thông qua câu lệnh call tới vị trí xác định trước trong phần nhớ đặc biệt gọi là cổng (gate) mà chúng được gán làm điểm khởi đầu cho lớp bên trong.
-	▪ Các cổng được sử dụng để ngăn chặn các tiến trình thực hiện lời gọi hàm vào lớp trong và được thực hiện tại bất kỳ vị trí nhớ nào.
+* Các cơ chế quản lý, cách ly bộ nhớ tiến trình
+- Trong HĐH trước đây: không gian nhớ của tiến trình được xác định thông qua con trỏ cơ sở:
+	+ Cho biết vị trí bắt đầu, và con trỏ giới hạn, xác định vị trí kết thúc
+	+ Tiến trình người dùng không thể vượt ra ngoài không gian được cấp
+- Trong các HĐH hiện nay: không gian nhớ của tiến trình được quản lý và cấp phát theo khối nhớ hay trang (page) với kích cỡ hợp lý:
+	+ Các con trỏ trong các thanh ghi cho biết vị trí bắt đầu của các trang trên bộ nhớ vật lý tùy thuộc theo trạng thái hoạt động của hệ điều hành
+	+ Các trang nhớ của tiến trình không nhất thiết phải liên tục
+	
+- Khi hệ thống phân cấp các tiến trình theo các lớp bảo vệ (chế độ hệ thống/đặc quyền và chế độ người dùng) thì việc tiến trình người dùng không được phép đọc ghi tùy tiện vào không gian nhớ của hệ thống
+- Trong chế độ hệ thống, tiến trình được phép truy cập toàn bộ không gian nhớ vật lý của máy tính
+- Việc chuyển đổi không gian thực hiện của tiến trình được thực hiện nhờ câu lệnh đặc biệt
+	+ Để tăng độ linh hoạt, hệ điều hành có thể chỉ định chính xác các phần (trang) của bộ nhớ được phép truy cập tùy theo ngữ cảnh thực hiện tiến trình
+
+- Quyết định cấp quyền truy cập được dựa trên định danh của các trang vật lý:
+	+ Mỗi trang nhớ được gán nhãn như khóa, các bit truy nhập chỉ định thao tác đọc/ghi
+	+ Mỗi tiến trình người dùng khi được gán một khóa
+	+ Phần cứng (bộ xử lý) sẽ tiến hành kiểm tra khóa mỗi khi có tham chiếu bộ nhớ: Truy cập được phép chỉ khi khóa truy cập trùng với khóa mô tả đúng thao tác mà người dùng mong muốn
+	
+- Với cơ chế chuyển đổi địa chỉ dựa trên các thẻ mô tả (descriptor), mỗi tiến trình có:
+	+ Tập riêng các thẻ mô tả
+	+ Chế độ truy cập của các tiến trình tới trang nhớ được xác định trong các thẻ mô tả: W(ghi), R(đọc), E(thực hiện) - đây là các bit cho biết tiến trình có khả năng truy cập tới vùng nhớ như thế nào
+
+- Mô tả các chế độ truy nhập bộ nhớ của User và System: (W, R, E, w, r, e, bộ nhớ vật lý)
+
+....................................................................................................
+2.4. Kiểm soát thao tác vào ra
+- Yêu cầu kiểm soát vào ra
+	+ Các thao tác vào/ra là các thao tác đặc quyền được thực hiện chỉ bởi hệ điều hành
+	+ HĐH thực hiện ảo hóa các thiết bị vào ra, cung cấp các thao tác vào/ra mức cao cho các tiến trình người dùng:
+		. Tiến trình người dùng không cần thiết kiểm soát các chi tiết của thao tác vào/ra
+	+ Các thao tác vào/ra liên quan chặt chẽ với việc CPU/Vi xử lý truy cập bộ nhớ
+	+ Để phần cứng hỗ trợ kiểm soát thao tác vào/ra cần có thêm 1 số kênh thông tin khác như:
+		. Thiết bị vào/ra tới bộ nhớ
+		. Thiết bị vào/ra tới bộ xử lý
+	+ Việc kiểm soát truy cập tới các thiết bị vào/ra cần phải dựa trên định danh của chủ thể (tiến trình) đại diện cho thiết bị vào/ra được sử dụng và đối tượng (phần bộ nhớ) được sử dụng
+	
+- Các phương pháp phần cứng hỗ trợ kiểm soát vào ra
+	+ Lập trình
+		. Vào/ra dựa trên lập trình là cơ chế đồng bộ theo nghĩa bộ xử lý kiểm soát trực tiếp từng đơn vị dữ liệu được trao đổi với thiết bị vào/ra
+		. Vấn đề an ninh duy nhất là kiểm soát tiến trình yêu cầu vào/ra truy cập tới được thiết bị: cách trực quan nhất để xử lý vấn đề này là sử dụng bảng mô tả thiết bị (device descriptor table) cho phép ánh xạ tên thiết bị tới thiết bị vật lý cụ thể và kèm theo các mô tả việc kiểm soát tương tự như kiểm soát bộ nhớ
+		
+	+ Không ánh xạ (unmapped)
+		. thường không cho phép tiến trình ng dùng làm việc trực tiếp với các địa chỉ vật lý mà chỉ được kích hoạt từ HĐH
+		. hđh sẽ chuyển các địa chỉ bộ đệm dùng cho vào /ra từ tiến trình ng dùng thành các địa chỉ vật lý: mặc dù phần cứng hỗ trợ chuyển đổi tên thiết bị ảo giống như vào/ra dựa trên lập trình song việc này không giải phóng nhiệm vụ hđh phải xác thực và thực hiện các thao tác vào/ra
+		
+	+ Ánh xạ trước (premapped)
+		. cho phép phần mềm xác định địa chỉ bộ đệm ảo
+		. khi các câu lệnh vào/ra được thực hiện, bộ vi xử lý sẽ:
+			_Chuyển các địa chỉ ảo thành địa chỉ vậy lý sử dụng bảng mô tả thiết bị và ánh xạ các thanh ghi của tiến trình hiện thời
+			_Sử dụng địa chỉ vật lý thu được để truy cập thiết bị
+		. trong quá trình chuyển đổi địa chỉ, bộ xử lý kiểm tra liệu tiến trình có quyền truy cập hợp lệ tới vị trí đọc ghi
+			
+	+ Ánh xạ đầy đủ
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+.........................................................................................................
+2.5. Ảo hóa
+- Ảo hóa là gì?
+- Ví dụ về ảo hóa
+- Các vấn đề liên quan đến ảo hóa hỗ trợ kiểm soát truy cập
+
 	
