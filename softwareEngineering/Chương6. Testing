@@ -1,0 +1,339 @@
+	
+	
+	Các mô hình vòng đời phần mềm cổ điển thường bao gồm giai đoạn thử nghiệm riêng biệt, sau khi tích hợp và trước khi bảo trì sau giao hàng. Không có gì có thể nguy hiểm hơn nếu cố gắng đạt được phần mềm chất lượng cao. Kiểm thử là một thành phần không thể thiếu của quy trình phần mềm và là một hoạt động phải được thực hiện trong suốt vòng đời: Trong quy trình làm việc các yêu cầu, các yêu cầu phải được kiểm tra; trong quá trình phân tích, các bản đặc tả phải được kiểm tra; và kế hoạch quản lý sản xuất phần mềm cũng phải trải qua quá trình xem xét kỹ lưỡng tương tự. Quy trình thiết kế đòi hỏi sự kiểm tra tỉ mỉ ở mọi giai đoạn. Trong quá trình thực hiện, mỗi code artifact chắc chắn phải được kiểm tra; và toàn bộ sản phẩm cần được kiểm tra khi nó đã được tích hợp đầy đủ. Sau khi vượt qua kiểm tra chấp nhận, sản phẩm được cài đặt và bắt đầu bảo trì sau giao hàng. Và song song với việc bảo trì là việc kiểm tra lặp đi lặp lại các phiên bản sửa đổi của sản phẩm.
+	
+	Nói cách khác, việc kiểm tra sản phẩm của một quy trình làm việc chỉ ở cuối quy trình đó là không đủ. Ví dụ, hãy xem xét quy trình thiết kế. Các thành viên của nhóm thiết kế phải kiểm tra một cách có ý thức và tận tâm thiết kế trong khi họ phát triển nó. Nhóm phát triển các design artifact hoàn chỉnh chỉ để tìm ra, vài tuần hoặc vài tháng sau đó không có ích gì nhiều khi một sai sót được thực hiện sớm trong quá trình buộc phải thiết kế lại gần như toàn bộ sản phẩm. Do đó, nhóm phát triển phải thực hiện kiểm tra liên tục trong khi thực hiện từng quy trình làm việc, ngoài ra kiểm tra có phương pháp hơn ở cuối mỗi quy trình làm việc
+
+	Thuật ngữ  xác minh (verification) và xác thực(validation) đã được giới thiệu trong Phần 1.7. Xác minh đề cập đến quá trình xác định xem một quy trình công việc đã được thực hiện một cách chính xác hay chưa; điều này diễn ra ở cuối mỗi quy trình làm việc. Mặt khác, xác nhận là quá trình đánh giá chuyên sâu diễn ra ngay trước khi sản phẩm được giao cho khách hàng. Mục đích của nó là xác định xem toàn bộ sản phẩm có đáp ứng được các đặc tả của nó hay không. Mặc dù cả hai thuật ngữ đều được định nghĩa trong bảng thuật ngữ kỹ thuật phần mềm IEEE [IEEE 610.12, 1990] theo cách này và mặc dù việc sử dụng phổ biến thuật ngữ V & V để biểu thị kiểm tra, các từ xác minh và xác thực được sử dụng ít nhất có thể trong điều này sách. Một lý do là, như đã giải thích trong Phần 6.5, từ xác minh có một nghĩa khác trong ngữ cảnh thử nghiệm. Lý do thứ hai là xác minh và xác thực cụm từ (hoặc V & V) ngụ ý rằng quá trình kiểm tra một dòng công việc có thể đợi cho đến khi kết thúc dòng công việc đó. Ngược lại, điều cần thiết là việc kiểm tra này phải được thực hiện song song với tất cả các hoạt động phát triển và bảo trì phần mềm. Do đó, để tránh những hàm ý không mong muốn của cụm từ V & V, thuật ngữ kiểm tra được sử dụng. Lý do thứ hai tại sao chúng tôi sử dụng kiểm tra từ là đây là thuật ngữ của Quy trình hợp nhất. Ví dụ: luồng công việc cốt lõi thứ f là luồng công việc thử nghiệm.
+
+	Về cơ bản có hai loại kiểm thử: kiểm thử dựa trên thực thi(execution-based testing) và kiểm thử không dựa trên thực thi(non-execution based testing). Ví dụ, không thể thực thi một tài liệu đặc tả bằng văn bản; các lựa chọn thay thế duy nhất là xem xét nó cẩn thận nhất có thể hoặc tùy thuộc vào một số hình thức phân tích. Tuy nhiên, một khi có mã thực thi, có thể chạy các trường hợp thử nghiệm, nghĩa là thực hiện thử nghiệm dựa trên thực thi. Tuy nhiên, sự tồn tại của mã không loại trừ thử nghiệm không dựa trên thực thi, bởi vì như sẽ được giải thích, việc xem xét mã một cách có phương pháp có thể phát hiện ra nhiều lỗi như khi chạy các trường hợp thử nghiệm. Trong chương này, các nguyên tắc của cả kiểm thử dựa trên thực thi và không dựa trên thực thi được mô tả. Các nguyên tắc này được áp dụng trong các Chương từ 11 đến 16, trong đó mô tả về từng quy trình làm việc của mô hình quy trình và các thực hành thử nghiệm cụ thể áp dụng cho quy trình đó. Hai lỗi đầu tiên được mô tả trong Chỉ trong trường hợp bạn muốn biết Hộp 1.1 đã dẫn đến hậu quả chết người. May mắn thay, trong hầu hết các trường hợp, kết quả của việc cung cấp phần mềm với các lỗi còn sót lại ít nghiêm trọng hơn đáng kể. Tuy nhiên, tầm quan trọng của thử nghiệm không thể bị nhấn mạnh quá mức.
+
+.......................................................................................................
+6.1 Quality Issues 
+	Chúng ta bắt đầu phần này bằng cách mở rộng các định nghĩa của Phần 1.11 liên quan đến thử nghiệm. Một fault được đưa vào phần mềm khi con người mắc mistake [IEEE 610.12, 1990]. Một sai lầm của chuyên gia phần mềm có thể gây ra một số lỗi; ngược lại, các mistake khác nhau có thể gây ra fault giống hệt nhau. Failure là hành vi không chính xác được quan sát thấy của sản phẩm phần mềm do fault và error là số lượng kết quả không chính xác [IEEE 610.12, 1990]. Một failure cụ thể có thể do một số fault gây ra và một số fault có thể không bao giờ gây ra failure. Từ  khiếm khuyết(defect) là một thuật ngữ chung cho một fault, failure hoặc error.
+
+	Bây giờ chúng ta chuyển sang vấn đề chất lượng. Thuật ngữ chất lượng(quality) thường bị hiểu nhầm khi được sử dụng trong ngữ cảnh phần mềm. Rốt cuộc, chất lượng bao hàm sự xuất sắc của một số loại, nhưng tiếc là điều này hiếm khi ý nghĩa của các kỹ sư phần mềm. Nói một cách thẳng thắn, tất cả những gì mà nhiều tổ chức phát triển phần mềm có thể đạt được chỉ đơn thuần là làm cho phần mềm hoạt động chính xác — sự xuất sắc là mức độ quan trọng hơn những gì thường thấy đối với các tổ chức ở cấp độ CMM 1 (Phần 3.13).
+
+	Chất lượng của phần mềm là mức độ mà sản phẩm đáp ứng các đặc tả của nó (xem Chỉ trong Trường hợp Bạn muốn Biết Hộp 6.1). Tuy nhiên, điều này là không đủ. Ví dụ, để đảm bảo rằng một sản phẩm có thể được bảo trì dễ dàng, sản phẩm đó phải được thiết kế tốt và được code một cách tỉ mỉ. Do đó, điều cần thiết là phần mềm phải có chất lượng cao, nhưng điều này không có nghĩa là đủ.
+
+	Nhiệm vụ của mọi chuyên gia phần mềm là luôn đảm bảo phần mềm chất lượng cao. Có nghĩa là, mỗi nhà phát triển và nhà bảo trì phải chịu trách nhiệm cá nhân kiểm tra xem công việc của mình có đúng hay không. Chất lượng không phải là thứ được thêm vào sau đó bởi nhóm đảm bảo chất lượng phần mềm (SQA) mà phải được xây dựng bởi các nhà phát triển ngay từ đầu. Một vai trò của nhóm SQA là đảm bảo rằng các nhà phát triển đang thực sự làm công việc chất lượng cao. Nhóm SQA cũng có các trách nhiệm bổ sung, như được mô tả trong Phần 6.1.1.
+
+//
+6.1.1 Software Quality Assurance 
+	Như đã nêu trước đây, một khía cạnh trong vai trò của nhóm SQA là kiểm tra xem sản phẩm của nhà phát triển có chính xác hay không. Chính xác hơn, một khi các nhà phát triển đã hoàn thành quy trình làm việc và kiểm tra cẩn thận công việc của họ, các thành viên của nhóm SQA phải đảm bảo rằng quy trình làm việc đã thực sự được thực hiện một cách chính xác. Ngoài ra, khi sản phẩm hoàn chỉnh và các nhà phát triển tin rằng toàn bộ sản phẩm là đúng, nhóm SQA phải đảm bảo rằng điều này là đúng. Tuy nhiên, việc đảm bảo chất lượng phần mềm còn đi xa hơn là chỉ kiểm tra khi kết thúc quy trình làm việc hoặc kết thúc quy trình phát triển. SQA áp dụng cho chính quy trình phần mềm. Ví dụ, trách nhiệm của nhóm SQA bao gồm việc phát triển các tiêu chuẩn khác nhau mà phần mềm phải tuân theo cũng như thiết lập các thủ tục giám sát để đảm bảo tuân thủ các tiêu chuẩn đó. Tóm lại, vai trò của nhóm SQA là đảm bảo chất lượng của quy trình phần mềm và do đó đảm bảo chất lượng của sản phẩm.
+
+6.1.2 Managerial Independence 
+	Điều quan trọng là phải có sự độc lập về mặt quản lý giữa nhóm phát triển và nhóm SQA. Đó là, sự phát triển nên dưới một người quản lý, SQA dưới một người quản lý khác và không người quản lý nào có thể vượt qua người kia. Lý do là, tất cả các lỗi nghiêm trọng thường xuyên được tìm thấy trong một sản phẩm khi thời hạn giao hàng đến gần. Tổ chức phần mềm bây giờ phải lựa chọn giữa hai phương án không đạt yêu cầu. Sản phẩm có thể được phát hành đúng hạn nhưng đầy lỗi, khiến khách hàng phải vật lộn với phần mềm bị lỗi, hoặc các nhà phát triển có thể sửa phần mềm nhưng giao hàng muộn. Không có vấn đề gì, khách hàng có thể sẽ mất sự quan tâm trong tổ chức phần mềm. Người quản lý chịu trách nhiệm phát triển không nên đưa ra quyết định phân phối phần mềm bị lỗi đúng thời hạn, cũng như người quản lý SQA không thể đưa ra quyết định thực hiện kiểm tra thêm và giao sản phẩm muộn. Thay vào đó, cả hai nhà quản lý nên báo cáo với một người quản lý cấp cao hơn, người có thể quyết định lựa chọn nào sẽ vì lợi ích tốt nhất của cả tổ chức phát triển phần mềm và khách hàng.
+	Ngay từ cái nhìn đầu tiên, việc có một nhóm SQA riêng biệt dường như sẽ làm tăng đáng kể chi phí phát triển phần mềm, nhưng điều này không phải như vậy. Chi phí bổ sung tương đối nhỏ so với lợi ích thu được - phần mềm chất lượng cao hơn. Nếu không có nhóm SQA, mọi thành viên của tổ chức phát triển phần mềm sẽ phải tham gia vào các hoạt động đảm bảo chất lượng ở một mức độ nào đó. Giả sử một tổ chức có 100 chuyên gia phần mềm và mỗi chuyên gia dành khoảng 30% thời gian của mình cho các hoạt động đảm bảo chất lượng. Thay vào đó, 100 cá nhân nên được chia thành hai nhóm, với 70 cá nhân thực hiện phát triển phần mềm và 30 người còn lại chịu trách nhiệm về SQA. Khoảng thời gian tương tự được dành cho SQA, chi phí bổ sung duy nhất để trở thành người quản lý lãnh đạo nhóm SQA. Đảm bảo chất lượng hiện có thể được thực hiện bởi một nhóm chuyên gia độc lập, dẫn đến sản phẩm có chất lượng cao hơn so với khi các hoạt động SQA được thực hiện trong toàn bộ tổ chức.
+Trong trường hợp của một công ty phần mềm rất nhỏ (bốn nhân viên trở xuống), việc có một nhóm SQA riêng có thể không hiệu quả về mặt kinh tế. Điều tốt nhất có thể được thực hiện trong những trường hợp như vậy là đảm bảo rằng các hiện vật phân tích được kiểm tra bởi một người nào đó không phải người chịu trách nhiệm sản xuất các hiện vật đó và tương tự đối với các hiện vật thiết kế, hiện vật mã, v.v. Lý do cho điều này được giải thích trong Phần 6.2.
+
+.......................................................................................................
+6.2 Non-Execution-Based Testing
+	Kiểm thử phần mềm mà không chạy các trường hợp kiểm thử được gọi là kiểm thử không dựa trên thực thi. Ví dụ về các phương pháp kiểm tra không dựa trên thực thi bao gồm xem xét phần mềm (đọc kỹ phần mềm) và phân tích phần mềm theo phương pháp toán học (Phần 6.5).
+	Người chịu trách nhiệm soạn thảo tài liệu không phải là người duy nhất chịu trách nhiệm xem xét tài liệu đó. Hầu hết mọi người đều có những điểm mù cho phép lỗi xâm nhập vào tài liệu và chính những điểm mù đó ngăn không cho lỗi được phát hiện khi xem xét. Do đó, nhiệm vụ xem xét phải được giao cho một người nào đó không phải là tác giả ban đầu của tài liệu. Ngoài ra, chỉ có một người đánh giá có thể không đủ; tất cả chúng ta đều đã có kinh nghiệm đọc qua một tài liệu nhiều lần trong khi không phát hiện ra lỗi chính tả trắng trợn mà người đọc thứ hai nhận ra gần như ngay lập tức. Đây là một nguyên tắc cơ bản của các kỹ thuật xem xét như hướng dẫn(walk-through) hoặc kiểm tra(inspection). Trong cả hai loại đánh giá, một tài liệu (chẳng hạn như tài liệu đặc tả hoặc tài liệu thiết kế) được kiểm tra cẩn thận bởi một nhóm các chuyên gia phần mềm với nhiều kỹ năng khác nhau. Điểm mạnh của đánh giá bởi một nhóm chuyên gia là các kỹ năng khác nhau của những người tham gia làm tăng cơ hội tìm ra lỗi. Ngoài ra, một nhóm các cá nhân có kỹ năng làm việc cùng nhau thường tạo ra hiệu ứng tổng hợp.
+	Hướng dẫn và kiểm soát là hai loại đánh giá. Sự khác biệt cơ bản giữa chúng là hướng dẫn có ít bước hơn và ít chính thức hơn so với kiểm tra.
+
+6.2.1 Walkthroughs 
+	Một nhóm hướng dẫn nên bao gồm bốn đến sáu cá nhân. Một nhóm hướng dẫn phân tích nên bao gồm ít nhất một đại diện từ nhóm chịu trách nhiệm thiết kế các đặc tả, người quản lý chịu trách nhiệm về quy trình phân tích, đại diện khách hàng, đại diện của nhóm sẽ thực hiện quy trình phát triển tiếp theo (trong trường hợp này nhóm thiết kế), và đại diện của nhóm đảm bảo chất lượng phần mềm. Vì những lý do sẽ được giải thích trong Phần 6.2.2, thành viên nhóm SQA nên chủ trì hướng dẫn.
+	Các thành viên của nhóm hướng dẫn, trong chừng mực có thể, là nhân viên kỹ thuật cao cấp có kinh nghiệm vì họ có xu hướng tìm ra các lỗi quan trọng. Tức là, họ phát hiện ra những lỗi có thể có tác động tiêu cực lớn đến dự án [R. Giao tiếp cá nhân, mới, 1992].
+	Tài liệu hướng dẫn phải được phân phát trước cho những người tham gia để có sự chuẩn bị kỹ lưỡng. Mỗi người đánh giá nên nghiên cứu tài liệu và phát triển hai danh sách: danh sách các mục mà người đánh giá không hiểu và danh sách các mục mà người đánh giá cho là không chính xác.
+
+6.2.2 Managing Walkthroughs
+	Hướng dẫn nên được chủ trì bởi đại diện SQA vì đại diện SQA sẽ mất nhiều thứ nhất nếu hướng dẫn được thực hiện kém và lỗi trượt qua. Ngược lại, người đại diện chịu trách nhiệm về quy trình phân tích có thể mong muốn được phê duyệt tài liệu đặc điểm kỹ thuật càng nhanh càng tốt để bắt đầu một số nhiệm vụ khác. Đại diện khách hàng có thể quyết định rằng bất kỳ lỗi nào không được phát hiện trong quá trình xem xét có thể sẽ xuất hiện trong quá trình kiểm tra chấp nhận và được khắc phục tại thời điểm đó mà tổ chức khách hàng không phải trả phí. Nhưng đại diện của SQA bị đe dọa nhiều nhất: Chất lượng của sản phẩm là sự phản ánh trực tiếp năng lực chuyên môn của nhóm SQA.
+	Người dẫn đầu hướng dẫn hướng dẫn các thành viên khác của nhóm hướng dẫn thông qua tài liệu để phát hiện ra bất kỳ lỗi nào. Nhiệm vụ của nhóm không phải là sửa lỗi, mà chỉ đơn thuần là ghi lại chúng để sửa chữa sau này. Có bốn lý do cho điều này:
+	1. Bản chỉnh sửa do một ủy ban (tức là nhóm hướng dẫn) đưa ra trong thời gian hạn chế của hướng dẫn có thể có chất lượng thấp hơn so với bản chỉnh sửa do một cá nhân được đào tạo về kỹ thuật cần thiết tạo ra.
+	2. Một sửa đổi do một nhóm hướng dẫn gồm năm cá nhân tạo ra sẽ mất ít nhất thời gian bằng một chỉnh sửa do một người thực hiện và do đó, tốn kém gấp năm lần khi lương của năm người tham gia được xem xét.
+	3. Không phải tất cả các mục được gắn cờ là lỗi thực sự đều không chính xác. Theo đúng câu châm ngôn, "Nếu nó không bị hỏng, đừng sửa nó", tốt hơn là các lỗi nên được phân tích một cách có phương pháp và chỉ sửa chữa nếu thực sự có vấn đề, hơn là nhờ một nhóm cố gắng "sửa chữa" một cái gì đó là hoàn toàn chính xác.
+	4. Đơn giản là không có đủ thời gian trong một hướng dẫn để phát hiện và sửa lỗi. Không có hướng dẫn nào sẽ kéo dài hơn 2 giờ. Nên dành thời gian để phát hiện và ghi lại các lỗi, không phải sửa chữa chúng.
+
+	Có hai cách để thực hiện một hướng dẫn. Đầu tiên là do người tham gia điều khiển. Những người tham gia trình bày danh sách các mục không rõ ràng và các mục mà họ cho là không chính xác. Đại diện của nhóm phân tích phải trả lời từng câu hỏi, làm rõ những gì chưa rõ ràng cho người đánh giá và đồng ý rằng thực sự có lỗi hoặc giải thích tại sao người đánh giá lại nhầm lẫn.
+	
+	Cách thứ hai để tiến hành đánh giá là theo hướng tài liệu. Một người chịu trách nhiệm về tài liệu, với tư cách cá nhân hoặc là một phần của nhóm, hướng dẫn những người tham gia xem qua tài liệu đó, với những người đánh giá làm gián đoạn bằng các nhận xét đã chuẩn bị của họ hoặc nhận xét được kích hoạt bởi bài thuyết trình. Cách tiếp cận thứ hai này có thể triệt để hơn. Ngoài ra, nó thường dẫn đến việc phát hiện nhiều lỗi hơn bởi vì phần lớn các lỗi trong một hướng dẫn tài liệu được phát hiện một cách tự nhiên bởi người trình bày. Hết lần này đến lần khác, người thuyết trình sẽ dừng lại ở giữa câu, khuôn mặt của họ sẽ sáng lên, và một lỗi, một lỗi đã nằm im trong nhiều lần đọc tài liệu, đột nhiên trở nên rõ ràng. Một lĩnh vực hiệu quả cho nghiên cứu của một nhà tâm lý học sẽ là xác định lý do tại sao việc diễn đạt bằng lời thường dẫn đến phát hiện lỗi trong quá trình hướng dẫn tất cả các loại, bao gồm hướng dẫn yêu cầu, hướng dẫn phân tích, hướng dẫn thiết kế, hướng dẫn lập kế hoạch và hướng dẫn mã. Không có gì ngạc nhiên khi việc xem xét tài liệu được kiểm chứng kỹ lưỡng hơn là kỹ thuật được quy định trong Tiêu chuẩn IEEE về Đánh giá Phần mềm [IEEE 1028, 1997].
+	Vai trò chính của người lãnh đạo hướng dẫn là gợi ra câu hỏi và tạo điều kiện cho cuộc thảo luận. Hướng dẫn là một quá trình tương tác; nó không được cho là chỉ dẫn một chiều của người thuyết trình. Điều cần thiết là hướng dẫn không được sử dụng như một phương tiện đánh giá những người tham gia. Nếu điều đó xảy ra, hướng dẫn sẽ biến thành một phiên ghi điểm và không phát hiện ra lỗi, bất kể người điều hành phiên có cố gắng chạy nó tốt như thế nào. Người ta đề xuất rằng người quản lý chịu trách nhiệm về tài liệu đang được xem xét nên là thành viên của nhóm hướng dẫn. Nếu người quản lý này cũng chịu trách nhiệm về đánh giá hàng năm của các thành viên của nhóm hướng dẫn (và đặc biệt là của người trình bày), thì khả năng phát hiện lỗi của nhóm sẽ bị ảnh hưởng, bởi vì động cơ chính của người trình bày sẽ là giảm thiểu số lượng lỗi hiển thị. Để ngăn chặn xung đột lợi ích này, người chịu trách nhiệm về một quy trình công việc nhất định cũng không nên chịu trách nhiệm trực tiếp đánh giá bất kỳ thành viên nào của nhóm hướng dẫn về quy trình làm việc đó
+
+6.2.3 Inspections
+	Lần đầu tiên Fagan đề xuất kiểm tra [1976] để kiểm tra thiết kế và mã. Một cuộc kiểm tra vượt xa một hướng dẫn và có năm bước chính thức.
+	1. Tổng quan về tài liệu sẽ được kiểm tra (yêu cầu, đặc điểm, thiết kế, mã hoặc kế hoạch) được cung cấp bởi một trong những cá nhân chịu trách nhiệm sản xuất tài liệu đó. Vào cuối phần tổng quan, tài liệu được phát cho các học viên.
+	2. Trong quá trình chuẩn bị, những người tham gia cố gắng hiểu tài liệu một cách chi tiết. Danh sách các loại lỗi được tìm thấy trong các cuộc kiểm tra gần đây, với các loại lỗi được xếp hạng theo tần suất, là những trợ giúp tuyệt vời. Các danh sách này giúp các thành viên trong nhóm tập trung vào các khu vực đã xảy ra nhiều lỗi nhất.
+	3. Để bắt đầu việc kiểm tra, một người tham gia cùng đoàn kiểm tra xem qua tài liệu, đảm bảo rằng mọi hạng mục đều được che đậy và mọi nhánh đều được thực hiện ít nhất một lần. Sau đó, việc tìm kiếm lỗi bắt đầu. Như với hướng dẫn, mục đích là để tìm và ghi lại các lỗi, không phải để sửa chúng. Trong thời hạn một ngày, Trưởng đoàn kiểm tra (người điều hành) phải lập báo cáo bằng văn bản về việc kiểm tra để đảm bảo việc theo dõi một cách tỉ mỉ.
+	4. Trong quá trình làm lại, cá nhân chịu trách nhiệm về tài liệu giải quyết tất cả các lỗi và các vấn đề được ghi nhận trong báo cáo bằng văn bản.
+	5. Trong quá trình theo dõi, người kiểm duyệt phải đảm bảo rằng mọi vấn đề được nêu ra đã được giải quyết một cách ổn thỏa, bằng cách sửa chữa tài liệu hoặc làm rõ các mục bị gắn cờ không chính xác là lỗi. Tất cả các bản sửa lỗi phải được kiểm tra để đảm bảo rằng không có lỗi mới nào được đưa ra [Fagan, 1986]. Nếu hơn 5 phần trăm tài liệu được kiểm tra đã được làm lại, thì nhóm phải triệu tập lại để kiểm tra lại 100 phần trăm.
+	
+	Việc kiểm tra nên được tiến hành bởi một nhóm bốn người. Ví dụ, trong trường hợp kiểm tra thiết kế, nhóm bao gồm người kiểm duyệt, người thiết kế, người thực hiện và người thử nghiệm. Người điều hành vừa là người quản lý vừa là trưởng đoàn thanh tra. Phải có đại diện của nhóm chịu trách nhiệm về quy trình công việc hiện tại cũng như đại diện của nhóm chịu trách nhiệm về quy trình tiếp theo. Nhà thiết kế là một thành viên của nhóm tạo ra thiết kế, trong khi người thực hiện chịu trách nhiệm, với tư cách cá nhân hoặc là một phần của nhóm, về việc dịch thiết kế thành mã. Fagan gợi ý rằng người kiểm thử là bất kỳ lập trình viên nào chịu trách nhiệm thiết lập các trường hợp kiểm thử; tất nhiên, tốt hơn là người thử nghiệm là thành viên của nhóm SQA. Tiêu chuẩn IEEE đề xuất một nhóm từ ba đến sáu người tham gia [IEEE 1028, 1997]. Các vai trò đặc biệt được thực hiện bởi người kiểm duyệt, người đọc dẫn dắt nhóm thông qua thiết kế và người ghi chịu trách nhiệm tạo ra một báo cáo bằng văn bản về các lỗi được phát hiện.
+	
+	Một thành phần thiết yếu của việc kiểm tra là danh sách kiểm tra các lỗi tiềm ẩn. Ví dụ, danh sách kiểm tra cho một cuộc kiểm tra thiết kế nên bao gồm các mục như sau: Mỗi mục của tài liệu trích dẫn cụ thể có được giải quyết đầy đủ và chính xác không? Đối với mỗi giao diện, các đối số thực tế và chính thức có tương ứng không? Các cơ chế xử lý lỗi đã được xác định đầy đủ chưa? Thiết kế có tương thích với tài nguyên phần cứng hay nó yêu cầu nhiều phần cứng hơn thực tế? Thiết kế có tương thích với tài nguyên phần mềm không; ví dụ, hệ điều hành được quy định trong các hiện vật phân tích có chức năng theo yêu cầu của thiết kế không?
+	
+	Một thành phần quan trọng của quy trình kiểm tra là hồ sơ thống kê lỗi. Các lỗi phải được ghi lại theo mức độ nghiêm trọng (lớn hoặc nhỏ; ví dụ về lỗi lớn là lỗi gây ra kết thúc sớm hoặc làm hỏng cơ sở dữ liệu) và loại lỗi. Trong trường hợp kiểm tra thiết kế, các dạng lỗi điển hình bao gồm lỗi giao diện và lỗi logic. Thông tin này có thể được sử dụng theo một số cách hữu ích:
+	• Số lượng lỗi trong một sản phẩm nhất định có thể được so sánh với mức trung bình của các lỗi được phát hiện ở cùng giai đoạn phát triển của các sản phẩm tương đương, giúp ban lãnh đạo cảnh báo sớm rằng có điều gì đó không ổn và cho phép thực hiện hành động khắc phục kịp thời.
+	• Nếu việc kiểm tra hai hoặc ba phần mềm mã dẫn đến việc phát hiện ra một số lượng lỗi không tương xứng của một loại cụ thể, ban quản lý có thể bắt đầu kiểm tra các phần mềm mã khác để tìm các lỗi thuộc loại đó và thực hiện hành động sửa chữa nếu cần.
+ 	• Nếu việc kiểm tra một hiện vật mã cụ thể cho thấy nhiều lỗi hơn so với bất kỳ hiện vật mã nào khác trong sản phẩm, thì thường có một trường hợp mạnh mẽ là thiết kế lại hiện vật đó từ đầu và triển khai thiết kế mới
+	• Thông tin liên quan đến số lượng và các loại lỗi được phát hiện trong quá trình kiểm tra hiện vật thiết kế hỗ trợ nhóm thực hiện kiểm tra mã việc thực hiện hiện vật đó ở giai đoạn sau.
+
+	Thí nghiệm đầu tiên của Fagan [1976] được thực hiện trên một sản phẩm hệ thống. Một trăm giờ người đã được dành cho việc kiểm tra, với tốc độ hai cuộc kiểm tra kéo dài 2 giờ mỗi ngày bởi một nhóm bốn người. Trong số tất cả các lỗi được tìm thấy trong quá trình phát triển sản phẩm, 67% được xác định là do kiểm tra trước khi bắt đầu thử nghiệm đơn vị. Hơn nữa, trong 7 tháng đầu tiên sau khi sản phẩm được lắp đặt, ít hơn 38% lỗi được phát hiện trong sản phẩm được kiểm tra so với sản phẩm tương đương được đánh giá bằng cách sử dụng các hướng dẫn không chính thức.
+	Fagan [1976] đã tiến hành một thử nghiệm khác trên một sản phẩm ứng dụng và nhận thấy rằng 82% của tất cả các lỗi được phát hiện đã được phát hiện trong quá trình kiểm tra thiết kế và mã. Một tác dụng phụ hữu ích của việc kiểm tra là năng suất của lập trình viên tăng lên vì phải dành ít thời gian hơn cho việc kiểm tra đơn vị. Sử dụng mô hình ước tính tự động, Fagan xác định rằng, do kết quả của quá trình kiểm tra, việc tiết kiệm tài nguyên của lập trình viên là 25% mặc dù thời gian phải dành cho việc kiểm tra. Trong một thí nghiệm khác, Jones [1978] phát hiện ra rằng hơn 70 phần trăm các lỗi được phát hiện có thể được phát hiện bằng cách tiến hành kiểm tra thiết kế và mã.
+	Các nghiên cứu sau đó cũng cho kết quả ấn tượng không kém. Trong một ứng dụng xử lý dữ liệu kinh doanh 6000 dòng, 93 phần trăm tất cả các lỗi được phát hiện đã được tìm thấy trong quá trình kiểm tra [Fagan, 1986]. Như đã báo cáo trong [Ackerman, Buchwald và Lewski, 1989], việc sử dụng kiểm tra thay vì kiểm tra trong quá trình phát triển hệ điều hành đã giảm 85% chi phí phát hiện lỗi; trong một sản phẩm hệ thống chuyển mạch, mức giảm là 90% [Fowler, 1986]. Tại Phòng thí nghiệm Sức đẩy Phản lực (JPL), trung bình mỗi đợt kiểm tra kéo dài 2 giờ cho thấy 4 lỗi chính và 14 lỗi nhỏ [Bush, 1990]. Được dịch sang thuật ngữ đô la, điều này có nghĩa là tiết kiệm được khoảng 25.000 đô la cho mỗi lần kiểm tra. Một nghiên cứu khác của JPL [Kelly, Sherif và Hops, 1992] cho thấy rằng số lượng lỗi được phát hiện giảm theo cấp số nhân theo giai đoạn cổ điển. Nói cách khác, với sự hỗ trợ của kiểm tra, các lỗi có thể được phát hiện sớm trong quy trình phần mềm. Tầm quan trọng của việc phát hiện sớm này được phản ánh trong Hình 1.6.
+	Một lợi thế mà việc kiểm tra mã có được khi chạy các trường hợp kiểm thử (kiểm thử dựa trên thực thi) là người kiểm tra không cần phải đối phó với các lỗi. Nó thường xảy ra rằng, khi một sản phẩm đang được kiểm tra được thực thi, nó không thành công. Lỗi gây ra lỗi bây giờ phải được xác định và khắc phục trước khi thử nghiệm dựa trên thực thi có thể tiếp tục. Ngược lại, lỗi được tìm thấy trong mã trong quá trình kiểm tra không dựa trên thực thi được ghi lại và quá trình xem xét tiếp tục.
+	Một rủi ro của quy trình kiểm tra là, giống như hướng dẫn, nó có thể được sử dụng để đánh giá hiệu suất. Nguy hiểm đặc biệt nghiêm trọng trong trường hợp kiểm tra vì có sẵn thông tin lỗi chi tiết. Fagan loại bỏ nỗi sợ hãi này bằng cách nói rằng, trong khoảng thời gian 3 năm, anh ta không biết một người quản lý nào của IBM đã sử dụng những thông tin như vậy để chống lại một lập trình viên, hay như anh ta nói, không một người quản lý nào cố gắng “giết con ngỗng đẻ trứng vàng” [ Fagan, 1976]. Tuy nhiên, nếu việc kiểm tra không được tiến hành đúng cách, chúng có thể không thành công rực rỡ như ở IBM. Trừ khi lãnh đạo cao nhất nhận thức được vấn đề tiềm ẩn, việc sử dụng sai thông tin thanh tra là một khả năng khác biệt
+
+6.2.4 Comparison of Inspections and Walkthroughs
+	Nhìn bề ngoài, sự khác biệt giữa kiểm tra và hướng dẫn là đoàn kiểm tra sử dụng danh sách kiểm tra các truy vấn để hỗ trợ tìm ra lỗi. Nhưng sự khác biệt còn sâu sắc hơn thế. Hướng dẫn là một quá trình gồm hai bước: chuẩn bị sau đó là phân tích tài liệu theo nhóm. Kiểm tra là một quá trình gồm nhiều bước: tổng quan, chuẩn bị, kiểm tra, làm lại và theo dõi; và quy trình phải tuân theo trong mỗi bước được chính thức hóa. Ví dụ về việc chính thức hóa như vậy là việc phân loại một cách có phương pháp các lỗi và sử dụng thông tin đó trong việc kiểm tra các tài liệu của các quy trình công việc tiếp theo cũng như trong việc kiểm tra các sản phẩm trong tương lai.
+	Quá trình kiểm tra mất nhiều thời gian hơn một hướng dẫn. Việc kiểm tra có xứng đáng với thời gian và nỗ lực bổ sung không? Dữ liệu của Phần 6.2.3 chỉ ra rõ ràng rằng kiểm tra là một công cụ mạnh mẽ, hiệu quả về chi phí để phát hiện lỗi.
+
+6.2.5 Strengths and Weaknesses of Reviews 
+	Có hai điểm mạnh chính của đánh giá (hướng dẫn hoặc kiểm tra). Đầu tiên, xem xét là một cách hiệu quả để phát hiện ra lỗi; thứ hai, các lỗi được phát hiện sớm trong quá trình phần mềm, tức là trước khi chúng trở nên tốn kém để sửa chữa. Ví dụ: lỗi thiết kế được phát hiện trước khi bắt đầu triển khai và lỗi code được tìm thấy trước khi tạo tác được tích hợp vào sản phẩm. Tuy nhiên, hiệu quả của việc xem xét có thể bị giảm nếu quy trình phần mềm không đầy đủ.
+	• Đầu tiên, phần mềm quy mô lớn cực kỳ khó để xem xét trừ khi nó bao gồm các thành phần nhỏ hơn, phần lớn độc lập. Một điểm mạnh của mô hình hướng đối tượng là, nếu được thực hiện một cách chính xác, sản phẩm thu được sẽ bao gồm phần lớn các phần độc lập.
+	• Thứ hai, một nhóm đánh giá thiết kế đôi khi phải tham khảo các hiện vật phân tích; một nhóm đánh giá mã thường cần quyền truy cập vào các tài liệu thiết kế. Trừ khi tài liệu về quy trình công việc trước đó đã hoàn chỉnh, được cập nhật để phản ánh phiên bản hiện tại của dự án và có sẵn trực tuyến, hiệu quả của các nhóm đánh giá bị cản trở nghiêm trọng.
+
+6.2.6 Metrics for Inspections 
+	Để xác định hiệu quả của việc kiểm tra, có thể sử dụng một số thước đo khác nhau. Đầu tiên là tỷ lệ kiểm tra(inspection rate). Khi các đặc tả và thiết kế được kiểm tra, số lượng trang được kiểm tra mỗi giờ có thể được đo lường; để kiểm tra mã, một số liệu thích hợp là các dòng mã được kiểm tra mỗi giờ. Số liệu thứ hai là mật độ lỗi (fault density), được đo bằng lỗi trên mỗi trang được kiểm tra hoặc lỗi trên 1000 dòng mã (KLOC) được kiểm tra. Số liệu này có thể được chia nhỏ thành các lỗi lớn trên một đơn vị vật liệu và các lỗi nhỏ trên một đơn vị tài liệu. Một số liệu hữu ích khác là tỷ lệ phát hiện lỗi(fault detection rate), tức là số lỗi lớn và nhỏ được phát hiện mỗi giờ. Chỉ số thứ tư là hiệu quả phát hiện lỗi(fault detection efficiency), tức là số lỗi lớn và nhỏ được phát hiện trên một người / giờ.
+	Mặc dù mục đích của các thước đo này là để đo lường hiệu quả của quá trình kiểm tra, thay vào đó, kết quả có thể phản ánh những thiếu sót của nhóm phát triển. Ví dụ, nếu tỷ lệ phát hiện lỗi đột ngột tăng từ 20 lỗi trên một nghìn dòng mã lên 30, điều này không nhất thiết có nghĩa là nhóm kiểm tra đột nhiên trở nên hiệu quả hơn 50%. Một lời giải thích khác có thể là chất lượng của mã đã giảm và đơn giản là có nhiều lỗi được phát hiện hơn.
+Đã thảo luận về kiểm thử không dựa trên thực thi, bây giờ chúng ta chuyển sang kiểm tra dựa trên thực thi.
+
+.......................................................................................................
+6.3 Execution-Based Testing
+	Người ta đã tuyên bố rằng thử nghiệm là một minh chứng rằng lỗi ("lỗi") không có mặt. Mặc dù một số tổ chức chi tới 50 phần trăm ngân sách phần mềm của họ cho việc thử nghiệm, nhưng phần mềm “đã được thử nghiệm” được phân phối nổi tiếng là không đáng tin cậy.
+	Lý do cho sự mâu thuẫn này rất đơn giản. Như Dijkstra đã nói, “Kiểm tra chương trình có thể là một cách rất hiệu quả để chỉ ra sự hiện diện của lỗi, nhưng nó không đủ khả năng để chỉ ra sự vắng mặt của chúng” [Dijkstra, 1972]. Điều Dijkstra đang nói là, nếu một sản phẩm được thực thi với dữ liệu thử nghiệm và kết quả đầu ra bị sai, thì sản phẩm đó chắc chắn có lỗi. Nhưng, nếu đầu ra là chính xác, thì vẫn có thể có lỗi trong sản phẩm; thông tin duy nhất có thể được suy ra từ thử nghiệm cụ thể đó là sản phẩm chạy chính xác trên tập dữ liệu thử nghiệm cụ thể đó.
+
+.......................................................................................................
+6.4 What Should Be Tested? 
+	Để có thể mô tả những thuộc tính nào nên được kiểm thử, trước tiên cần phải đưa ra một mô tả chính xác về kiểm thử dựa trên thực thi. Theo Goodenough [1979], kiểm thử dựa trên thực thi là một quá trình suy ra các thuộc tính hành vi nhất định của một sản phẩm, một phần dựa trên kết quả của việc thực thi sản phẩm trong một môi trường đã biết với các đầu vào được chọn. Định nghĩa này có ba hàm ý đáng lo ngại.
+	
+	1. Đầu tiên, định nghĩa nói rằng thử nghiệm là một quá trình suy diễn. Người thử nghiệm lấy sản phẩm, chạy nó với dữ liệu đầu vào đã biết và kiểm tra đầu ra. Người thử nghiệm phải suy ra điều gì, nếu có gì sai với sản phẩm. Từ quan điểm này, thử nghiệm có thể so sánh với việc cố gắng tìm con mèo đen trong phòng tối, nhưng không biết con mèo có ở trong phòng hay không ngay từ đầu. Người kiểm tra có một vài manh mối để giúp tìm ra bất kỳ lỗi nào: có lẽ 10 hoặc 20 bộ đầu vào và đầu ra tương ứng, có thể là báo cáo lỗi của người dùng và hàng nghìn dòng mã. Từ đó, người thử nghiệm phải suy ra xem có lỗi gì không và nếu có thì đó là lỗi gì.
+	
+	2. Một vấn đề với định nghĩa phát sinh từ cụm từ trong một môi trường đã biết. Chúng ta không bao giờ thực sự có thể biết được môi trường của mình, cả phần cứng hay phần mềm. Chúng tôi không bao giờ có thể chắc chắn rằng hệ điều hành đang hoạt động chính xác hoặc các quy trình thời gian chạy là chính xác. Lỗi phần cứng ngắt quãng có thể nằm trong bộ nhớ chính của máy tính. Vì vậy, những gì được quan sát là hành vi của sản phẩm trên thực tế có thể là một sản phẩm chính xác tương tác với trình biên dịch bị lỗi hoặc phần cứng bị lỗi hoặc một số thành phần bị lỗi khác của môi trường.
+	
+	3. Một phần đáng lo ngại khác trong định nghĩa của kiểm thử dựa trên thực thi là cụm từ với các đầu vào được chọn. Trong trường hợp hệ thống thời gian thực, thường không thể kiểm soát được các đầu vào của hệ thống. Xem xét phần mềm điện tử hàng không. Hệ thống điều khiển chuyến bay có hai loại đầu vào. Loại đầu vào đầu tiên là những gì phi công muốn máy bay thực hiện. Nếu phi công kéo cần điều khiển lên cao hoặc mở bướm ga để tăng tốc độ của máy bay, các chuyển động cơ học này sẽ được chuyển thành tín hiệu kỹ thuật số gửi đến máy tính điều khiển chuyến bay. Loại đầu vào thứ hai là trạng thái vật lý hiện tại của máy bay, chẳng hạn như độ cao, tốc độ và độ cao của cánh tà. Phần mềm điều khiển chuyến bay sử dụng các giá trị của các đại lượng đó để tính toán tín hiệu nào sẽ được gửi đến các bộ phận của máy bay, chẳng hạn như cánh và động cơ, để thực hiện các chỉ thị của phi công. Trong khi đầu vào của phi công có thể dễ dàng được đặt thành bất kỳ giá trị mong muốn nào chỉ đơn giản bằng cách đặt các điều khiển của máy bay một cách thích hợp, thì không thể thao tác dễ dàng các đầu vào tương ứng với trạng thái vật lý hiện tại của máy bay. Trên thực tế, không có cách nào có thể buộc máy bay cung cấp “đầu vào đã chọn”.
+	
+	Làm thế nào để một hệ thống thời gian thực như vậy có thể được kiểm tra? Câu trả lời là sử dụng một trình mô phỏng. Mô phỏng là một mô hình hoạt động của môi trường mà sản phẩm, trong trường hợp này là phần mềm điều khiển chuyến bay, thực thi. Phần mềm điều khiển chuyến bay có thể được kiểm tra bằng cách làm cho trình mô phỏng gửi các đầu vào đã chọn đến phần mềm điều khiển chuyến bay. Trình mô phỏng có các điều khiển cho phép người vận hành đặt biến đầu vào thành bất kỳ giá trị đã chọn nào. Nếu mục đích của thử nghiệm là xác định cách phần mềm điều khiển chuyến bay hoạt động nếu một động cơ bốc cháy, thì các điều khiển của bộ mô phỏng được thiết lập để đầu vào được gửi đến phần mềm điều khiển chuyến bay không thể phân biệt được với đầu vào sẽ được gửi nếu động cơ của máy bay thực tế đã bốc cháy. Đầu ra được phân tích bằng cách kiểm tra các tín hiệu đầu ra được gửi từ phần mềm điều khiển chuyến bay đến bộ mô phỏng. Tuy nhiên, tốt nhất, một trình mô phỏng có thể là một mô hình gần đúng tốt của một mô hình trung thực về một số khía cạnh của hệ thống; nó không bao giờ có thể là chính hệ thống. Sử dụng trình mô phỏng có nghĩa là, trong khi thực sự có “môi trường đã biết”, thì có rất ít khả năng rằng môi trường đã biết này giống với môi trường thực tế mà sản phẩm sẽ được cài đặt theo mọi cách.
+Định nghĩa trước về kiểm tra nói về “các thuộc tính hành vi”. Những đặc tính hành vi nào phải được kiểm tra? Một câu trả lời rõ ràng là, Kiểm tra xem sản phẩm có hoạt động chính xác hay không. Tuy nhiên, như sẽ được trình bày, tính đúng đắn là không cần thiết cũng không phải là đủ. Trước khi thảo luận về tính đúng đắn, bốn thuộc tính hành vi khác được xem xét: tiện ích, độ tin cậy, tính mạnh mẽ và hiệu suất [Goodenough, 1979].
+
+6.4.1 Utility
+	Tiện ích là mức độ mà nhu cầu của người dùng được đáp ứng khi một sản phẩm chính xác được sử dụng trong các điều kiện được đặc tả của nó cho phép. Nói cách khác, một sản phẩm đang hoạt động bình thường bây giờ phải chịu các yếu tố đầu vào hợp lệ về mặt đặc tả. Ví dụ, người dùng có thể kiểm tra mức độ dễ sử dụng của sản phẩm, liệu sản phẩm có thực hiện các chức năng hữu ích hay không và liệu sản phẩm có hiệu quả về chi phí so với các sản phẩm cạnh tranh hay không. Bất kể sản phẩm có đúng hay không, những vấn đề quan trọng này đều phải được kiểm tra. Nếu sản phẩm không hiệu quả về chi phí, thì chẳng ích lợi gì khi mua nó. Và trừ khi sản phẩm dễ sử dụng, nó sẽ không được sử dụng ở tất cả hoặc nó sẽ được sử dụng không đúng cách. Do đó, khi cân nhắc mua một sản phẩm hiện có (bao gồm cả phần mềm được bọc lại), trước tiên nên thử nghiệm tiện ích của sản phẩm, và nếu sản phẩm không đạt điểm đó, việc thử nghiệm nên dừng lại.
+
+6.4.2 Reliability
+	Một khía cạnh khác của một sản phẩm phải được kiểm tra là độ tin cậy của nó. Độ tin cậy là thước đo tần suất và mức độ nghiêm trọng của lỗi sản phẩm; nhớ lại rằng lỗi là một tác động hoặc hành vi không thể chấp nhận được, trong các điều kiện vận hành cho phép, xảy ra do lỗi. Nói cách khác, cần phải biết mức độ thường xuyên của sản phẩm bị lỗi (thời gian trung bình giữa các lần hỏng hóc) và mức độ ảnh hưởng xấu của việc hỏng hóc đó. Khi một sản phẩm bị lỗi, một vấn đề quan trọng là thời gian sửa chữa trung bình là bao lâu (nghĩa là thời gian sửa chữa). Nhưng, thường quan trọng hơn là mất bao lâu để sửa chữa kết quả của lỗi. Điểm cuối cùng này thường bị bỏ qua. Giả sử rằng phần mềm chạy trên giao diện người dùng bị lỗi, trung bình, chỉ 6 tháng một lần; nhưng khi nó không thành công, nó hoàn toàn xóa sạch một cơ sở dữ liệu. Tốt nhất, cơ sở dữ liệu có thể được khởi động lại về trạng thái của nó khi kết xuất điểm kiểm tra cuối cùng được thực hiện và dấu vết kiểm tra sau đó có thể được sử dụng để đưa cơ sở dữ liệu vào trạng thái hầu như được cập nhật. Tuy nhiên, nếu quá trình khôi phục này kéo dài hơn 2 ngày, trong đó cơ sở dữ liệu và giao diện người dùng không hoạt động, thì độ tin cậy của sản phẩm thấp, mặc dù thời gian trung bình giữa các lỗi là 6 tháng.
+
+6.4.3 Robustness
+	Một khía cạnh khác của mọi sản phẩm yêu cầu thử nghiệm là tính mạnh mẽ của nó. Mặc dù rất khó để đưa ra một định nghĩa chính xác, nhưng về cơ bản, tính mạnh mẽ là hàm của một số yếu tố, chẳng hạn như phạm vi điều kiện hoạt động, khả năng xảy ra kết quả không được chấp nhận với đầu vào hợp lệ và khả năng chấp nhận các hiệu ứng khi sản phẩm được đưa đâu vao không hợp lệ. Một sản phẩm có nhiều điều kiện hoạt động cho phép sẽ mạnh mẽ hơn một sản phẩm hạn chế hơn. Một sản phẩm mạnh sẽ không mang lại kết quả không thể chấp nhận được khi đầu vào thỏa mãn các đặc tả của nó; ví dụ, đưa ra một lệnh hợp lệ sẽ không gây ra hậu quả tai hại. Một sản phẩm chắc chắn sẽ không bị hỏng khi sản phẩm không được sử dụng trong các điều kiện hoạt động cho phép. Để kiểm tra khía cạnh độ bền này, dữ liệu thử nghiệm không đáp ứng các đặc tả đầu vào được cố tình nhập và người thử nghiệm xác định mức độ phản ứng của sản phẩm. Ví dụ: khi sản phẩm yêu cầu một tên, người thử nghiệm có thể trả lời bằng một luồng ký tự không được chấp nhận, chẳng hạn như control-A Escape-%? $ # @. Nếu máy tính phản hồi bằng một thông báo chẳng hạn như Dữ liệu không chính xác — Hãy thử lại hoặc tốt hơn là thông báo cho người dùng về lý do tại sao dữ liệu không phù hợp với những gì mong đợi, nó mạnh mẽ hơn một sản phẩm gặp sự cố bất cứ khi nào dữ liệu sai lệch một chút những gì được yêu cầu.
+
+6.4.4 Performance
+	Hiệu suất là một khía cạnh khác của sản phẩm phải được kiểm tra. Ví dụ, điều cần thiết là phải biết mức độ mà sản phẩm đáp ứng các hạn chế của nó liên quan đến các yêu cầu về thời gian hoặc không gian đáp ứng. Đối với một hệ thống máy tính nhúng, chẳng hạn như một máy tính tích hợp trong tên lửa phòng không cầm tay, các hạn chế về không gian của hệ thống có thể là chỉ 128 megabyte (MB) bộ nhớ chính có sẵn cho phần mềm. Cho dù phần mềm có xuất sắc đến đâu, nếu nó cần 256 MB bộ nhớ chính, thì nó không thể sử dụng được. (Để biết thêm thông tin về phần mềm nhúng, hãy xem Chỉ trong trường hợp bạn muốn biết ở Hộp 6.2.)
+	Phần mềm thời gian thực được đặc trưng bởi các hạn chế về thời gian, nghĩa là các hạn chế về thời gian có tính chất như vậy, nếu một hạn chế không được đáp ứng, thông tin sẽ bị mất. Ví dụ, một hệ thống điều khiển lò phản ứng hạt nhân có thể phải lấy mẫu nhiệt độ của lõi và xử lý dữ liệu cứ 10 giây một lần. Nếu hệ thống không đủ nhanh để xử lý các ngắt từ cảm biến nhiệt độ cứ sau 10 giây thì dữ liệu sẽ bị mất và không có cách nào khôi phục được dữ liệu; lần tiếp theo hệ thống nhận được dữ liệu nhiệt độ, nó sẽ là nhiệt độ hiện tại, không phải là số đọc đã bị bỏ lỡ. Nếu lò phản ứng đang ở điểm nóng chảy, thì điều quan trọng là tất cả các thông tin liên quan phải được nhận và xử lý như đã nêu trong các đặc tả. Với tất cả các hệ thống thời gian thực, hiệu suất phải đáp ứng mọi giới hạn thời gian được liệt kê trong đặc tả.
+
+6.4.5 Correctness 
+	Cuối cùng, một định nghĩa về tính chính xác có thể được đưa ra. Một sản phẩm là chính xác nếu nó thỏa mãn đặc tả đầu ra của nó, độc lập với việc sử dụng tài nguyên điện toán, khi hoạt động theo các điều kiện được phép [Goodenough, 1979]. Nói cách khác, nếu đầu vào thỏa mãn đặc tả đầu vào được cung cấp và sản phẩm được cung cấp tất cả các tài nguyên cần thiết, thì sản phẩm là chính xác nếu đầu ra đáp ứng các đặc tả đầu ra.
+	Định nghĩa về tính chính xác này, như định nghĩa của thử nghiệm chính nó, có ý nghĩa đáng lo ngại. Giả sử một sản phẩm đã được thử nghiệm thành công so với nhiều dữ liệu thử nghiệm rộng rãi. Điều này có nghĩa là sản phẩm được chấp nhận? Thật không may, nó không. Nếu một sản phẩm là chính xác, tất cả có nghĩa là nó đáp ứng đặc tả của nó. Nhưng những gì nếu các đặc tả không chính xác? Để minh họa khó khăn này, hãy xem xét đặc tả được hiển thị trong Hình 6.1. Các đặc tả cho thấy đầu vào đối với Sắp xếp là một mảng P của các số nguyên N, trong khi đầu ra là một mảng Q khác được sắp xếp theo thứ tự không khí. Hời hợt, các đặc tả dường như hoàn toàn chính xác. Nhưng xem xét phương pháp TrickSort được hiển thị trong Hình 6.2. Trong phương thức đó, tất cả các n phần tử của mảng Q được đặt thành 0. Phương thức đáp ứng các đặc tả của Hình 6.1 và do đó là chính xác.
+	Chuyện gì đã xảy ra? Thật không may, các đặc tả của Hình 6.1 là sai. Những gì đã được bỏ qua là một tuyên bố rằng các yếu tố của Q, mảng đầu ra, là một hoán vị (sắp xếp lại) của các phần tử của mảng đầu vào p. Một khía cạnh nội tại của phân loại là nó là một quá trình sắp xếp lại. Và phương pháp của Hình 6.2 viết hoa trên lỗi đặc tả này. Nói cách khác, các phương thức tricksort là chính xác, nhưng các đặc tả của Hình 6.1 là sai. đặc tả đã sửa xuất hiện trong Hình 6.3. Từ ví dụ này, rõ ràng là hậu quả của lỗi đặc điểm kỹ thuật là không cần thiết. Rốt cuộc, tính đúng đắn của một sản phẩm là vô nghĩa nếu đặc tả của nó không chính xác.
+	Thực tế là một sản phẩm là chính xác là không đủ, bởi vì các đặc tả về điều khoản mà nó được hiển thị là chính xác có thể sai. Nhưng nó có cần thiết không? Xem xét các ví dụ sau đây Một tổ chức phần mềm đã có được trình biên dịch C tuyệt vời. Trình biên dịch mới có thể dịch gấp đôi số dòng mã nguồn mỗi giây dưới dạng trình biên dịch cũ, mã đối tượng chạy nhanh hơn gần 45% và kích thước của mã đối tượng nhỏ hơn khoảng 20%. Ngoài ra, các thông báo lỗi rõ ràng hơn nhiều và chi phí bảo trì và cập nhật postDelivery là ít hơn một nửa so với trình biên dịch cũ. Có một vấn đề, tuy nhiên; Lần đầu tiên tuyên bố cho bất kỳ lớp nào, trình biên dịch sẽ in một thông báo lỗi giả. Do đó, trình biên dịch không chính xác, vì các đặc tả cho trình biên dịch ngầm hoặc rõ ràng yêu cầu thông báo lỗi sẽ được in nếu, và chỉ khi, có lỗi trong mã nguồn. Nó chắc chắn có thể sử dụng trình biên dịch thực tế, theo mọi cách nhưng một trình biên dịch là hoàn toàn lý tưởng. Hơn nữa, nó hợp lý để mong đợi rằng lỗi nhỏ này sẽ được sửa trong bản phát hành tiếp theo. Trong khi đó, các lập trình viên học để bỏ qua thông báo lỗi giả. Tổ chức không chỉ có thể sống với trình biên dịch không chính xác, mà nếu có ai đó khuyên bạn nên thay thế nó bằng trình biên dịch cũ, sẽ có một sự phản đối. Do đó, tính đúng đắn của một sản phẩm là không cần thiết cũng không đủ.
+	Cả hai ví dụ trước được thừa nhận là một chút nhân tạo. Nhưng họ làm cho điểm chính xác đơn giản có nghĩa là sản phẩm là một triển khai chính xác các đặc tả của nó. Nói cách khác, có nhiều thứ để thử nghiệm hơn là chỉ cho thấy sản phẩm là chính xác.
+	Với tất cả những khó khăn liên quan đến thử nghiệm dựa trên thực thi, các nhà khoa học máy tính đã cố gắng đưa ra những cách khác để đảm bảo rằng một sản phẩm làm những gì nó được cho là phải làm. Một thay thế không dựa trên thực thi như vậy đã nhận được sự chú ý đáng kể trong hơn 50 năm là sự đúng đắn chứng minh.
+
+...........................................................................
+6.5 Testing versus Correctness Proofs 
+	Chứng minh tính đúng đắn là một kỹ thuật toán học để chỉ ra rằng một sản phẩm là đúng, hay nói cách khác là nó đáp ứng các đặc tả của nó. Kỹ thuật này đôi khi được gọi là xác minh. Tuy nhiên, như đã chỉ ra trước đây, thuật ngữ này có một ý nghĩa khác trong ngữ cảnh thử nghiệm. Ngoài ra, xác minh cũng thường được sử dụng để biểu thị tất cả các kỹ thuật không dựa trên thực thi, không chỉ chứng minh tính đúng. Để rõ ràng, thủ tục toán học này sẽ được gọi là chứng minh tính đúng đắn, để nhắc nhở người đọc rằng nó là một quá trình chứng minh toán học.
+
+6.5.1 Example of a Correctness Proof 
+	Để xem độ đúng được chứng minh như thế nào, hãy xem xét đoạn mã được hiển thị trong Hình 6.4. Biểu đồ tương đương với mã được cho trong Hình 6.5. Bây giờ chúng ta chỉ ra rằng đoạn mã là đúng - sau khi đoạn mã được thực thi, biến s sẽ chứa tổng của n phần tử của mảng y. Trong Hình 6.6, một khẳng định được đặt trước và sau mỗi câu lệnh, tại các vị trí được dán nhãn từ A đến H; có nghĩa là, một yêu cầu đã được đưa ra tại mỗi nơi mà một tài sản toán học nhất định nắm giữ ở đó. Tính đúng đắn của mỗi khẳng định hiện đã được chứng minh.
+	
+Đặc tả đầu vào, điều kiện giữ tại A trước khi mã được thực thi, là biến n là một số nguyên dương; đó là,
+	A: n ∈ {1, 2, 3 ,. . .}
+Một đặc điểm kỹ thuật đầu ra rõ ràng là, nếu Control đạt đến điểm H, giá trị của S chứa tổng các giá trị N được lưu trong mảng y, nghĩa là,
+	H: S = y[0] + y[1] + ... + y[n - 1] (6.2)
+Trong thực tế, đoạn mã có thể được chứng minh chính xác với đặc tả đầu ra mạnh hơn:
+	H: k = n và s = y[0] + y[1] + ... + y[n - 1]
+Một phản ứng tự nhiên đối với câu cuối cùng là hỏi, Đặc điểm kỹ thuật đầu ra (6.3) đến từ đâu? Qua phần chứng minh, chúng tôi hy vọng bạn đã có câu trả lời cho câu hỏi đó.
+
+Ngoài các đặc tả đầu vào và đầu ra, khía cạnh thứ ba của quá trình kiểm chứng là cung cấp một bất biến cho vòng lặp. Nghĩa là, một biểu thức toán học phải được cung cấp giữ tại điểm D bất kể vòng lặp đã được thực hiện 0, 1 hay nhiều lần. Bất biến của vòng lặp sẽ được chứng minh là giữ được là
+	D: k <= n và s = y[0] + y[1] + ... + y[k - 1] (6,4)
+Bây giờ nó sẽ được chỉ ra rằng nếu đặc tả đầu vào (6.1) giữ ở điểm A, thì đặc tả đầu ra (6.3) sẽ giữ ở điểm H; nghĩa là, đoạn mã sẽ được chứng minh là đúng.
+
+Đầu tiên, câu lệnh gán k <- 0 được thực hiện. Kiểm soát bây giờ là ở điểm B, nơi khẳng định sau đây là đúng: 
+	B: k = 0
+Nói chính xác hơn, tại điểm B, khẳng định sẽ đọc k = 0 và n ∈ {1, 2, 3 ,. . .}. Tuy nhiên, đặc điểm kỹ thuật đầu vào (6.1) giữ ở tất cả các điểm trong lưu đồ. Nói một cách ngắn gọn, và n ∈ {1, 2, 3 ,. . .} do đó được bỏ qua từ bây giờ.
+Tại điểm C, theo hệ quả của câu lệnh gán thứ hai, s <- 0, khẳng định sau là đúng:
+	C: k = 0 và s = 0
+Bây giờ vòng lặp đã được nhập. Nó sẽ được chứng minh bằng quy nạp rằng bất biến vòng lặp (6.4) thực sự là đúng. Ngay trước khi vòng lặp được thực hiện lần đầu tiên, khẳng định (6.6) giữ nguyên; nghĩa là, k = 0 và s = 0. Bây giờ hãy xem xét bất biến vòng lặp (6.4). Vì k = 0 theo khẳng định (6.6) và n = 1 từ đặc tả đầu vào (6.1) nên k = n theo yêu cầu. Hơn nữa, bởi vì k = 0, nó tuân theo k-1 −1, vì vậy tổng trong (6.4) là trống và s = 0 theo yêu cầu. Do đó, bất biến vòng lặp (6.4) đúng ngay trước lần đầu tiên vòng lặp được nhập.
+Tiếp theo, bước giả thuyết quy nạp được thực hiện. Giả sử rằng, tại một số giai đoạn trong quá trình thực thi đoạn mã, sự bất biến của vòng lặp được giữ nguyên. Nghĩa là, với k bằng một giá trị nào đó k 0, 0 k 0 n, thì việc thực hiện là tại điểm D và khẳng định đúng là
+	D: k0 <= n và s = y[0] + y[1] + ... + y[k0 - 1] (6,7)
+Kiểm soát bây giờ chuyển đến hộp kiểm tra. Nếu k 0 n thì do k 0 n theo giả thiết nên k 0 n. Bằng giả thuyết quy nạp (6.7), điều này ngụ ý rằng
+	H: k0 = n và s = y[0] + y[1] + ... + y[n - 1] (6,8)
+chính xác là đặc tả  đầu ra (6.3).
+Ngược lại, nếu nghiệm k0 >= n? không thành công, khi đó điều khiển sẽ chuyển từ điểm D đến điểm E. Vì k0 không lớn hơn hoặc bằng n nên k0 < n và (6.7) trở thành
+	E: k0 < n và s = y[0] + y[1] + ... + y[k0 - 1] (6,9)
+Câu lệnh s <- s + y[k0] bây giờ được thực thi, vì vậy từ khẳng định (6.9), tại điểm F, khẳng định sau phải giữ:
+	F: k0 <= n và s = y[0] + y[1] + ... + y[k0 - 1] + y[k0] = y[0] + y[1] + ... + y[k0] (6.10)
+Câu lệnh tiếp theo được thực hiện là k0 <- k0 + 1. Để thấy tác dụng của câu lệnh này, giả sử rằng giá trị của k0 trước khi thực hiện câu lệnh này là 17. Khi đó số hạng cuối cùng trong tổng trong (6.10) là y[17]. Bây giờ giá trị của k0 được tăng thêm 1 đến 18. Tổng s không đổi, do đó số hạng cuối cùng trong tổng vẫn là y[17], bây giờ là y[k0 - 1]. Ngoài ra, tại điểm F, k0 < n. Tăng giá trị của k0 lên 1 có nghĩa là nếu bất đẳng thức giữ nguyên tại điểm G thì k0 <= n. Do đó, hiệu quả của việc tăng k0 thêm 1 là khẳng định sau đây đúng tại điểm G:
+	G: k0 <= n và s = y[0] + y[1] + ... + y[k0 - 1] (6,11)
+Khẳng định (6.11) giữ ở điểm G giống với khẳng định (6.7) mà theo giả thiết, giữ ở điểm D. Nhưng điểm D giống về mặt cấu trúc liên kết với điểm G. Nói cách khác, nếu (6.7) giữ ở D với k = k0, sau đó nó sẽ lại giữ ở D với k = k0 + 1. Người ta đã chỉ ra rằng bất biến của vòng lặp giữ cho k0. Bằng quy nạp, nó tuân theo bất biến của vòng (6.4) giữ cho mọi giá trị của k, 0 <= k <= n.
+
+Tất cả những gì còn lại là để chứng minh rằng vòng lặp kết thúc. Ban đầu, theo khẳng định (6.6), giá trị của k bằng 0. Mỗi lần lặp của vòng lặp sẽ tăng giá trị của k lên 1 khi câu lệnh k <- k + 1 được thực hiện. Cuối cùng, k phải đạt đến giá trị n, tại thời điểm đó vòng lặp được thoát ra và giá trị của s được cho bởi khẳng định (6.8), do đó thỏa mãn đặc tả đầu ra (6.3).
+
+Để xem xét, với đặc điểm kỹ thuật đầu vào (6.1), người ta đã chứng minh rằng tính bất biến của vòng lặp (6.4) cho biết vòng lặp đã được thực hiện 0, 1 hay nhiều lần hay chưa. Hơn nữa, nó đã được chứng minh rằng sau n lần lặp, vòng lặp kết thúc; và khi đúng như vậy, các giá trị của k và s thỏa mãn cation đầu ra (6.3). Nói cách khác, đoạn mã của Hình 6.4 đã được chứng minh về mặt toán học là đúng.
+
+Ví dụ trong Phần 6.5.1 cho thấy rằng việc chứng minh tính đúng đắn của ngay cả một đoạn mã nhỏ có thể là một quá trình dài. Hơn nữa, nghiên cứu trường hợp nhỏ của phần này cho thấy rằng đây là một quy trình khó, dễ xảy ra lỗi, ngay cả đối với quy trình 25 dòng. Do đó, vấn đề sau đây phải được đặt ra: Liệu tính đúng đắn chứng minh chỉ là một ý tưởng nghiên cứu thú vị hay đó là một kỹ thuật công nghệ phần mềm mạnh mẽ đã đến lúc phải làm? Điều này được trả lời trong Phần 6.5.3.
+
+6.5.3 Correctness Proofs and Software Engineering
+	Một số nhà thực hành kỹ thuật phần mềm đã đưa ra lý do tại sao không nên xem việc chứng minh tính đúng đắn như một kỹ thuật kỹ thuật phần mềm tiêu chuẩn. Đầu tiên, người ta cho rằng các kỹ sư phần mềm không được đào tạo đầy đủ về toán học. Thứ hai, có ý kiến ​​cho rằng việc chứng minh là quá đắt so với thực tế; và thứ ba, chứng minh là quá khó. Mỗi lý do sau đây sẽ được cho là đơn giản hóa quá mức:
+	1. Mặc dù chứng minh được đưa ra trong Phần 6.5.1 có thể hiểu được hầu như không nhiều hơn đại số trung học, nhưng các chứng minh tầm thường yêu cầu các đặc tả đầu vào, đặc tả đầu ra và các bất biến của vòng lặp phải được biểu thị bằng phép tính vị từ bậc nhất hoặc bậc hai hoặc tương đương của nó. Điều này không chỉ làm cho quá trình chứng minh đơn giản hơn đối với một nhà toán học mà nó còn cho phép máy tính thực hiện việc chứng minh tính đúng đắn. Để làm phức tạp thêm vấn đề, phép tính vị từ hiện nay đã hơi lỗi thời. Để chứng minh tính đúng đắn của các sản phẩm đồng thời, cần có các kỹ thuật sử dụng lôgic thời gian hoặc phương thức khác [Manna và Pnueli, 1992]. Không còn nghi ngờ gì nữa, việc chứng minh tính đúng đắn đòi hỏi phải được đào tạo về logic toán học. May mắn thay, hầu hết các chuyên ngành khoa học máy tính ngày nay hoặc tham gia các khóa học về tài liệu cần thiết hoặc có nền tảng để học các kỹ thuật chứng minh tính đúng đắn trong công việc. Do đó, các trường đại học hiện đang đào tạo ra những sinh viên tốt nghiệp ngành khoa học máy tính với các kỹ năng toán học đủ để chứng minh tính đúng đắn. Tuyên bố rằng các kỹ sư phần mềm hành nghề không được đào tạo toán học cần thiết có thể đã đúng trong quá khứ, nhưng nó không còn được áp dụng khi có hàng nghìn sinh viên chuyên ngành khoa học máy tính gia nhập ngành mỗi năm.
+	2. Tuyên bố rằng việc chứng minh là quá đắt để sử dụng trong phát triển phần mềm cũng là sai. Ngược lại, khả năng kinh tế của việc chứng minh tính đúng đắn có thể được xác định trên cơ sở từng dự án bằng cách sử dụng phân tích chi phí - lợi ích (Phần 5.2). Ví dụ, hãy xem xét phần mềm cho trạm vũ trụ quốc tế. Tính mạng con người đang bị đe dọa, và nếu có sự cố xảy ra, một nhiệm vụ giải cứu tàu con thoi có thể không đến kịp thời. Chi phí chứng minh phần mềm trạm vũ trụ quan trọng đối với sự sống là rất lớn. Nhưng chi phí tiềm ẩn của một lỗi phần mềm có thể bị bỏ qua nếu việc chứng minh tính đúng đắn không được thực hiện thậm chí còn lớn hơn.
+	3. Bất chấp tuyên bố rằng việc chứng minh tính đúng là quá khó, nhiều sản phẩm tầm thường đã được chứng minh là đúng, bao gồm hạt nhân hệ điều hành, trình biên dịch và hệ thống truyền thông [Landwehr, 1983], [Berry và Wing, 1985]. Hơn nữa, nhiều công cụ như máy dò định lý hỗ trợ việc chứng minh tính đúng đắn. Một câu định lý coi đầu vào của một sản phẩm, các đặc tả đầu vào và đầu ra của nó, và các bất biến của vòng lặp. Sau đó, câu tục ngữ cố gắng chứng minh bằng toán học rằng sản phẩm, khi được cung cấp dữ liệu đầu vào thỏa mãn các đặc tả đầu vào, sẽ tạo ra dữ liệu đầu ra thỏa mãn các đặc tả đầu ra
+
+Đồng thời, có một số khó khăn trong việc chứng minh tính đúng đắn:
+	• Ví dụ, làm thế nào chúng ta có thể chắc chắn rằng một định lý là đúng? Nếu định lý in ra Sản phẩm này là đúng, chúng ta có thể tin được không? Để xem xét một trường hợp cực đoan, hãy xem xét cái gọi là định lý được thể hiện trong Hình 6.7. Không có vấn đề gì mã được gửi cho câu tục ngữ của định lý này, nó sẽ in ra Sản phẩm này là đúng. Nói cách khác, độ tin cậy nào có thể được đặt vào đầu ra của một định lý? Một gợi ý là gửi một câu châm ngôn định lý cho chính nó và xem liệu nó có đúng hay không. Ngoài các hàm ý triết học, một cách đơn giản để thấy rằng điều này sẽ không hiệu quả là xem xét điều gì sẽ xảy ra nếu câu tục ngữ của định lý Hình 6.7 được đưa ra để chứng minh. Như mọi khi, nó sẽ in ra Sản phẩm này là đúng, do đó “chứng minh” tính đúng của chính nó.
+	• Một khó khăn khác nữa là tìm kiếm các đặc tả đầu vào và đầu ra, và đặc biệt là các bất biến của vòng lặp hoặc các giá trị tương đương của chúng trong các lôgic khác như lôgic phương thức. Giả sử một sản phẩm là đúng. Trừ khi có thể tìm thấy một bất biến phù hợp cho mỗi vòng lặp, không có cách nào để chứng minh sản phẩm đúng. Có, các công cụ tồn tại để hỗ trợ công việc này. Nhưng ngay cả với các công cụ hiện đại, một kỹ sư phần mềm đơn giản là có thể không đưa ra được bằng chứng về tính đúng đắn. Một giải pháp cho vấn đề này là phát triển song song sản phẩm và bằng chứng, như đã đề cập trong Phần 6.5.2. Khi một vòng lặp được thiết kế, một bất biến cho vòng lặp đó được chỉ định cùng một lúc. Với cách tiếp cận này, phần nào dễ dàng hơn để chứng minh rằng một tạo tác mã là đúng.
+	• Tệ hơn là không thể tìm thấy các bất biến của vòng lặp, nếu bản thân các đặc tả không chính xác thì sao? Một ví dụ về điều này là phương thức trickSort (Hình 6.2). Một câu châm ngôn về định lý hay, khi đưa ra các đặc tả không chính xác của Hình 6.1, chắc chắn sẽ tuyên bố rằng phương pháp thể hiện trong Hình 6.2 là đúng.
+	
+	Manna và Waldinger [1978] tuyên bố rằng, "Chúng tôi không bao giờ có thể chắc chắn rằng các đặc tả là chính xác" và "Chúng tôi không bao giờ có thể chắc chắn rằng một hệ thống xác minh là chính xác." Những phát biểu của hai chuyên gia hàng đầu trong lĩnh vực này gói gọn những điểm khác nhau được đưa ra trước đó.
+	Tất cả những điều này có nghĩa là không có chỗ cho các bằng chứng về tính đúng đắn trong kỹ thuật phần mềm? Hoàn toàn ngược lại. Chứng minh sản phẩm chính xác là một công cụ kỹ thuật phần mềm quan trọng và đôi khi rất quan trọng. Các bằng chứng thích hợp khi tính mạng con người đang bị đe dọa hoặc ở những nơi được chỉ ra bằng phân tích chi phí - lợi ích. Nếu chi phí chứng minh phần mềm đúng thấp hơn chi phí có thể xảy ra nếu sản phẩm bị lỗi, thì sản phẩm đó cần được chứng minh. Tuy nhiên, như nghiên cứu điển hình nhỏ về xử lý văn bản cho thấy, chỉ chứng minh thôi là chưa đủ. Thay vào đó, việc chứng minh tính đúng đắn nên được xem như một thành phần quan trọng của tập hợp các kỹ thuật phải được sử dụng cùng nhau để kiểm tra xem một sản phẩm có đúng hay không. Bởi vì mục tiêu của kỹ thuật phần mềm là sản xuất phần mềm chất lượng, chứng minh tính đúng đắn thực sự là một kỹ thuật kỹ thuật phần mềm quan trọng.
+	Ngay cả khi không có bằng chứng chính thức đầy đủ, chất lượng của phần mềm có thể được cải thiện rõ rệt thông qua việc sử dụng các bằng chứng không chính thức. Ví dụ, một bằng chứng tương tự như trong Phần 6.5.1 hỗ trợ kiểm tra xem một vòng lặp có được thực thi đúng số lần hay không. Cách thứ hai để cải thiện chất lượng phần mềm là chèn các xác nhận như trong Hình 6.6 vào mã. Sau đó, nếu tại thời điểm thực thi, một xác nhận không được lưu giữ, sản phẩm sẽ bị tạm dừng và nhóm phần mềm có thể điều tra xem liệu xác nhận đã chấm dứt thực thi là không chính xác hoặc liệu có thực sự là lỗi trong mã được phát hiện bằng cách kích hoạt xác nhận hay không. Các ngôn ngữ như Java (từ phiên bản 1.4 trở đi) hỗ trợ xác nhận trực tiếp bằng lệnh khẳng định. Giả sử rằng một bằng chứng không chính thức yêu cầu giá trị của biến xxx là dương tại một điểm cụ thể trong mã. Mặc dù các thành viên của nhóm thiết kế có thể bị thuyết phục rằng không có cách nào để xxx là tiêu cực, để có thêm độ tin cậy, họ có thể chỉ định rằng câu lệnh phải xuất hiện tại điểm đó trong mã. Nếu xxx nhỏ hơn hoặc bằng 0, quá trình thực thi sẽ kết thúc và tình huống có thể được nhóm phần mềm điều tra. Thật không may, Assert in C là một câu lệnh gỡ lỗi, tương tự như khẳng định trong C; bản thân nó không phải là một phần của ngôn ngữ.
+		assert (xxx > 0) 
+	
+	Khi người dùng tin tưởng rằng sản phẩm hoạt động chính xác, họ có tùy chọn tắt kiểm tra xác nhận. Điều này làm tăng tốc độ thực thi, nhưng có thể không tìm thấy bất kỳ lỗi nào đã được phát hiện bởi một xác nhận nếu tắt kiểm tra xác nhận. Do đó, có sự cân bằng giữa hiệu quả thời gian chạy và việc tiếp tục kiểm tra xác nhận ngay cả sau khi sản phẩm đã được cài đặt trên máy tính của khách hàng. (Chỉ trong trường hợp bạn muốn biết Hộp 6.3 cung cấp một cái nhìn sâu sắc thú vị về vấn đề này.)
+	Kiểm tra mô hình là một công nghệ mới cuối cùng có thể thay thế cho việc chứng minh tính đúng đắn của phần mềm. Kiểm tra mô hình được nêu trong Phần 18.11.
+Một vấn đề cơ bản trong kiểm thử dựa trên thực thi là thành viên nào của nhóm phát triển phần mềm phải chịu trách nhiệm thực hiện nó. Điều này được thảo luận trong Phần 6.6.
+
+.....................................................................
+6.6 Who Should Perform Execution-Based Testing? 
+	Giả sử một lập trình viên được yêu cầu kiểm tra một tạo tác mã mà anh ta hoặc cô ta đã thực hiện. Kiểm tra đã được Myers [1979] mô tả là quá trình thực hiện một sản phẩm với mục đích tìm ra lỗi. Do đó, kiểm tra là một quá trình phá hủy. Mặt khác, lập trình viên thực hiện thử nghiệm thông thường không muốn phá hủy công việc của mình. Nếu thái độ cơ bản của lập trình viên đối với mã là thái độ bảo vệ thông thường, thì khả năng lập trình viên đó sử dụng dữ liệu thử nghiệm để làm nổi bật các lỗi sẽ thấp hơn đáng kể so với nếu động cơ chính thực sự là phá hoại. Một thử nghiệm thành công tìm ra lỗi. Điều này cũng đặt ra một khó khăn. Nó có nghĩa là, nếu mã tạo tác vượt qua bài kiểm tra, thì bài kiểm tra đó đã thất bại. Ngược lại, nếu tạo tác mã không thực hiện theo đặc tả, thì thử nghiệm thành công. Một lập trình viên được yêu cầu kiểm tra một tạo tác mã mà anh ta hoặc cô ta đã triển khai đang được yêu cầu thực thi tạo tác mã theo cách mà một lỗi (hành vi không chính xác) xảy ra sau đó. Điều này đi ngược lại bản năng sáng tạo của các lập trình viên.
+	Một kết luận không thể tránh khỏi là các lập trình viên không nên kiểm tra các tạo tác mã của riêng họ. Sau khi một lập trình viên đã cấu trúc và xây dựng một tạo tác mã, việc kiểm tra tạo tác mã đó yêu cầu người tạo thực hiện một hành động phá hủy cấu trúc và cố gắng phá hủy tạo tác đó. Lý do thứ hai tại sao kiểm thử dựa trên thực thi nên được thực hiện bởi người khác là lập trình viên có thể đã hiểu sai một số khía cạnh của thiết kế hoặc đặc tả. Nếu việc kiểm tra được thực hiện bởi người khác, những lỗi như vậy có thể được phát hiện. Tuy nhiên, việc gỡ lỗi (tìm ra nguyên nhân gây ra lỗi và sửa lỗi) tốt nhất nên được thực hiện bởi lập trình viên ban đầu, người quen thuộc nhất với mã.
+	Tuyên bố rằng một lập trình viên không nên kiểm tra mã của riêng mình không được đưa quá xa. Xem xét quá trình lập trình. Lập trình viên bắt đầu bằng cách đọc thiết kế chi tiết của mã tạo tác; điều này có thể ở dạng cú pháp fl owchart hoặc nhiều khả năng là mã giả. Tuy nhiên, bất kỳ kỹ thuật nào được sử dụng, lập trình viên chắc chắn phải kiểm tra tạo tác mã trước khi nhập nó vào máy tính. Nghĩa là, lập trình viên phải thử lưu đồ hoặc mã giả với nhiều trường hợp thử nghiệm khác nhau, lần theo thiết kế chi tiết để kiểm tra xem mỗi trường hợp thử nghiệm có được thực thi chính xác hay không. Chỉ khi người lập trình hài lòng rằng thiết kế chi tiết là chính xác thì trình soạn thảo văn bản mới được gọi để viết mã tạo tác.
+	Một khi tạo tác mã ở dạng máy có thể đọc được, nó sẽ trải qua một loạt các bài kiểm tra. Dữ liệu thử nghiệm được sử dụng để xác định rằng tạo tác mã hoạt động thành công, có thể là dữ liệu thử nghiệm tương tự được sử dụng để kiểm tra thiết kế chi tiết. Tiếp theo, nếu cấu phần mã thực thi chính xác khi sử dụng dữ liệu thử nghiệm chính xác, thì lập trình viên sẽ thử dữ liệu không chính xác để kiểm tra độ chắc chắn của cấu phần mã. Khi người lập trình hài lòng rằng mã tạo tác hoạt động chính xác, quá trình kiểm tra hệ thống bắt đầu. Lập trình viên không nên thực hiện thử nghiệm có hệ thống này.
+	Nếu lập trình viên không thực hiện thử nghiệm có hệ thống này, thì ai sẽ làm điều đó? Như đã nêu trong Mục 6.1.2, thử nghiệm độc lập phải được thực hiện bởi nhóm SQA. Từ khóa ở đây là độc lập. Chỉ khi nhóm SQA thực sự độc lập với nhóm phát triển, các thành viên của nhóm mới có thể hoàn thành sứ mệnh đảm bảo rằng sản phẩm thực sự đáp ứng các đặc tả của nó, mà không cần các nhà quản lý phát triển phần mềm áp dụng các áp lực như thời hạn sản phẩm có thể cản trở công việc của họ. Nhân viên SQA phải báo cáo với người quản lý của chính họ và do đó bảo vệ sự độc lập của họ.
+
+	Thử nghiệm có hệ thống được thực hiện như thế nào? Một phần thiết yếu của trường hợp thử nghiệm là một tuyên bố về kết quả đầu ra mong đợi trước khi thử nghiệm được thực hiện. Thật là lãng phí thời gian để người thử nghiệm ngồi tại một thiết bị đầu cuối, thực thi mã tạo tác, nhập dữ liệu thử nghiệm lộn xộn, sau đó nhìn vào màn hình và nói, “Tôi đoán điều đó có vẻ đúng”. Cũng vô ích không kém là người thử nghiệm phải lập kế hoạch các trường hợp thử nghiệm một cách cẩn thận và thực hiện lần lượt từng trường hợp thử nghiệm, xem kết quả và nói, “Có, điều đó chắc chắn là đúng”. Quá dễ dàng để bị lừa bởi những kết quả hợp lý. Nếu các lập trình viên được phép kiểm tra mã của riêng họ, thì luôn có nguy cơ rằng lập trình viên sẽ nhìn thấy những gì họ muốn xem. Nguy hiểm tương tự có thể xảy ra ngay cả khi thử nghiệm được thực hiện bởi người khác. Giải pháp là để ban giám đốc nhấn mạnh rằng, trước khi thực hiện một thử nghiệm, cả dữ liệu thử nghiệm và kết quả dự kiến ​​của thử nghiệm đó đều được ghi lại. Sau khi thử nghiệm đã được thực hiện, kết quả thực tế cần được ghi lại và so sánh với kết quả mong đợi.
+	Ngay cả trong các tổ chức nhỏ và với các sản phẩm nhỏ, điều quan trọng là bản ghi này phải được thực hiện ở dạng máy có thể đọc được, bởi vì các trường hợp thử nghiệm không bao giờ được vứt bỏ. Lý do cho điều này là bảo trì sau giao hàng. Trong khi sản phẩm đang được bảo trì, kiểm tra hồi quy phải được thực hiện. Các trường hợp thử nghiệm đã lưu trữ mà sản phẩm đã thực thi chính xác trước đó phải được chạy lại để đảm bảo rằng các sửa đổi được thực hiện để thêm chức năng mới vào sản phẩm không phá hủy chức năng hiện có của sản phẩm. Điều này sẽ được thảo luận kỹ hơn trong Chương 16.
+
+.....................................................................
+6.7 When Testing Stops 
+	Sau khi một sản phẩm được bảo trì thành công trong nhiều năm, cuối cùng nó có thể mất tính hữu dụng và bị thay thế bởi một sản phẩm hoàn toàn khác, giống như cách mà van điện tử được thay thế bằng bóng bán dẫn. Ngoài ra, một sản phẩm vẫn có thể hữu ích, nhưng chi phí chuyển nó sang phần cứng mới hoặc chạy nó trong một hệ điều hành mới có thể nhiều hơn chi phí xây dựng một sản phẩm mới, sử dụng sản phẩm cũ làm nguyên mẫu. Vì vậy, cuối cùng, sản phẩm phần mềm ngừng hoạt động và bị xóa khỏi dịch vụ. Chỉ tại thời điểm đó, khi phần mềm đã bị loại bỏ không thể phục hồi, đó là lúc bạn nên dừng thử nghiệm.
+	Bây giờ tất cả các vật liệu nền cần thiết đã được che phủ, các đối tượng có thể được kiểm tra chi tiết hơn. Đây là chủ đề của Chương 7.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

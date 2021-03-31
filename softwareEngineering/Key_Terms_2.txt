@@ -372,8 +372,11 @@ Sếp chỉ quản lý các vấn đề phi kỹ thuật: thu nhập, bình đ�
 - testing 155
 - utility 164
 - V & V 155
+biểu thị kiểm thử
 - validation 155
+Quá trình đánh giá chuyên sâu diễn ra ngay trước khi sản phẩm được giao cho khách hàng. Mục đích là xác định xem toàn bộ sản phẩm có đáp ứng được các đặc tả của nó hay không
 - verification 155
+Xác định xem một quy trình công việc đang được thực hiện một các chính xác hay chưa, diễn ra ở cuối mỗi quy trình
 **7
 - abstract data type 207
 - abstraction 201

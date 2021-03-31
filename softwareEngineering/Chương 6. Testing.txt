@@ -1,0 +1,163 @@
+..................................
+6.1. Vấn đề chất lượng phần mềm
+	- Phần mềm thỏa mãn ở 1 mức độ nào đó các đặc tả của nó
+	- Mỗi chuyên gia phần mềm có trách nhiệm đảm bảo công việc của họ là chính xác.
+	- Chất lượng phần mềm phải được xây dựng từ ban đầu
+6.1.1. Đảm bảo chất lượng phần mềm
+- Các thành viên của nhóm SQA phải đảm bảo những người phát triển thực hiện công việc đạt chất lượng cao
+- Nhóm SQA phát triển các tiêu chuẩn khác nhau mà phần mềm phải thực hiện theo cũng như thiết lập các thủ tục kiểm soát để đảm bảo thực hiện đúng các chuẩn đó
+- Đảm bảo chất lượng của quy trình phần mềm và do đó bảo đảm chất lượng sản phầm.
+
+6.1.2. Độc lập trong quản lý
+- Phải độc lập quản lý giữa: nhóm phát triển và nhóm SQA
+- Không người quản lý nào được phép vượt quá quyền hạn sang các nhóm khác
+- Nếu có lỗi xảy ra thì 2 người quản lý 2 nhóm báo cáo cho người quản lý cấp cao hơn, ngưởi quyết định:
+	+ Chuyển giao sản phẩm đúng hẹn nhưng có lỗi
+	+ Kiểm thử hơn nữa và chuyển giao sản phẩm muộn
+Những quyết định phải xem xét đến sự quan tâm của khách hàng và tổ chức phát triển
+
+..................................................
+6.2. Kiểm thử không thực thi
+- Không nên tự rà soát công việc của mình
+- Có sự hiệp lực trong nhóm
+- 2 kiểu: walkthrough(rà soát lướt qua) và inspection(kiểm tra kỹ lưỡng)
+
+6.2.1. Rà soát lướt qua
+- Đội rà soát gồm 4 - 6 thành viên:
+	+ Đội chịu trách nhiệm cho luồng công việc hiện thời
+	+ Đội chịu trách nhiệm cho luồng công việc tiếp theo
+	+ Nhóm SQA
+- Người chủ trì là nhóm SQA
+- Tài liệu cho rà soát được phát cho các thành viên để có sự chuẩn bị. Mỗi người đọc và chuẩn bị 2 danh sách:
+	+ Danh sách các mục không hiểu
+	+ Danh sách các mục có thể có lỗi
+	
+6.2.2. Quản lý rà soát lướt qua
+- Người chủ trì là đại điện của nhóm SQA
+- Chỉ phát hiện lỗi, không sửa:
+	+ Việc sửa lỗi được sửa bởi nhóm trong điều kiện thời gian có hạn có khả năng dẫn đến chất lượng thấp
+	+ Chi phí sửa lỗi của nhóm là quá cao
+	+ Không phải tất cả các mục được đánh dấu đều sai
+	+ Không có thời gian sửa lỗi, do rà soát lướt qua không kéo dài hơn 2 tiếng
+- Có 2 cách thực hiện rà soát lướt qua:
+	+ Hướng người tham gia: người tham gia trình bày danh sách các mục họ không hiểu và mục cho là có lỗi. Đại diện của đội chịu trách nhiệm cho luồng công việc hiện thời trả lời từng câu hỏi.
+	+ Hướng tài liệu: Một người trình bày tài liệu và những người khác tương tác, nhận xét.
+
+
+6.2.3. Kiểm tra kỹ lưỡng
+- Gồm 5 bước chính thức:
+ 	+ Tổng quan: tài liệu được phát cho các thành viên
+ 	+ Chuẩn bị: các thành viên cố gắng hiểu tài liệu và thống kê các loại lỗi
+ 	+ Kiểm tra kỹ lưỡng: tìm kiếm lỗi, mục đích để tìm ra lỗi và ghi lại các l
+ 	+ Sửa lỗi
+ 	+ Theo dõi: đảm bảo mọi vấn đề được giải quyết
+- Đội kiểm tra gồm 4 người:
+	+ Người điều tiết (moderator)
+	+ Một thành viên trong đội đang thực hiện hiện luồng công việc hiện tại
+	+ Một thành viên trong đội thực hiện luồng công việc tiếp theo
+	+ Một thành viên của nhóm SQA
+- Các vai trò đặc biệt được đảm nhiệm bởi:
+	+ Người điều tiết (Moderator)
+	+ Người đọc (Reader): dẫn dắt nhóm thông qua thiết kế
+	+ Người ghi chép (Recorder): chịu trách nhiệm tạo ra 1 báo cáo bằng văn bản về các lỗi được phát hiện
+- Một thành phần quan trọng là thống kê lỗi. Các lỗi được ghi lại theo mức độ nghiêm trọng và các loại lỗi. Thông tin này có thể được sử dụng theo một số cách: 
+	+ Số lượng lỗi trong một sản phẩm nhất định có thể được so sánh với mức trung bình của của các lỗi được phát hiện ở cùng giai đoạn phát triển của các sản phẩm tương tự
+	+ Nếu việc kiểm tra 2 or 3 phần mềm mã dẫn đến việc phát hiện ra một số lượng lỗi không tương ứng với 1 loại cụ thể, ban quản lý có thể bắt đầu kiểm tra các code khác để tìm các lỗi thuộc loại đó
+	+ Nếu việc kiểm tra code cho thấy nhiều lỗi hơn so với các code khác trong sản phẩm, thì thông thường là thiết kế lại từ đầu và triển khai thiết kế mới
+	+ Thông tin liên quan đến số lượng và các loại lỗi được phát hiện trong quá trình kiểm tra thiết kế giúp nhóm thực hiện kiểm tra code ở giai đoạn sau
+
+6.2.4. So sánh giữa rà soát lướt qua và kiểm tra kỹ lưỡng
+- Rà soát lướt qua: 2 bước
+	+ Chuẩn bị
+	+ Phân tích
+- Kiểm tra kỹ lưỡng: 5 bước
+	+ Tổng quan
+	+ Chuẩn bị
+	+ Kiểm tra kỹ lưỡng
+	+ Sửa lỗi
+	+ Theo dõi
+
+6.2.5. Điểm mạnh và điểm yếu của các loại rà soát
+- Điểm mạnh: Các lỗi được phát hiện sớm trong tiến trình phần mềm
+- Điểm yếu: Hiệu quả có thể bị giảm nếu tiến trình phần mềm không đầy đủ:
+	+ Phần mềm quy mô lớn khó để rà soát trừ khi nó gồm các thành phần nhỏ hơn và độc lập với nhau
+	+ Tài liệu của những luồng công việc trước phải được hoàn thiện và luôn có sẵn
+
+6.2.6. Các thước đo cho kiểm tra kỹ lưỡng
+- tỷ lệ kiểm tra (inspection rate): số lượng trang được kiểm tra mỗi giờ
+- mật độ lỗi (fault density): lỗi trên một trang được kiểm tra hay lỗi trên 1000 dòng code được kiểm tra
+- tỷ lệ phát hiện lỗi (fault detection rate): số lỗi lớn và nhỏ được phát hiện mỗi giờ
+- hiệu quả phát hiện lỗi (fault detection efficiency): số lỗi lớn và nhỏ được phát hiện trên một người/giờ
+
+..................................................
+6.3. Kiểm thử có thực thi
+- Dijkstra (1972): "Kiểm tra chương trình có thể là cách rất hiệu quả để chỉ ra các lỗi nhưng không có khả năng chỉ ra sự vắng mặt của chúng". Nghĩa là, nếu một sản phhẩm được thực thi với dữ liệu thử nghiệm và kết quả đầu ra bị sai, thì sản phẩm đó chắc chắn xảy ra lỗi. Nhưng nếu đầu ra là chính xác, thì vẫn có thể có lỗi trong sản phẩm; thông tin duy nhất có thể suy ra từ thử nghiệm đó là sản phẩm chạy chính xác trên tập dữ liệu thử nghiệm đó
+
+..................................................
+6.4. Cái gì nên được kiểm thử?
+
+6.4.1. Tiện ích (Utility)
+- Sản phẩm phần mềm đáp ứng ở một mức độ nào đó yêu cầu của người dùng
+- Vd:
+	+ Tính dễ sử dụng
+	+ Có thực hiện các chức năng hữu ích
+	+ Hiệu quả về chi phí
+
+6.4.2. Tính đáng tin (Reliability)
+- Đo tần suất và mức độ nghiêm trọng của lỗi sản phẩm:
+	+ thời gian trung bình giữa các lẫn chức năng không thực hiện
+	+ thời gian trung bình để sửa chữa
+	+ thời gian và chi phí để sửa chữa kết quả của lỗi trong hệ thống phần mềm
+
+6.4.3. Tính mạnh mẽ (Robustness)
+- Là một chức năng của một số nhân tố:
+	+ phạm vi điều kiện hoạt động
+	+ khả năng xảy ra kết quả không được chấp nhận với đầu vào hợp lệ
+	+ khả năng chấp nhận khi đưa vào các đầu vào không hợp lệ
+
+6.4.4. Hiệu năng (Performance)
+- Những rằng buộc về thời gian và không gian được đáp ứng ở một mức độ nào đó
+
+6.4.5. Tính chính xác
+- Một phần mềm là chính xác nếu nó thỏa mãn đặc tả của nó
+
+..................................................
+6.5. Kiểm thử và sự kiểm chứng tính chính xác
+- Kiểm chứng tính chính xác là một kỹ thuật toán học để chỉ ra rằng một phần mềm là đúng, đáp ứng các đặc tả của nó
+6.5.1. Ví dụ về sự kiểm chứng tính chính xác
+6.5.2.
+6.5.3.  Sự kiểm chứng tính chính xác và kỹ nghệ phần mềm
+- 3 chuyện tưởng tượng trong chứng minh tính chính xác
+	+ Kỹ sư phần mềm không đủ kiến thức toán học để kiểm chứng.Sai vì: hầu hết các ngành khoa học máy tính hoặc biết hoặc có thể học toán học đã yêu cầu cho kiểm chứng
+	+ Việc chứng minh yêu cầu chi phí rất cao trong thực tế.Sai vì: khả năng kinh tế được xác định từ phần tích lợi nhuận và chi phí
+	+ Việc chứng minh quá khó khăn. Sai vì: nhiều sản phẩm phần mềm không bình thường đã được chứng minh thành công. Các công cụ giống như chứng minh định lý có thể sẽ hữu ích
+
+- Những khó khăn khi chứng minh tính chính xác:
+	+ Chúng ta có thể chắc chắn rằng một định lý là đúng?
+	+ Khó khăn trong việc tìm đặc tả đầu vào, đầu ra và số lượng vòng lặp
+	+ Các đặc tả có thể bị sai
+	+ Không chắc chắn rằng các đặc tả hoặc hệ thống xác minh là chính xác
+
+- Sự kiểm chứng tính chính xác là một công cụ kỹ nghệ phần mềm quan trọng, thích hợp với:
+	+ Khi tính mạng con người đang bị đe dọa
+	+ KHi đã được chỉ ra bởi phân tích lợi nhuận - chi phí
+	+ Khi rủi ro của việc không phân tích quá lớn
+
+- Sự kiểm chứng không hình thức có thể cải thiện chất lượng của phần mềm: Sử dụng câu lệnh assert
+
+6.6. Ai thực hiện kiểm thử phần mềm?
+- Lập trình là xây dựng
+- Kiểm thử là phá hủy
+=> Những người lập trình không nên kiểm thử chính tài liệu của họ viết
+- Giải pháp:
+	+ người lập trình thực hiện kiểm thử không hình thức
+	+ nhóm SQA thực hiện kiểm thử 1 cách hệ thống
+	+ người lập trình gỡ lỗi mô đun đó
+- Tất cả các trường hợp kiểm thử phải
+	+ được lập kế hoạch bằng tay trước đó, bao gồm đầu ra mong muốn
+	+ được giữ về sau
+
+6.7. Khi nào kiểm thử kết thúc?
+Sau khi một sản phẩm được bảo trì thành công trong nhiều năm, cuối cùng nó mất tính hữu dụng và bị thay thế bởi một sản phẩm hoàn toàn khác. Hoặc nó có thể còn hữu ích nhưng chi phí chuyển sang phần cứng mới hoặc chạy trong một hệ điều hành mới có thể lớn hơn chi phí xây dựng 1 sản phẩm mới.
+
+	
