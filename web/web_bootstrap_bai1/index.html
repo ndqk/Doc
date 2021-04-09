@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quan ly don hang</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="sidebar" class="col-12 col-lg-2 p-0 bg-dark">
+                    <div class="sidebar-header border-bottom p-2 d-flex justify-content-between">
+                        <h3 class="font-weight-bold text-white">NDQK</h3>
+                        <button class="btn d-lg-none" type="button" data-toggle="collapse" data-target="#menu"
+                            aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                    </div>
+                    <div id="menu" class="collapse d-lg-block">
+                        <div class="input-group my-3 px-2">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-dark border" type="submit">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <ul class="nav nav-pills flex-column px-2">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="index.html">
+                                    <i class="fas fa-chart-pie"></i>
+                                    Tổng quan
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#donhang">
+                                    <span>
+                                        <i class="far fa-file-invoice-dollar"></i>
+                                        Đơn hàng
+                                    </span>
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                                <div id="donhang" class="collapse">
+                                    <ul class="nav nav-pills flex-column p-2">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="create-order.html">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                Tạo đơn hàng
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="list-order.html">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                Danh sách đơn hàng
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="back-order.html">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                Khách trả hàng
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#vanchuyen">
+                                    <span>
+                                        <i class="far fa-truck"></i>
+                                        Vận chuyển
+                                    </span>
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                                <div id="vanchuyen" class="collapse">
+                                    <ul class="nav nav-pills flex-column p-2">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                Tổng quan
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                Quản lý giao hàng
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                Đối soát
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                Đối tác
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="customer.html">
+                                    <i class="far fa-user"></i>
+                                    Khách hàng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="product.html">
+                                    <i class="far fa-box"></i>
+                                    Sản phẩm
+                                </a>
+                            </li>
+                            <li class="nav-header border-bottom mt-4"></li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#profile">
+                                    <span>
+                                        Tài khoản
+                                    </span>
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                                <div id="profile" class="collapse">
+                                    <ul class="nav nav-pills flex-column p-2">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="profile.html">
+                                                <i class="far fa-user"></i>
+                                                Thông tin
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <i class="far fa-cogs"></i>
+                                                Cài đặt
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <i class="far fa-sign-out-alt"></i>
+                                                Đăng xuất
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div id="content-wrapper" class="col-12 col-lg-10 p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col p-4 border-bottom">
+                                <h1 class="font-weight-bold">Tổng quan</h1>
+                            </div>
+                        </div>
+                        <div class="row m-2 my-4 justify-content-center">
+                            <div class="card-deck col">
+                                <div class="card  bg-info">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Doanh số</h4>
+                                        <p class="card-text">100</p>
+                                    </div>
+                                </div>
+                                <div class="card bg-success">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Doanh thu</h4>
+                                        <p class="card-text">9,0000,0000</p>
+                                    </div>
+                                </div>
+                                <div class="card bg-warning">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Yêu cầu</h4>
+                                        <p class="card-text">12</p>
+                                    </div>
+                                </div>
+                                <div class="card bg-danger">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Số khách hàng</h4>
+                                        <p class="card-text">30</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-2 my-4">
+                            <div class="col-lg-8 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Việc cần hoàn thành</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="input-group mt-3 mb-3">
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-outline-secondary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Sắp xếp
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">A - Z</a>
+                                                    <a class="dropdown-item" href="#">Z - A</a>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-dark border" type="submit">
+                                                    <i class="fas fa-search fa-fw"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-success">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value=""> Việc 1
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-secondary">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value=""> Việc 2
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-info">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value=""> Việc 3
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-warning">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value=""> Việc 4
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-danger">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value=""> Việc 5
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-primary">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value=""> Việc 6
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item list-group-item-dark">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value=""> Việc 7
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Thông báo</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">First item</li>
+                                            <li class="list-group-item">Second item</li>
+                                            <li class="list-group-item">Third item</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="index.js"></script>
+
+</html>

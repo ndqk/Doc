@@ -1,0 +1,264 @@
+.....................................................................
+9.1. Lập kế hoạch và quy trình phần mềm
+- Lý tưởng: lập kế hoạch cho toàn bộ dự án phần mềm ngay từ đầu tiến trình và sau đó thực hiện theo kế hoạch cho đến khi phần mềm được chuyển đến khách hàng
+=> Không thể
+- Việc lập kế hoạch được thực hiện liên tục trong suốt quá trình phát triển và bảo trì sau khi chuyển giao
+	+ Việc lập kế hoạch ban đầu là không đủ
+	+ Việc lập kế hoạch phải được thực hiện trong suốt dự án
+	+ Việc lập kế hoạch chi tiết có thể diễn ra sớm nhất có thể sau khi các đặc tả hoàn thiện
+
+.....................................................................	
+9.2. Ước lượng thời gian và chi phí
+- Trước khi thiết kế bắt đầu, khách hàng cần biết họ sẽ phải tra bao nhiêu cho sản phẩm. Nếu nhà phát triển đánh giá thấp hơn so với chi phí thực tế => lỗ, nếu đánh giá quá cao so với chi phí thực tế => khách hàng có thể giao cho nhà phát triền khác có chi phí rẻ hơn.
+	=> ước tính chi phí chính xác rất quan trọng
+- 2 loại chi phí liên quan đến phát triền phần mềm:
+	+ internal cost (chi phí bên trong): chi phí dành cho các nhà phát triển
+	+ external cost (chi phí bên ngoài): giá mà khách hàng sẽ phải trả 
+	
+- Khách hàng chắc chắn muốn biết khi nào sản phẩm sẽ được giao. Nếu nhà phát triển không giao đúng hẹn => mất uy tín, ... Nếu đánh giá thời gian quá dài => Khách hàng chọn nhà phát triển khác.
+- Rất khó để ước lượng chính xác chi phí hoặc thời gian vì có quá nhiều thay đổi liên quan để có thể xử lý chính xác 1 trong 2.
+
+9.2.1. Các thước đo kích cỡ của một sản phẩm
+a, Số lượng dòng mã - Line of Coce (LOC):
+Những vấn đề:
+	- Mã nguồn chỉ là 1 phần nhỏ trong cả quy trình phát triển phần mềm
+	- Những ngôn ngữ khác nhau dẫn đến chiều dài mã lệnh khác nhau. 
+	- LOC không được dùng để xác định ngôn ngữ phi thủ tục (như LIPS)
+	- Không rõ chính xác cách đếm các dòng mã: 
+		+ Số dòng lệnh có thể thực thi?
+		+ Những định nghĩa dữ liệu
+		+ Những lời chú thích
+		+ Dòng lệnh đã được thay đổi/xóa
+	- Không phải mọi thử được viết ra đề được chuyển giao cho khách hàng
+	- phần mềm tạo code => sinh hàng nghìn dòng lệnh trong mỗi phút
+	- Số lượng dòng mã trong sản phẩm chỉ xác định được khi sản phẩm đã hoàn thành
+=> Số lượng dòng mã là không tin cậy
+
+b, FFP
+- ĐƯợc sử dụng để ước lượng chi phí của sản phẩn xử lý dữ liệu ở mức trung bình
+- 3 thành phần cấu trúc cơ bản của phần mềm xử lý dữ liệu:
+	+ Files: các tệp - tập các bản ghi lô-gic hoặc vật lý liên quan trong sản phẩm
+	+ Flows: các luồng - giao diện dữ liệu giữa sản phẩm và môi trường
+	+ Processes: các tiến trình - 1 chức năng định nghĩa thao tác logic hoặc số học với dữ liệu
+- Với số lượng tệp (Fi), số luồng (Fl) và số tiến trình (Pr). Kích thước (S), chi phí (C) được xác định bởi:
+	S = Fi + Fl + Pr
+	C = b.C
+- Hằng số b (hiệu suất hoặc năng suất) thay đổi dựa theo từng tổ chức khác nhau
+- Tính hiệu lực và tính tin cậy của thước đo FFP được chứng minh bằng cách sử dụng 1 loạt các ứng dụng xử lý dữ liệu quy mô trung bình. Không may, thước đo này không được mở rộng để bao gồm cơ sở dữ liệu
+
+c, Điểm chức năng (Function Points)
+- Dự trên số lượng đầu vào (Inp), đầu ra (Out), các yêu cầu (Inq), các tệp chính (Maf) và các giao diện (Inf).
+- Điểm chức năng được xác định bởi phương trình:
+	FP = 4.Inp + 5.Out + 4.Inq + 10.Maf + 7.Inf
+- Đây là thước đo kích thước sản phẩm, nó có thể dudược sủ dụng cho ước tính chi phí và ước tính năng suất
+- Công thức là đơn giản hóa của tiến trình 3 bước:
++ B1: Tính toán các điểm không phù hợp
+	_ Mỗi thành phần của sản phẩm (Inp, Out, Inq, Maf, Inf) phải được phần loại: đơn giản, trung bình, phức tạp
+	_ Mỗi thành phần được gán một số điểm chức năng tùy thuộc vào cấp độ của nó
+	_ Các điểm chức năng đã gán cho mỗi thành phần được tổng hợp lại, đưa ra kết quả là điểm chức năng không thích hợp (UFP)
++ B2: Tính toán độ phức tạp kỹ thuật (technical complexity factor - TCF)
+	_ Thước đo ảnh hưởng của 14 yếu tố kỹ thuật
+	_ Mỗi yếu tố được gán 1 giá trị từ 0 (Không có mặt) đến 5 (ảnh hưởng mạnh mẽ từ đầu đến cuối) => Tính tổng => mức độ ảnh hưởng (DI - degree of influence) => TCF
+		TCF = 0.65 + 0.01 x DI
+	_ Độ phức tạp kỹ thuật nằm trong khoảng từ 0.65 - 1.35
++ B3: Tính toán số điểm chức năng (FP)
+	_ FP = UFP x TCF
+
+- Các điểm chức năng thường tốt hơn KDSI nhưng có một vài vấn đề:
+ 	+ Việc bảo trì sản phẩm thường được đo lường không chính x
+	+ Có thể thay đổi:
+		_ Số lượng các tệp, luồng và các tiến trình
+		_ Số lượng đầu vào, đầu ra, yêu cầu, các tệp chính, các giao diện
+
+-- Các điểm chức năng Mk II
+	- Cung cấp 1 cách chính xác hơn để tính toán UFP 1 cách chính xác hơn
+	- Chia nhỏ phần mềm thành các giao tác thành phần, mỗi giao tác thành phầm gồm đầu vào, tiến trình và đầu ra
+	- Các điểm chức năng Mk II được sử dụng rỗng rãi trên thế giới
+
+9.2.2. Các kỹ thuật ước lượng chi phí
+a, Đánh giá của chuyên gia nhờ sự tương tự (Expert Judgment by analogy)
+- Các chuyên gia so sánh sản phẩm đích với những sản phẩm đã hoàn thiện
+- Các chuyên gia có thể thu thập lại những thiếu xót của các phần mềm đã hoàn thiện
+- Các chuyên gia khác nhau trong tổ chức có thể đưa ra đánh giá khác nhau => Kỹ thuật Delphi: cho phép các chuyên gia đi đến thống nhất mà không cần họp nhóm (họp có thể gây ra các rắc rối, làm lung lay cả nhóm).Trong kỹ thuật này, các chuyên gia làm việc độc lập. Mỗi người tạo ra 1 bản ước lượng và cơ sở lý luận cho ước lượng đó. Sau đó những ước lượng này được phân phối cho tất cả chuyên gia. Quá trình ước lượng và phân phối tiếp tục cho đến khi các chuyên gia có thể đồng ý trong phạm vi chấp nhận được.
+
+b, Tiếp cận từ dưới lên
+- Chia sản phẩm thành những thành phần nhỏ hơn:
+	+ Các thành phần nhỏ có thể không dễ ước lượng hơn
+	+ Tuy nhiên, có chi phí mức tiến trình
+- Ước tính thời gian và chi phí được thực hiện cho từng thành phần riêng biệt và kết hợp để cung cấp 1 con số tổng thể
+- Với mô hình hướng đối tượng, sự độc lập của các lớp khác nhau giúp cách tiếp cận từ dưới lên dễ dàng hơn. Tuy nhiên, tương tác giữa các đối tượng khác nhau trong sản phẩm làm rắc rối quá trình ước lượng.
+
+c, Mô hình ước tính chi phí theo thuật toán (Algorithmic Cost Estimation Models)
+- 1 thước đo (FP, FFP) được sử dụng như đầu vào đối với mô hình để tính toán chi phí và thời gian
+- Mô hình thuật toán không thiên vụ => tốt hơn hẳn ý kiến của chuyên gia
+- Ước lượng chỉ tốt bằng những giải định cơ bản
+
+9.2.3. COCOMO trung gian
+- COCOMO bao gồm 3 mô hình:
+	- Mô hình ước lượng vĩ mô đối với toàn bộ sản phẩm
+	- COCOMo trung gian
+	- Mô hình ước lượng vi mô xem xét chi tiết phầm mềm
+- COCOMO trung gian: 2 giai đoạn
++ Giai đoạn 1: 
+- ước lượng sơ bộ về chiều dài của phần mềm trong KDSI  
+- ước lượng chế độ phát triển phần mềm (có tổ chức (organic), nửa tách rời (semidetached), nhúng (embedd))
+- Tính toán công sức danh nghĩa:
+	Nominal effort = a x (KDSI) ^ b person-months
++ Giai đoạn 2:
+- nhân giá trị danh nghĩa đã tính với 15 số nhân chi phí phát triển phần mềm
+
+9.2.4. COCOMO II
+- COCOMO được đưa ra vào 1981, tại thời điểm này, mô hình vòng đời duy nhất được sử dụng là mô hình thác nước.
+- COCOMO II mở rộng COCOMO có thể xử lý nhiều loại kỹ thuật phần mềm hiện đại:
+	+ hướng đối tượng
+	+ mô hình vòng đời hiện đại
+	+ bản mẫu nhanh
+	+ ngôn ngữ thế hệ thứ 4
+	+ tái sử dụng
+	+ phần mềm COST
+- COCOMO II phức tạp hơn nhiều so với phiên bản đầu
+- Gồm 3 mô hình khác nhau:
+	+ application composition model (mô hình thành phần ứng dụng): dựa trên các điểm đặc trưng (tương tự điểm chức năng)
+	+ early design model (mô hình thiết kế ban đầu): dựa trên các điểm chức năng
+	+ post-architecture model (mô hình hậu kiến trúc): dựa trên điểm chức năng or KDSI
+- Mô hình công sức cơ bản:
+	Effort = a x (size) ^ b
+	+ trong COCOMO: a, b là hằng số
+	+ COCOMO II: b thay đổi 1.01 - 1.26
+- COCOMO II hỗ trợ tái sử dụng
+- COCOMO II có 17 số nhân chi phí phát triển phần mềm: 7 cái mới
+
+9.2.5. Theo dõi ước lượng thời gian và chi phí
+- Dù sử dụng kỹ thuật ước lượng nào thì việc theo dõi cũng rất quan trọng
+- Theo dõi cẩn thận các ước lượng phải được thực hiện trong suốt quá trình phát triển, không thể phụ thuộc vào các kỹ thuật thực hiện ước lượng
+
+.....................................................................
+9.3. Các thành phần của kế hoạch quản lý dự án phần mềm
+- Có 3 thành phần chính:
+	+ công việc phải thực hiện
+	+ tài nguyên để thực hiện công việc
+	+ số tiền phải trả
+- resources:
+	+ con người
+	+ phần cứng
+	+ phần mềm hỗ trợ
+- Việc sử dụng các các loại tài nguyên với thừoi gian:
+	+ Đường cong Rayleigh mô tả 1 cách chính xác giả định về tài nguyên
+	+ Toàn bộ kế hoạch phát triển phần mềm phải là 1 hàm thời gian
+- Công việc:
+	+ project function (chức năng dự án):
+		_ quản lý dự án
+		_ kiểm soát chất lượng
+	+ activity (hoạt động):
+		_ liên quan đến một pha cụ thể
+		_ đơn vị chính của công việc
+		_ có ngày bắt đầu và kết thúc
+		_ tiêu tốn tài nguyên
+		_ kết quả là: work product (sản phẩm công việc): ngân sách, thiết kế, lập lịch, mã nguồn, sổ tay người dùng
+	+ task (nhiệm vụ):
+		- các hoạt động bao gồm 1 tập các nhiệm vụ
+		- đơn vị công việc nhỏ nhất của công việc có thể quản lý được
+- Sự hoàn thành của các sản phẩm công việc:
+	+ milestone: ngày mà sản phẩm công việc được hoàn thiện
+	+ để xác định xem 1 sản phẩm công việc đã đạt mốc chưa, sản phẩm đó phải vượt qua được thực hiện rà soát bởi: các thành viên trong nhóm, quản lý, hoặc khách hàng.
+	+ sau khi được rà soát và được chấp nhận, thì nó trở thành phiên bản cơ sở (baseline)
+- work package không chỉ xác định sản phẩm công việc mà còn xác định:
+	+ yêu cầu về nhân sự
+	+ thời hạn
+	+ tài nguyên
+	+ cá nhân chịu trách nhiệm
+	+ tiêu chí chấp nhận sản phẩm công việc
+	+ Ngân sách chi tiết:	
+		_ các chức năng dự án
+		_ các hoạt động
+
+.....................................................................
+9.4. Khung kế hoạch quản lý dự án phần mềm
+- Có nhiều cách để lập 1 kế hoạch quản lý dự án. 1 trong những cách tốt nhất là chuẩn IEEE 1058:
+	+ Tiêu chuẩn được đưa ra bởi đại diện của nhiều tổ chức lớn
+	+ Kế hoạch quản lý dự án IEEE được thiết kế để sử dụng với tất cả các loại sản phẩm phần mềm
+	+ Khung kế hoạch quản lý dự án IEEE hỗ trợ cài tiến tiến trình
+	+ Khung kế hoạch quản lý dự án IEEE là lý tưởng đối với quy trình hợp nhất (Unified Process)
+
+.....................................................................
+9.5. Kế hoạch quản lý dự án phần mềm IEEE
+
+.....................................................................
+9.6. Lập kế hoạch kiểm thử
+- 1 thành phần của SPMP thường bị bỏ qua là test planning (lập kế hoạch kiểm thử)
+- kiểm thử phải được lập kế hoạch
+- SPMP phải bao gồm các tài nguyên dùng để kiểm thử và lịch chi tiết cho việc kiểm thử
+- Tất cả các trường hợp kiểm tra hộp đen có thể được phác thảo sớm nhất có thể sau khi các đặc tả hoàn thiện
+
+.....................................................................
+9.7. Lập kế hoạch cho các dự án hướng đối tượng
+- Phần mềm hướng đối tượng gồm các thành phần độc lập nhỏ hơn - các lớp
+=> việc lập kế hoạch phần nào dễ dàng hơn: ước lượng chi phí và thời gian có thể được tính toán dễ dàng và chính xác hơn với các đơn vị nhỏ
+- Việc lập kế hoạch toàn bộ nhiều hơn tổng việc được lập kế hoạch
+- Có thể sử dụng COCOMO II
+- Tái sử dụng:
+	+ sử dụng lại những thành phần sẵn có trong suốt quá trình phát triển
+	+ sản phẩm của các thành phần để sử dụng lại trong tương lai
+
+.....................................................................
+9.8. Yêu cầu đào tạo
+- "Chúng ta không cần lo lắng về việc đào tạo đến tận khi phần mềm hoàn thiện, và sau đó chúng ta có thể đào tạo người dùng"
+- Việc đào tạo nhìn chung được yêu cầu bởi các thành viên của nhóm phát triển, bắt đầu với đào tạo trong việc lập kế hoạch phần mềm
+- Một phương thức phát triển phần mềm mới đòi hỏi phải đào tạo mọi thành viên trong nhóm phát triển
+- Việc giới thiệu các công cụ phần cứng hoặc phần mềm của bất cứ loại nào đều đòi hỏi phải có đào tạo
+- Những người lập trình có thể yêu cầu đào tạo về các hệ điều hành và/hoặc các ngôn ngữ cài đặt
+- Việc đào tạo chuẩn bị tài liệu có thể được yêu cầu
+- Các thao tác máy tính đòi hỏi phải được đào tạo
+
+.....................................................................
+9.9. Các chuẩn tài liệu
+- Số lượng tài liệu được sinh ra bởi một phần mềm?
+	+ Phần mềm thương mại bên trong IBM (50 KDSI): 28 trang tài liệu trên KDSI
+	+ Phần mềm thương mại cùng kích cỡ: 66 trang tài liệu trên KDSI
+	+ IMS/360 Version 2.3 (about 166 KDSI): 157 trang tài liệu trên KDSI
+	+ [TRW] với 100 giờ sử dụng cho hoạt động viết mã, 50-200 giờ được sử dụng cho
+các hoạt động liên quan tới việc viết tài liệu
+- Lập kế hoạch
+- Điều khiển
+- Tài chính
+- Kỹ thuật
+- Mã nguồn
+- Những lời chú thích với mã nguồn
+
+Ưu điểm của các chuẩn tài liệu:
+- Giảm hiểu lầm giữa các thành viên trong đội
+- Trợ giúp SQA
+- Chỉ những nhân viên mới phải học các chuẩn
+- Các chuẩn trợ giúp những người lập trình bảo trì
+- Việc chuẩn hóa là quan trọng đối với các sổ tay người dùng
+- Là 1 phần của tiến trình lập kế hoạch
+	+ các chuẩn phải được thiết lập đối với tất cả tài liệu
+- sản phẩm là tài liệu
+
+.....................................................................
+9.10. Công cụ CASE cho việc lập kế hoạch và ước lượng
+- Rất cần thiết để có:
+	+ một bộ xử lý từ
+	+ một bảng tính
+- Một số công cụ có sẵn để tự động hóa COCOMO trung gian và COCOMO II
+- Công cụ quản lý trợ giúp việc lập kế hoạch và giám sát
+ 	+ MacProject
+	+ Microsoft Project
+
+.....................................................................
+9.11. Kiểm thử việc lập kế hoạch
+- Một lỗi trong quản lý kế hoạch dự án phần mềm có thể tác động nghiêm trọng đến các nhà phát triển
+=> Toàn bộ SPMP phải được kiểm tra bởi SQA trước khi ước lượng được cung cấp cho khách hàng
+- Xem xét SPM một cách chi tiết, đặc biệt chú ý đến ước tính chi phí và thời gian
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
