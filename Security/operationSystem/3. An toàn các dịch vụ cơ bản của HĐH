@@ -1,0 +1,67 @@
+Nội dung:
+1. Quản lý tiến trình
+2. Quản lý bộ nhớ
+3. Nền tảng tính toán tin cậy
+4. Bảo vệ hệ thống file
+5. Phân tích các vấn đề an toàn của các hệ điều hành Windowns và Unix/Linux
+
+.................................................................................................
+3.1. Quản lý tiến trình
+- Kiến trúc tập lệnh x86 hỗ trợ việc quản lý thực thi các chương trình bằng cách triển khai cơ chế bảo vệ theo lớp đặc quyền dựa trên kiểm soát truy cập đến:
+	+ Các câu lệnh của chương trình
+	+ Các dữ liệu của chương trình
+- Cơ chế bảo vệ theo lớp đặc quyền được thực hiện nhằm hạn chế các thao tác mà chương trình người dùng có thể thực hiện dựa trên sự phối hợp giữa: 
+	+ Phần cứng (CPU)
+	+ Hệ điều hánh
+- Các tài nguyên được bảo vệ đối với các thao tác của tiến trình người dùng gồm:
+	+ Bộ nhớ
+	+ Các cổng vào/ra
+	+ Khả năng chạy một số câu lệnh đặc biệt
+- Tại bất kỳ thời điểm nào, bộ xử lý x86 hoạt động tại một lớp đặc quyền nhất định mà lớp này quyết định các thao tác mà đoạn mã có thể thực thi được hay không
+
+* Các câu lệnh đặc quyền:
+- Có khoảng 15 câu lệnh được bảo vệ dành riêng cho lớp có đặc quyền cao nhất (lớp 0):
+	+ Là các lệnh dành riêng cho nhân hay phần hệ thống của HĐH;
+	+ Các tiến trình chạy ở các lớp đặc quyền thấp hơn không thể thực hiện
+	+ Nếu các tiến trình ngươid dùng có thể thực hiện các câu lệnh này thì có thể phá vỡ cơ chế bảo vệ hay gây ra sự hỗn loạn
+	+ Bất kỳ nỗ lực nào nhằm chạy các câu lệnh này bên ngoài lớp 0 sẽ gây ra lỗi như khi chương trình cố truy cập ô nhớ không hợp lệ
+- Bộ xử lý x86 theo dõi mức đặc quyền (lớp bảo vệ) thông qua các trường:
+	+ RPL (Request Privilege Level) trên thanh ghi đoạn dữ liệu:
+		Giá trị của trường này không thể được gán trực tiếp bởi các câu lệnh nạp dữ liệu mà chỉ bởi các câu lệnh thay đổi luồng thực hiện như câu lệnh call
+
+
+..................................................................................................
+3.2. Quản lý bộ nhớ
+* Thẻ mô tả đoạn nhớ
+- Các thẻ mô tả đoạn nhớ được lưu trong 2 bảng:
+	+ Bảng mô tả toàn cực GDT (Global Descriptor Table)
+	+ Bảng mô tả cục bộ LDT (Local Descriptor Table)
+- Thông thường cần 1 bảng GDT để truy cập trực tiếp vào không gian nhớ phẳng
+	+ Vị trí đầu tiên của bảng GDT được lưu trong thanh ghi gdtr
+	
+* Thẻ chọn đoạn nhớ
+- Để chọn đoạn nhớ, chương trình cần sử dụng thẻ chọn đoạn nhớ (segment selector):	
+	+ Bit TI giúp phân biệt GDT (TI = 0) và LDT (TI = 1)
+	+ RPL mô tả mức đặc quyền cần thiết khi truy cập vào đoạn tưng ứng
+	
+* Truy cập bộ nhớ qua GDT
+-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

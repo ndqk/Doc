@@ -1,0 +1,130 @@
+Attacking Session Management
+
+-------------------------------------------------------------------------------------------------
+I. The Need for State
+ HACK STEPS:
+  In many applications that use the standard cookie mechanism to transmit session tokens, it is straightforward to identify which item of data contains the token. However, in other cases this may require some detective work.
+  1. The application may often employ several different items of data collectively as a token, including cookies, URL parameters, and hidden form fields. Some of these items may be used to maintain session state on different back-end components. Do not assume that a particular parameter is the session token without proving it, or that sessions are being tracked using only one item.
+  2. Sometimes, items that appear to be the application's session token any not be. Inparticular platform may be present by not actually used by the application.
+  3. Observer which new items are passed to the browser after authentication. Often, new session tokens are created after a user authenticates herself.
+  4. To verify which items are actually being employed as tokens, find a page that is definitely session-dependent (such as a user-specific "my details" page). Make several requests for its, systematically removing each item that you suspect is being used as a token. If removing an item causes the session-dependent page not to be returned, this may confirm that the item is a session token. Burp Repeater is a useful tool for performing these tests.
+  
+ 1. Alternatives to Sessions
+  HACK STEPS:
+   1. If HTTP authentication is being used, it is possible that no session management mechanism is implemented. Use the methods described previously to examine the role palyed by any token-like items of data.
+   2. If the application uses a sessionless state mechanism, transmitting all data required to maintain state via the client, this may sometimes be difficult to detect with certainly, but the following are strong indicators that this kind of mechanism is being used:
+    - Token-like data items issued to the client are fairly long (100 or more bytes).
+    - The application issues a new token-like item in response to every request.
+    - The data in the item appears to be encrypted (and therefore has no discernible structure) or signed (and therefore has a meaningful structure accompanied by a few bytes of meaningless binary data).
+    - The application may reject attempts to submit the same item with more than one request.
+   3. If the evidence suggest strongly that the application is not using session tokens to manage state, it is unlikely that any of the attacks described in this chapter will achieve anything. Your time probably would be better spent looking for other serious issues such as broken access controls or code injection.
+   
+---------------------------------------------------------------------------------
+II. Weaknesses in Token Generation
+ 1. Meaningful Tokens
+  HACK STEPS:
+   1. Obtain a single token from the application, and modify it in systematic ways to determine whether the entire token is validated or whether some of its subcomponents are ignored. Try changing the token's value one byte at a time (or even one bit at a time) and resubmitting the modified token to the application to determine whether it is still accepted. If you find that the certain portions of the token are not actually required to be correct, you can exclude these form any further analysis, potentially reducing the amount of work you need to be perform. You can use the "char frobber" payload type in Burp Intruder to modify a tokens's value in one character position at a time, to help with this task.
+   2. Log in as several different users at different times, and record the tokens received from the server. If self-registration is available and you can choose your username, log in with a series of similar usernames containing small variations between them, such as A, AA, AAA, AAAA, AAAB, AAAC, AABA, and so on. If other user-specific data is submitted at login or stored in user profiles (such as an e-mail address), perform a similar exercise to vary that data systematically, and record the tokens received following login.
+   3. Analyze the tokens for any correlations that appear to be related to the username and other user-controllable data.
+   4. Analyze the tokens for any detectable encoding or obfuscation. Where the username contains a sequence of the same character, look for a corresponding character sequence in the token, which may indicate the use of XOR obfuscation. Look for sequences in the token containning only hexadecimal characters, which may indicate a hex encoding of an ASCII string or other information. Look for sequences that end in an equals sign and/or that contain only the other valid Base64 character: a to z, A to Z, 0 - 9, + and /.
+   5. If any meaning can be reverse-engineered from the sample of session tokens, consider whether you have sufficient information to attempt to guess tokens recently issued to other application users. Find a page of the application that is session-dependent, such as one that returns an error messages or a redirect elsewhere if accessed without a valid session. The use a tool such as Burp Intruder to make large numbers of request to this page using guessed tokens. Monitor the results for any cases in which the page is loaded correctly, indication a valid session token.
+   
+ 2. Predictable Tokens
+  - Concealed Sequences
+  - Time Dependency
+  - Weak Random Number Generation
+  - Testing the Quality of Randomness
+  
+  - HACK STEPS:
+   1. Determine when and how session tokens are issued by walking through the application from the first application page throught any login functions. Two behaviors are common:
+    - The application creates a new session anytime a request is received that does not submit a tooken
+    - The application creates a new session following a successful login
+    To harvest large numbers of tokens in an automated way, ideally idenfity a single request (typically either GET / or login submission) that causes a new token to be issued.
+   2. In Burp Suite, send the request that creates a new session to Burp Sequencer, and configure the token's location. Then start a live capture to gather as many tokens as is feasible. If a custom session management mechanism is in use, and you only have remote access to the application, gather the tokens as quickly as possible to minimize the loss of tokens issued to other users and reduce the influence of any time dependency.
+   3. If a commercial session management mechanism is in use and/or you have local access to the application, you can obtain indefinitely large sequences of session tokens on controlled conditions.
+   4. While Burp Sequencer is capturing tokens, enable the "auto analyze" setting so that Burp automatically performs the statiscal analysis periodically. Collect at least 500 tokens before reviewing the results in any detail. If a sufficient number of bits within the token have passed the tests, continue gathering tokens for as log as is feasible, reviewing the analysic results as further tokens are captured.
+   5. If the tokens fail the randomness tests and appear to contain patterns that could be exploited to predict future tokens, reperform the exercise from a different IP address and (if relevant) a different username. This will help you identify whether the same pattern is detected and whether tokens received in the first exercise could be extrapolated to identify tokens received in the second. Sometimes the squence of tokens captured by one user manifests a pattern. But this will not allow straight-forward extrapolation to the tokens issued to other users, becasuse information such as source IP is used as a source of entropy (such as a seed to a random number generator).
+   6. If you believe you have enough insight into the token generation algorithm to mount an automated attack against other user's session, it is likely that the best means of achieving this is via a customized script. This can generate tokens using the specific pattern you have observed and apply any necessary encoding. 
+   7. If source code is available, closely review the code responsible for generating session tokens to understand the mechanism used and determine whether it is vulnerable to prediction. If entropy is drawn from data that can be determined within the application within a brute-forcible range, consider the practical number of requests that would be needed to brute-force an application token.
+   
+ 3. Encrypted Tokens
+  - ECB Ciphers
+  - CBC Ciphers
+  - HACK STEPS:
+  	
+-----------------------------------------------------------------------------------------
+III. Weaknesses in Session Token Handling
+ 1. Disclosure of Tokens on the Network
+  HACK STEPS:
+   1. Walk through the application in the normal way from first access (the "start" URL), through the login process, and the through all of the application's functionality. Keep a record of every URL visited, and note every instance in which a new session token is received. Pay particular attention to login functions and transitions between HTTP and HTTPS communications. This can be achieved manually using a network sniffer such as Wireshark or partially automated using the logging functions of your interceptiong proxy
+   2. If HTTP cookies are being used as the transmission mechanism for session tokens, verify whether the secure flag is set, preventing them from ever being transmitted over unencryoted connections.
+   3. Determine whether, in the normal use of the application, session tokens are ever transmitted over an unencrypted connection. If so, they should be regarded as vulnerable to interception.
+   4. Where the start page uses HTTP, and the application switches to HTTPS for the login and authenticated areas of the site, verify whether a new token is issued following login, or whether a token transmitted during the HTTP stage is still being used to track the user;s authenticated session. Also verify whether the application will accept login over HTTP if the login URL is modified accrordingly.
+   5. Even if the application uses HTTPS for every page, verify whether the server is also listening on port 80, running any service or content. If so, visit any HTTP URL directly from within an authenticated session, and verify whether the session token is transmitted.
+   6. In cases where a token for an authenticated session is transmitted to the server over HTTP, verify whether that token continues to be valid or is immediately terminated by the server.
+   
+ 2. Disclosure of Tokens in Logs
+  HACK STEPS:
+   1. Identify all the functionality within the application, and locate any logging or monitoring functions where session tokens can be viewed. Verify who can access this functionsality-for example, administrators, any authenticated user, or any anonymous user.
+   2. Identify any instances within the application where session tokens are transmitted within the URL. It may me that tokens are generally transmitted in a more secure manner but that developers haved used the URL in specific cases to work around particular difficulties. For example, this behavior is often observed where a web application interfaces with an external system.
+   3. If session tokens are being transmitted in URLs, attempt to find any application functionality that enables you to inject arbitrary off-site links into pages viewed by other users. Examples include functionality implementing a message board, site feedback, question-and-answer, and so on. If so, submit links to a web server you control and wait to see whether any users’ session tokens are received in your Referer logs.
+   4. If any session tokens are captured, attempt to hijack user sessions by using the application as normal but substituting a captured token for your own. You can do this by intercepting the next response from the server and adding a Set-Cookie header of your own with the captured cookie value. In Burp, you can apply a single Suite-wide configuration that sets a specific cookie in all requests to the target application to allow easy switching between different session contexts during testing.
+   5. If a large number of tokens are captured, and session hijacking allows you to access sensitive data such as personal details, payment information, or user passwords, you can use the automated techniques described in
+Chapter 14 to harvest all desired data belonging to other application users.
+
+ 
+ 3. Vulnerable Mappiong of Tokens to Sessions
+ 
+ 
+ 4. Vulnerable Session Termination
+ 
+ 
+ 5. Client Exposure to Token Hijacking
+ 
+ 
+ 6. Liberal Cookie Scope
+ 
+ 
+ 
+---------------------------------------------------------------------------------
+IV. Securing Session Management
+ 1. Generate Strong Tokens
+ 2. Protect Tokens Throughout Their Life Cycle
+ 3. Log, Monitor, and Alert
+   
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+    
+    
+    
+    
+    
+    
+    
+    
+   
+   
+   
+   
+   
+   
+   
+   
+   

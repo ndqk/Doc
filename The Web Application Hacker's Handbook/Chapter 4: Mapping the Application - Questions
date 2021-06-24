@@ -1,0 +1,62 @@
+1. While mapping an application, you encounter the following URL:
+	https://wahh-app.com/CookieAuth.dll?GetLogon?curl=Z2Fdefault.aspx
+ 	
+ 	What information can you deduce about the technologies employed on the server and how it is likely to behave?
+  - Answer: The file name CookieAuth.ddl indicates that Microsoft ISA server is being used. This is the URL for the login function, and after a successful login the application will redirect to the URL /default.aspx.
+ 
+ 2. The application you are targeting implements web forum functionality.
+	Here is the only URL you have discovered:
+		http://wahh-app.com/forums/ucp.php?mode=register
+	
+	How might you obtain a listing of forum members?
+ - Answer: The URL is a common fingerprint the phpBB web forum software. Information about this software is readily available on the Internet, and you can perform your own installation to experiment on. A listing of members can be found at the following URL:
+ 	http://wahh-app.com/forums/memberlist.php
+  Individual user profiles can be found via URLs like the following:
+  	 	http://wahh-app.com/forums/profile.php?mode=viewprofile&u=1
+  Various vulnerabilities have been found in the phpBB software so you should confirm the version in use and research any associated problems.
+	
+3. While mapping an application, you encounter the following URL:
+	https://wahh-app.com/public/profile/Address.asp?action=view&location=default
+	
+	What information can you infer about server-side technologies? What can you conjecture about other content and functionality that may exist?
+ - Answer: The .asp file extension indicates that Microsoft's Active Server Pages are in use. The use of a /public path indicates that other interesting paths might exist, such as /private. The action=view parameter suggests that other actions may exist, such as edit, add or delete. The function of the location = default paramater should be investigated - this may contain a filename, and you should probe the application for path traversal vulnerabilities.
+
+4. A web server’s responses include the following header:
+	Server: Apache-Coyote/1.1
+	
+	What does this indicate about the technologies in use on the server?
+ - Answer: If the header is accurate, it indicated that the server is running Apache Tomcat is a Java Servlet Container, so the application probably uses Java and JSP technologies.
+	
+5. You are mapping two different web applications, and you request the URL /admin.cpf from each application. The response headers returned by each request are shown here. From these headers alone, what can you deduce about the presence of the requested resource within each application?
+
+	HTTP/1.1 200 OK
+	Server: Microsoft-IIS/5.0
+	Expires: Mon, 20 Jun 2011 14:59:21 GMT
+	Content-Location: http://wahh-
+	app.com/includes/error.htm?404;http://wahh-app.com/admin.cpf
+	Date: Mon, 20 Jun 2011 14:59:21 GMT
+	Content-Type: text/html
+	Accept-Ranges: bytes
+	Content-Length: 2117
+	
+	HTTP/1.1 401 Unauthorized
+	Server: Apache-Coyote/1.1
+	WWW-Authenticate: Basic realm=”Wahh Administration Site”
+	Content-Type: text/html;charset=utf-8
+	Content-Length: 954
+	Date: Mon, 20 Jun 2011 15:07:27 GMT
+	Connection: close
+	
+ - Answer: 
+  + The first response uses the HTTP status code 200, which normally indicates that the request was successful. However, the Content-Location header indicates the location from which the response was retrieved. This appears to be a dynamically generated error page, and includes the value 404 in its query string, indicatiing that the response contains a customized "file not found" message.
+  
+  + The second response uses the HTTP status code 401, which suggests that the request resource is present but users must supply HTTP authentication credentials in order to access it.
+  
+  In each case, you could substantiate your conclusion by requesting a clearly non-existent item in the same directory with the same extension (for example, /aaaaaa.cpf) and comparing the responses. In the first application, you would expect to see a response very similar to the original. In the second application, you would expect to see a different response containing a "file not found" message.
+
+
+
+
+
+
+

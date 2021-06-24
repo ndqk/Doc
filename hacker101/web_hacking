@@ -1,0 +1,149 @@
+------------------------------------------------------------------
+1. XSS and Authorization
+* XSS (Cross-Site Scripting)
+- Types of XSS
+ + Stored: input from a user is stored on the server (often in a database) and returned later without proper escaping
+ + Reflected: input from a user is directly returned to the browser, permitting injection of arbitrary content
+ + DOM: input from a user is inserted into the page's DOM without proper handling, enabling insertion of arbitrary
+	
+- Detection
+The first step to exploting or mitigating XSS is simple: find XSS.
+But as you guys saw in your coursework, that's not always so easy.
+So what can we do to figure out if, say, a reflected input is vulnerable?
+
+I follow a pretty straightforward mental checklist for each input:
+ + 1. Figure out where it goes: Does it get embedded in a tag attribute? Does it get embedded into a string in a script tag?
+ + 2. Figure out any special handling: Do URLs get turned into links, link posts in level1?
+ + 3. Figure out how special characters are handled: A google way is to input somwthing like '<>:;"
+
+From those 3 steps, you'll know whether or not a given input is vulnerable to XSS.
+At this point, one of the differences between stored and reflected XSS becomes apparent: rXSS vulnerabilities are inherently dependent on CSRF vulnerabilities to be exploitable, in the case of POSTs. If your rXSS exists just in a GET, you're fine, but you're dependent on CSRF otherwise.
+
+- Exploitation
+- Mitigation
+We've now seen 3 or 4 different cases of stored/reflected XSS and how we can exploit them.
+So how do we mitigate them? Well, that's a bit more complex than it seems.
+People generally say "just escape/encode!", but don't recognize that context matters, as we've seen.
+
+In the third case, it's enought to string escapse angle brackets in addition to quotes and backslashes. I.E replace < with \x3c and > with \x3e
+But there are a multitude of cases where that's not enough, e.g. when you're passing an integer value into a DOM event attribute or a variable in a script tag.
+
++ Mitigation Through Design
+Unless there is absolutely no other option, user-controlled input should not end up in a script tag or inside of an attribute for a DOM event. While it is possible to mitigate it (as we just disscussed), the likeihood of proper mitigation is next to nil.
+You're going to see a multitude of different ways in which XSS is mitigated. In almost every JS-related case, it's going to be wrong.
+
+
+* Authorization bypasses and forced browing
+- What are they?
+Well, they're pretty much both the same thing/
+In both cases, you have a failure to properly authorize access to a resource, e.g. an admin area is left unprotected, or you're able to directly enumerate values in a request to access other users'data.
+
+- What's the difference?
+The line is very fine between the two. Generally, forced browsing (or direct object reference) is used when you're talking about enumerable values such as post IDs and other parts of the site that are not ordinarily available to you from your privilege level. Don't worry too much about which you use: some people combine them just under "authorization bugs" (or auth-z, to differentiate from auth-n, authentication).
+- Detection
+- Exploitation
+- Mitigation
+
+------------------------------------------------------------------
+2. SQL Injection adn Friends
+* Directory traversal
+- What it is
+- Exploitation
+- Mitigation
+
+* Command injection
+- What it is
+- Real-world scenario
+- Exploitation
+- Mitigation
+
+* SQLi
+- How it works
+- Basic exploitation
+- Mitigation
+
+* Blind SQLi
+- What it is
+- The types of blind SQLi
+- Exploiting blind
+
+------------------------------------------------------------------
+3. Session Fixation
+- What it is
+- Detection
+- Mitigation
+
+------------------------------------------------------------------
+4. Clickjacking
+- What it is
+- How it works
+- How to defend against it
+
+------------------------------------------------------------------
+5. File Inclusion Bugs
+- Local File Inclusion
+- Remote File Inclusion
+- Detection
+- Exploitation
+- Mitigation
+
+------------------------------------------------------------------
+6. File Upload Bugs
+- How multipart POSTs work
+- Filename-based attacks
+- MIME type attacks
+- Hiding data in PNG files
+- Mitigation
+
+------------------------------------------------------------------
+7. Null Termination Bugs
+- What they are
+- Why they're relevant to web security
+- How to test for null termination bugs
+- How to exploit these bugs
+
+------------------------------------------------------------------
+8. Unchecked Redirects
+- What they are
+- Detection
+- Exploitation
+- Mitigation
+
+------------------------------------------------------------------
+9. Password Storage
+- Use Bcrypt (or Scrypt)
+- Goals for password security
+- Never use a bare hash
+- If you can't use those, use PBKDF2 and slow it way down
+
+------------------------------------------------------------------
+10. Server-Side Rquest Forgery
+- File acccesses
+- Firewall bypass
+- Port scanning
+- Mitigation
+
+------------------------------------------------------------------
+11. Source Code Review
+- Managing expectations
+	- Metrics
+	- Manual vs automated review
+- Tool review
+- Issues with static analysic tools
+- Division of labor
+- Tips and tricks
+
+------------------------------------------------------------------
+12. XML External Entities
+- How XML entity definitions work
+- How to use these definitions for XXE attacks
+- The real-world impact of these bugs
+
+------------------------------------------------------------------
+13. Cookie Tampering Techniques
+- Manipulating cookies in the browser
+- Manupulation cookies in request
+- Checking for cookie flags
+- Common data encoding
+- Manupulations
+

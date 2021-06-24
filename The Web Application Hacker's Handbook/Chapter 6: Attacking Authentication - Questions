@@ -1,0 +1,63 @@
+1. While testing a web application, you log in using your credentials of joe and pass . During the login process, you see a request for the following URL appear in your intercepting proxy:
+	http://www.wahh-app.com/app?action=login&uname=joe&password=pass
+	
+	What three vulnerabilities can you diagnose without probing any further?
+ - Answer:
+ 	+ The credentials are transmitted within the query string of the URL. These are at risk of unauthorized disclosure via the browser history, the logs of the web server and IDS, or simply by appearing on-screen.
+ 	+ The credentials are transmitted via an unencrypted HTTP connection, making them vulnerable to interception by an attacker who is suitably positioned on the network.
+ 	+ The password is an English word consisting of four lower case alphabetical characters. THe application is not enforcing any effective password quality rules.
+
+
+2. How can self-registration functions introduce username enumeration vulnerabilities? How can these vulnerabilities be prevented?
+ - Answer: 
+  + Self-registration functions are very often vulnerable to username enumeration because users can choose their own username and the application prevents them from registing an existing username.
+  + Applications can avoid self-registration functionality being misused in this way through two methods:
+   (a) The application can generate its own usernames, assigning a non-predictable username to each new user when they have supplied the required personal information.
+   (b) The first step of the self-registration process can require users to enter their email address. The application then sends the user an email containing a one-time URL that they can use to continue the registration process. If the supplied email address is already registered, the user is notified of this in the email.
+
+3. A login mechanism involves the following steps:
+
+	(a) The application requests the user’s username and passcode.
+	(b) The application requests two randomly chosen letters from the user’s memorable word.
+	
+Why is the required information requested in two separate steps? What defect would the mechanism contain if this were not the case?
+ - Answer: 
+  + The rationable for requesting two randomly chosen letters from the user's memorable word, rather than the entire word, is that even if an attacker captures all of the credentials supplied by a user in a single login, it is unlikely that the attacker will be able to repeat the login using those credentials, because a different pair of letters will be requested.
+  + If the application requests all of the required information in a single step, then it must select the randomly chosen letters in advance, without knowing the claimed identify of the authentication user. This means that an attacker who knows only 2 letters from a user's memorable word can simple reload the login form repeatedly until those 2 letters are requested, enabling them to log in using the capture credentials
+  + To avoid this defect, the application must choose a new pair of lettrs following each successful login and store these in the user's profile until such time as the user successful logs in again. When the user has identified themselves at stage one of the login, the pair of letters is retrived from their profile, and requested from the user. In this way, an attacker who has captured the credentials in a single login wil typocally need to wait a very long period until the them items are re-requested by the application
+
+
+4. A multistage login mechanism first requests the user’s username and then various other items across successive stages. If any supplied item is invalid, the user is immediately returned to the first stage. What is wrong with this mechanism, and how can the vulnerability be corrected?
+ - Answer: 
+  + An attacker attempting to guess valid credentials can easily determine whether an individual item is valid or invalid. The application's behavior effectively enables an attacker to break down the brute-force problem into a series of individual challenges.
+  + The vulnerabilities can be corrected by continuing through all steps of the login process even if an invalid item is submitted, returning a generic "login fail" message after the final stage, regardless of which item caused the failure. This massively increases the number of requests required to guess a user's credentials using brute force.
+
+5. An application incorporates an antiphishing mechanism into its login functionality. During registration, each user selects a specific image from a large bank of memorable images that the application presents to her. The login function involves the following steps:
+
+	(a) The user enters her username and date of birth.
+	(b) If these details are correct, the application shows the user her chosen image; otherwise, a random image is displayed.
+	(c) The user verifies whether the correct image is displayed. If it is, she enters her password.
+	
+	The idea behind this antiphishing mechanism is that it enables the user to confirm that she is dealing with the authentic application, not a clone, because only the real application knows the correct image to display to the user.
+	What vulnerability does this antiphishing mechanism introduce into the login function? Is the mechanism effective at preventing phishing?
+ - Answer:
+  + The presence of the anti-phishing mechanism enables an attacker to break the problem of guessing valid credentials into 2 stages. An attacker can verify whether or not a particular username and date of birth are valid by completion step (a) twice with these values. If the same anti-phishing image is returned on each occasion, then the guessed credentials are almost certaintly valid; otherwise, they can not. A scripted attack could quickly iterate through a wide range of dates of birth for a targeted username, in order to guess the correct value.
+  + Worse still, the mechanism devised is not effective in preventing phishing attacks. A cloned web application will receive the username and date of birth supplied by the user in step (a), and can submit these directly to the original application to   retriece the correct image to present to the user in step (b). If users have been told to trust the image to provide assurance of the application's identify, then the mechanism may actually be counter-productive and may cause users to login to a phishing site that they would not otherwise trust.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

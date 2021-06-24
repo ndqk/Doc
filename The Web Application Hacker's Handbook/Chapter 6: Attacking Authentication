@@ -1,0 +1,304 @@
+Attacking Authentication
+
+--------------------------------------------------------------------------
+I. Authentication Technologies
+ A wide range of technologies are available to web application developers when implementing authentication mechanisms:
+  - HTML forms-based authentication
+  - Multifactor mechanisms, such as those combining passwords and physical tokens
+  - Client SSL certificates and/or smartcards
+  - HTTP basic and digest authentication
+  - Windows-integrated authentication using NTLM or Kerberos
+  - Authentication services
+ 
+ --------------------------------------------------------------------------
+ II. Design Flaws in Authentication Mechanisms
+  1. Bad Passwords
+   It is common to encounter applications that allow passwords that are:
+    - Very short or blank
+    - Common dictionary words or names
+    - The same as the username
+    - Still set to a default value
+    
+   HACK STEPS:
+    Attempt to discover any rules regarding password quality:
+    1. Review the website for any description of the rules.
+    2. If self-registrationn is possible, attempt to register serveral accounts with different kinds of weak passwords to discover what rules are in place.
+    3. If you control a single account and password change is possible, attempt to change your password to various weak values.
+    
+  2. Brute-Forcible Login
+   HACK STEPS:
+    1. Manually submit serveral bad login attempts for an account you control, monitoring the error messages you receive.
+    2. After about 10 failed logins, if the application has not returned a message about account block, attempt to login correctly. If this succeeds, there is probally no account lockout policy.
+    3. If the account is locked out, try repeating the exercise using a different account. This time, if the application issues any cookies, use each cookie for only a single login attempt, and obtain a new cookie for each subsequent login attempt.
+    4. Also, if the account is locked out, see whether submitting the valid password causes any difference in the application's behaviour compared to an invalid password. If so, you can continue a password-guessing attack event if the account is locked out.
+    5. If you do not control any accounts, attempts tp enumerate a valid username and make serveral bad logins using this. Monitor for any error messages about account lockout.
+    6. To mount a brute-force attack, first identify a difference in the application's behavior in response to successful and faild logins. You can use this fact to discriminate between success and failure during the course of the automated attack.
+    7. Obtain a list of enumerated or common usernames and a list of common passwords. Use any information obtained about password quility rules to tailor the password list so as to avoid superfluous test cases.
+    8. Use a suitable tool or a custom script to quickly generate login requests using all the permutations of these usernames and passwords. Monito the server's responses to identify successful login attempts.
+    9. If you are targeting serveral usernames at once, it is usually preferable to perform this kind of brute-fore attack in a breadth-first rather than depth-first mannet. This involves iteration through a list of passwordss (staring with the most common) and attempting each password in turn on every username. This approach has 2 benefits. First, you discover accounts with common passwords more quickly. Second, you are less likely to trigger any account lockout defenses, because there is a time delay between successive attempts using each individual account.
+    
+  3. Verbose Failure Messages
+   HACK STEPS:
+    1. If you already know on valid username (for example, an account you control), submit one login using this username and an incorrect password, and another login using a random username.
+    2. Record every detail of the server's responses to each login attempt, including the status code, any redirects, information displayed on screen, and any differences hidden in the HTML page source. Use your interception proxy to maintain a full history of all traffic to and from the server.
+    3. Attempt to discover any obvious or subtle differences in the server's responses to the two login attemps.
+    4. If this fails, repeat the exercise everywhere within the application where a username can be submitted (for example, self-registration, password change, and forgotten password).
+    5. If a difference is detected in the server's responses to valid and invalid usernames, obtain a list of common usernames. User a custom script or automated tool to quickly submit each usernames, and filter the responses that signify that username is valid.
+    6. Before commencing your enumeration exercise, verify whether the application performs any account lockout after a certain number of failed login attempts (see the preceding section). If so, it is desirable to design your enumeration attack with this fact in mind. For example, if the application will grant you only three failed login attempts with any given account, you run the risk of "wasting" one of these for every username you discover througt automated enumeration. Therefore, when performing your enumeration attack, do not submit a far-fetched password such as password1 or the username itself as the password. If password qualitu rules are weak, it is highly likely that some of the attempted logins you perform as part of your enumeration exrcise will succeed and will disclose both the username and password in a single hit. To set the password field to be the same as the username, you can use the "battering ram" attack mode in Burp Intruder to insert the same payload at multiple positions in your login request.
+    
+  4. Vulnerable Transmission of Credentials
+   If application uses an unencrypted HTTP connection to transmit login credentials, an eavesdropper who is suitably positioned on the network can, of course, intercept them. Depending on the user's location, potential eavesdroppers may reside:
+    - On the user's local network
+    - Within the user's IT department
+    - Within the user's ISP
+    - On the Internet backbone
+    - Within the ISP hosting the application
+    - Within the IT department managing the application
+    
+   HACK STEPS:
+    1. Carry out a successful login while monitoring all traffic in both directions between the client and server.
+    2. Identify every case in which the credentials are transmitted in either direction. You can set interception rules in your intercepting proxy to flag messages containing specific strings.
+    3. If any instances are found in which credentials are submitted in a URL query string or as a cookie, or are transmitted back from the server to the client, understand what is happening, and try to ascertain what purpose the application developers were attemping to achieve. Try to find every means by which an attacker might interfere with the application's logic to compromise other users' credentials.
+    4. IF any sensitive information is transmitted over an unencrypted channel, this is, of course, vulnerable to interception.
+    5. If no cases of actual credentials beign transmitted insercurely are identified, pay close attention to any data that appears to be encoded or obfuscated. If this includes sensitive data, it may be possible to reverse-engineer the obfuscation algorithm.
+    6. If credentials are submitted using HTTPS but the login form is loaded using HTTP, the application is vulnerable to main-in-the-middle attack, which may be used to capture credentials.
+    
+  5. Password Change Functionality
+   HACK STEPS:
+    1. Identify any password change functionality within the application. If this is not explicitly linked form published content, it may still be implemented. 
+    2. Make various requests to the password change function using invalid usernames, invalid existing passwords, and mismatched "new password" and "confirm new password" values.
+    3. Try to identify any behavior that can be used for username enumeration or brute-force attackss
+  
+  6. Forgotten Password Functionality
+   HACK STEPS:
+    1. Identify any forgotten password functionality within the application. If this is not explicitly linked from published content, it may still be implemented.
+    2. Understand how the forgotten password function works by doing a complete walk-through using an account you control.
+    3. If the mechanism uses a challenge, determine whether users can set or select their own challenge and response. If so, use a list of enumerated or common usernames to harvest a list of challenges, and review this for any that appear easily guessable.
+    4. If the mechanism uses a password "hint", do the same exercise to harvest a list of password hints, and target any that are easily guessable.
+    5. Try to identify any behavior in the forgotten password mechanism that can be exploited as the basic for username enumeration or brute-force attacks.
+    6. If the application generates an e-mail containing a recovery URL in response to forgotten password request, obtain a number of these URLs, and attempt to identify any patterns that may enable you to predict the URLs issued to other users. Employ the same techniques as are relevant to analyzing session tokens for predictability.
+    
+  7. "Remember Me" Funtionality
+   HACK STEPS:
+    1. Active any "Remember me" functionality, and determine whether the functionality indeed does fully "remember" the user or whether it remembers only his username and still requires him to enter a password on subsequent visits. If the latter is the case, the functionality is much less likely to expose any security flaw.
+    2. Closely inspect all persistent cookies that are setm and also any data that is persisted in other local storage mechanisms, such as Internet Explorer's userData, Silverlight isolated storage, or Flash local share objects. Look for any saved data that identifies the user explicitly or appears to contain some predictable identifier of the user.
+    3. Even where stored data appears to be heavily encoded or obfuscated, review this closely. Compare the results of "remembering" serveral very similar usernames and/or passwords to identify any opportunities to reverse-engineer the original data. Here, use the same techniques that are described in Chapter 7 to dectec meaning and patterns in session tokens.
+    4. Attempt to modify the contents of the persistent cookie to try to convince the application that another user has saved his details on your computer.
+    
+  8. User Impersonation Functionality
+   HACK STEPS:
+    1. Identify any impersonation functionality within the application. If this is not explicitly linked from published content, it may still implemented.
+    2. Attempt to use the impersonation functionality directly to impersonate other users.
+    3. Attempt to manupulate any user-supplied data that is processed by the impersonation function in an attempt to impersonate other users. Pay particular attention to any cases where your username is being submitted other than during normal login.
+    4. If you succeed in making use of the functionality, attempt to impersonate any known or guessed administrative users to elevate privileges.
+    5. When carryung out password-guessing attacks, review whether any users appear to have mroe than one valid password, or whether a specific password has been matched against serveral usernames. Also, login as many different users with the credentials captured in a brute-force attack, and review whether everything appears normal. Pay close attention to any "logged in as X" status message.
+    
+  9. Imcomplete Validation of Credentials
+   HACK STEPS:
+    1. Using an account you control, attempt to log in with variations on your own password: removing the last character, changing the case of a character, and removing any special typographical characters. If any of these attempts is successful, continue experimentiong to try to unserstanding what validation is actually occurring.
+    2. Feed any results back into your automated password-guessing attacks to remove superfluous test cases and improve the chances of success.
+    
+  10. Nonunique Usernames
+   HACK STEPS:
+    1. If self-registration is possible, attempt to register the same username twice with different passwords.
+    2. If the application blocks the second registration attempt, you can exploit this behavior to enumerate existing usernames even if this is not possible on the main login page or elsewhere. Make multiple registration attempts with a list of common usernames to identify the already registered names that the application blocks.
+    3. If the registration of duplicate usernames succeeds, attempt to register the same username twice with the same password, and determine the application's behavior:
+     a, If an error message results, you can exploit this behavior to carry out a brute-force attack, even if this not possible on the main login page. Target an enumerated or guessed username, and attempt to register this username multiple times with a list of common passwords. When the application rejects a specific password, you have probably found the existing password for the targeted account.
+     b, If no error message results, log in using the credential you specified, and see what happens. You may need to register serveral users, and modify different data held within each account, to understand whether this behavior can be used to gain unauthorized access to other user's accounts.
+     
+  11. Predictable Usernames
+   HACK STEPS:
+    1. IF the application generates usernames, try to obtain serveral in quick successtion, and determine whether any sequence or pattern can be discerned.
+    2. If it can, extrapolate backwards to obtain a list of possible valid usernames. This can be used as the basic for a brute-force attack against the login and other attacks where valid usernames are required, such as exploitation of access control flaws.
+    
+  12. Predictable Initial Passwords
+   HACK STEPS:
+    1. If the application generates passwords, try to obtain serveral in quick succession, and determine whether any sequence or pattern can be discerned.
+    2. If it can, extrapolate the pattern to obtain a list of passwords for other application users.
+    3. If passwords demonstate a pattern that can be correlated with usernames, you can tru to log in using known or guessed usernames and the corresponding inferred passwords.
+    4. Otherwise, you can use the list of inferred passwords as the basic for a brute-force attack with a list of enumerated or common usernames.
+    
+  13. Insecure Distribution of Credentials
+   HACK STEPS:
+    1. Obtain a new account. If you are not required to set all credentials during registration, determine the means by which the application distributes credentials to new users.
+    2. If an account activation URL is used, try to register serveral new account in close succession, and identify any sequence in the URLs you receive. If a pattern can be determined, try to predict the activation URLs sent to recent and forthcoming users, and attempt to use these URLs to take ownership of their accounts.
+    3. Try to reuse a single activation URL multiple times, and see if the application allow this. If not, try locking out the target account before reusing the URL, and see if it now works.
+    
+-----------------------------------------------------------------------------\
+III. Implementation Flaws in Authentication
+ 1. Fail-Open Login Mechanisms
+  HACK STEPS:
+   1. Perform a complete, valid login using an account you control. Record every piece of data submitted to the application, and every response received, using your intercepting proxy.
+   2. Repeat the login process numerous times, modifying pieces of the data submitted in unexpected ways. For example, for each request parameter or cookie sent by the client, do the following:
+    a, Submit an empty string as the value.
+    b, Remove the name/value pair altogether.
+    c, Submit very long and very short values.
+    d, Submit strings instead of numbers and vice versa
+    e, Submit the same item multiple times, with the same and different values.
+   3. For each malformed request submitted, review closely the application's response to identify any divergences from the base case.
+   4. Feed these observations back into framing your test cases. When one modification causes a change in behavior, try to combine this with other changes to push the application's logic to its limits.
+   
+ 2. Defects in Multistage Login Mechanisms
+  HACK STEPS:
+   1. Perform a complete, valid login using an account you control. Record every piece of data submitted to the application using your intercepting proxy.
+   2. Identify each distinct statge of the login and the data that is collected at each stage. Determine whether any single piece of information is collected more than once or is ever transmitted back to the client and resubmitted via a hidden form field, cookie, or preset URL parameter.
+   3. Repeat the login process numerous times with various malformed requests:
+    a, Try performing the login steps in a different sequence.
+    b, Try proceeding directly to any given stage and continuing form there.
+    c, Try skipping each stage and continuing with the next.
+    d, Use your imagination to think of other ways to access the different stages that the developers may not have anticipated.
+   4. If any data is submitted more than once, try submitting a different value at different stagesm, and see whether the login is still successful. It may be that some of the submissions are superfluous and are not actually processed by the application. It might be that the data is validated at one stage and then trusted subsequently. In this instance, try to provide the credential of one user at one statge, and then switch at the next to actually authentication as a different user. It might be that the same piece of data is validated at more than one stage, but against different checks. In this instance, try to provide (for example) the username and password of on user at the first stage, and the username and PIN of a different user at the second stage.
+   5. Pay close attention to any data being transmitted via the client that was not directly entered by the user. The application may use this data to store information about the state of the login progress, and the application may trust it when it is submitted back to the server. For examople, if the request for stage three includes the parameter stage2complete=true, it may be possible to advance straight to stage three by setting this value. Try to modify the values being submitted, and determine whether this enables you to advance or skip stages.
+   
+  HACK STEPS:
+   1. If one of the login stages uses a randomly varying question, verify whether the details of the question are being submitted together with the answer. If so, change the question, submit the correct answer associated with that question, and verify whether the login is still successful.
+   2. If the application does not enable an attacker to submit an arbitrary question and answer, perform a partial login serveral times with a single account, proceeding each time as far as the varying question. If the question changes on each occasion, an attacker can still effectively choose which question to anwser.
+ 
+ 3. Insecure Storage of Credentials
+  HACK STEPS:
+   1. Review all of the application's authentication-related functionality, as weell as any function relating to user maintenance. If you find any instance in which a user's password is transmitted back to the client, this indicates that passwords are being stored insecurely, either in cleartext or using reversible encryption.
+   2. If any kind of arbitrary command or query execution vulnerability is identified within the application, attempt to find the location within the application's database or filesystem where users credentials are stored:
+    a, Query these to determine whether passwords are being stored in unencrypted form.
+    b, If password are stored in hashed form, check for nonunique values, indicating that an account has a common or default password assigned, and that that hashes are not being salted.
+    c, If the password is hashed with a standard algorithm in unsalted form, query online hash databases to determinethe corresponding cleartext password value.
+
+-------------------------------------------------------------------------------
+IV. Securing Authentication
+ 1. Use Strong Credentials
+  - Suitable minumum password quality requirements should be enforced.
+  - Username should be unique.
+  - Any system-generated usernames and passwords should be create with sufficient entropy that they cannot feasibly be sequenced or predicted.
+  - User should be permitted to set sufficiently strong passwords.
+  
+ 2. Handle Credentials Secretively
+  - All credentials should be created, stored, and transmitted in a manner that does not lead to unauthorized disclosure.
+  - All client-server communications should be protected using a well established cryptographic technology, such as SSL.
+  - If it is considered perferable to use HTTP form the unauthenticated areas of the application, ensure that the login form itself is loaded using HTTPS
+  - Only POST requests should be used to transmit credentials to the server.
+  - All server-side application components should store credentials in a manner that does not allow their original values to be easily recovered, even by an attacker who gains full access to all the relevant data within the application's database.
+  - Client-side "remember me" functionality should in general remember only nonsecret items suchs as usernames.
+  - A password change facility should be implemented, and users should be required to change their password periodically.
+  - Where credentials for new account are distributed to user out-of-band, these should be sent as securely as possible and should be time-limited.
+  - Where applicable, consider capturing some of the user's login information (for example, single letters from a memorable word) using drop-down menus rather than text fields.
+  
+ 3. Validate Credentials Properly
+  - Passwords should be validated in full - that is, in a case-sensitive way, without filtering or modifying any characters, and without truncating the password.
+  - The application should be aggressive in defending itself against unexpected events occurring during login processing.
+  - All authentication logic should be closely code-reviewed, both as pseudo-code and as actual application source code, to identify logic errors such as fail-open conditions.
+  - If functionality to support user impersonations is implemented, this should be strictly controlled to ensure that it cannot be misused to gain unauthorized access.
+  - Multistage logins should be strictly controlled to prevent an attacker from interfering with the transistion and realtionships between the stages:
+   
+ 
+ 4. Prevent Information Leakage
+ 
+ 
+ 5. Prevent Brute-Force Attacks
+ 
+ 
+ 6. Prevent Misuse of the Password Change Function
+ 
+ 
+ 7. Prevent Misuse of the Account Recovery Function
+ 
+ 
+ 8. Log, Monitor, and Notify
+ 
+ 
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

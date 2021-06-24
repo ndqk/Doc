@@ -1,0 +1,19 @@
+1. What is the OPTIONS method used for?
+ - OPTIONS asks the server to report the HTTP methods that are available for a particular resource. The server typically returns a response containing an Allow header that lists the available methods.
+
+2. What are the If-Modified-Since and If-None-Match headers used for? Why might you be interested in these when attacking an application?
+ - If-Modified-Since: specifies when the browser last received the requested resource. If the resource has not changed since that time, the server may instruct the client to use its cached copy, using a response with status code 304
+ - If-None-Match: specifies an entity tag, which is an identifier denoting the contents of the message body. The browser submits the entity tag that the server issued with the requested resource when it was last received. The server can use the entity tag to determine whether the browser may use its cached copy of the resource.
+ 
+ - In the two way described, these headers are used to support caching of content within the browser, and they enable the server to instruct the browser to use a cached copy of a resource, rather than responding with the full contents of the resource if this is not neccessary.
+ When you are attacking an application, your browser may already have cached copies of resources that you are interested in, such as JavaScript file. By removing these two headers, you can override the browser's caching information and ensure that the server responds with a fresh copy of the resoure you wish to view.
+
+3. What is the significance of the secure flag when a server sets a cookie?
+ - The secure flag is used to isntruct the browser that cookie should only ever be resubmitted over HTTPs connections, and never unencrypted HTTP
+
+4. What is the difference between the common status codes 301 and 302?
+ - 301 - Moved Permanently: redirects the browser permanently to a different URL, which is specified in the Location header. The client should use the new URL in the future rather than the original
+ - 302 - Found: redirects the browser temporarily to a different URL, which is specified in the Location header. The client should revert to the original URL in subsequent request.
+
+5. How does a browser interoperate with a web proxy when SSL being used?
+ - When HTTPS is being used, the browser cannot perform the SSL handshake with the proxy server, because this would break the secure tunnel and leave the comunications vulnerable to interception attacks. Hence, the browser must use the proxy as a pure TCP-level relay, which passes all network data in both directions between the browser and the destinantion web server, with which the browser performs an SSL handshake as normal. To establish this relay, the browser makes an HTTP request to the proxy server using the CONNECT method and specifying the destination hostname and port number as URL. If the proxy allows the request, it returns an HTTP response with a 200 status, keeps the TCP connection open, and from that point onward acts as a pure TCP-level relay to the destination web server.

