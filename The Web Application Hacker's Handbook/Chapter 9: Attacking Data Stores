@@ -1,0 +1,225 @@
+ATTACKING DATA STORES
+
+************************************************************
+I. Injection into Interpreted Contexts
+	1. Bypassing a Login
+ 
+ 	HACK STEPS:
+   Injection into interpreted languages is a broad topic, encompassing many different kinds of vulnerabilities and potentially affecting every component of a web application's supporting infrastructure. The detailed steps for detection and exploiting code injection flaws depend on the language that is being targeted and the programming the techniques employed by the application's developers. In every instance, however, the generic approach is as follows:
+   	1. Supply unexpected syntax that may cause problems within the context of the particular interpreted language.
+   	2. Identify any anomalies in the application's response that may indicate the presence of a code injection vulnerability.
+   	3. If any error messages are received, examine these to obtain evidence about the problem that occurred on the server.
+   	4. If necessary, systematically modify your initial input in relevant ways in a attempt to confirm or disprove your tentative diagnosis of a vulnerability.
+   	5. Construct a proof-of-concept test that causes a safe command to be executed in a verifiable way, to conclusively prove that an exploitable code injection flaw exists.
+   	6. Exploit the vulnerability by leveraging the functionality of the target language and component to achieve your objectives.
+   	
+***************************************************************
+II. Injecting into SQL
+	1. Exploiting a Basic Vulnerability
+	2. Injecting into Different Statement Types
+		Most common types of SQL statements:
+		2.1. SELECT Statements
+		2.2. INSERT Statements
+		2.3. UPDATE Statements
+		2.4. DELETE Statements 
+	3. Finding SQL Injection Bugs
+		3.1. Injecting into String Data
+			HACK STEPS:
+				1. Submit a single quotation mark as the item of data you are targeting. Observe whether an error occurs, or whether the result differs from the original in any other way. If a detailed database error message is received, consult the “SQL Syntax and Error Reference” section of this chapter to understand its meaning.
+				2. If an error or other divergent behavior was observed, submit two single quotation marks together. Databases use two single quotation marks as an escape sequence to represent a literal single quote, so the sequence is interpreted as data within the quoted string rather than the closing string terminator. if this input causes the error or anomalous behavior to disappear, the application is probably vulnerable to SQL injection.
+				3. As further verification that a bug is present, you can use SQL concatenator characters to construct a string that is equivalent to some benign input. If the application handles your crafted input in the same way as it does the corresponding benign input, it is likely to be vulnerable. Each type of database uses different methods for string concatenation. The following examples can be injected to construct input that is equivalent to FOO in a vulnerable application:
+					- Oracle: '||'FOO
+					- SQL Server: '+'FOO
+					- MySQL: ' 'FOO (note the space between the two quotes.
+		
+		3.2. Injecting into Numeric Data		
+			HACK STEPS:
+				1. Try supplying a simple mathematical expression that is equivalent to the original numeric value. For example, if the original value is 2, try submitting 1+1 or 3-1. If the application responds in the same way, it may be vulnerable.
+				2. The preceding test is most reliable in cases where you have confirmed that the item being modified has a noticeable effect on the application's behavior. For example, if the application uses a numeric PageID parameter to specify which content should be returned, substituting 1+1 for 2 with equivalent results is a good sign that SQL injection is present. However, if you can place arbitrary input into a numeric parameter without changing the application's behavior, the preceding test provides no evidence of a vulnerability.
+				3. If the first test is successful, you can obtain further evidence of the vulnerability by using more complicated expressions that use SQL-specific keywords and syntax. A good example of this is the ASCII command, which returns the numeric ASCII code of the supplied character. For example, because the ASCII value of A is 65, the following expression is equivalent to 2 in SQL:	67 - ASCII('A')
+				4. The preceding test will not work if single quotes are being filtered. However, in this situation you can exploit the fact that databases implicitly convert numeric data to string data where required. Hence, because the ASCII value of the character 1 is 49, the following expression is equivalent to 2 in SQL:
+				51 - ASCII(1)
+				
+		3.3. Injecting into the Query Structure
+			HACK STEPS:
+				1. Make a note of any parameters that appear to control the order or field types within the results that the application returns.
+				2. Make a series of request supplying a numeric value in the parameter value, starting with the number 1 and incrementing it with each subsequent request:
+					- If changing the number in the input affects the ordering of the results, the input is probably being inserted into an ORDER BY clause. In SQL, ORDER BY 1 orders by the first column. Increasing this number to 2 should then change the display order of data to order by the second column. If the number supplied is greater than the number of columns in the result set, the query should fail. In this situation, you can confirm that further SQL can be injected by checking whether the results order can be reversed, using the following:
+						1 ASC --
+						1 DESC --
+					- If supplying the number 1 causes a set of results with a column containing a 1 in every row, the input is probably inserted into the name of a column being returned by the query. For example:
+						SELECT 1, title, year FROM books WHERE publisher='Wiley'
+
+	4. Fingerprinting the Database
+	5. The UNION Operator
+		HACK STEPS:
+			Your first task is to discover the number of columns returned by the original query being executed by the application. You can do this in two ways:
+				1. You can exploit the fact that NULL can be converted to any data type to systematically inject queries with different numbers of columns until your injected query is executed. For example:
+					' UNION SELECT NULL--
+					' UNION SELECT NULL, NULL--
+					' UNION SELECT NULL, NULL, NULL--
+				When your query is executed, you have determined the number of columns required. If the application doesn't return database error messages, you can still tell when your injected query was successful. An additional row of data will be returned, containing either the word NULL or an empty string. Note that the injected row may contain only empty table cells and so may be hard to see when rendered as HTML. For this reason it is preferable to look at the raw response when performing this attack.			
+				2. Having identified the required number of columns, you next task is to discover a column that has a string data type so that you can use this to extract arbitrary data from the database. You can do this by injecting a query containing NULL, as you did previously, and systematically replacing each NULL with a. For example, if you know that the query must return three columns, you can inject the following:
+					‘ UNION SELECT ‘a’, NULL, NULL--
+					‘ UNION SELECT NULL, ‘a’, NULL--
+					‘ UNION SELECT NULL, NULL, ‘a’--
+				When your query is executed, you can see additional row of data containing the value a. You can either use the relevant column to extract data from the database.
+				
+	6. Extracting Useful Data
+	7. Extracting Data with UNION
+	8. Bypassing Filters
+		8.1. Avoiding Blocked Characters
+		8.2. Circumventing Simple Validation
+		8.3. Using SQL Comments
+		8.4. Exploiting Defective Filters
+	
+	9. Second-Order SQL Injection
+	10. Advanced Exploitation
+		10.1. Retrieving Data as Numbers
+		10.2. Using an Out-of-Band Channel
+			10.2.1. SQL Server
+			10.2.2. Oracle
+			10.2.3. MySQL
+			10.2.4. Leveraging the Operating System
+		10.3. Using Inference: Conditional Responses
+			10.3.1. Inducing Conditional Errors
+			10.3.2. Using Time Delays
+			
+	11. Beyond SQL Injection: Escalating the Database Attack
+		11.1. SQL Server
+			11.1.1. Dealing with Default Lock down
+		11.2. Oracle
+		11.3. MySQL
+		
+	12. Using SQL Exploitation Tools
+		HACK STEPS:
+			When you have identified a SQL injection vulnerability, using the techniques described earlier in this chapter, you can consider using a SQL injection tool to exploit the vulnerability and retrieve interesting data from the database. This option is particularly useful in cases where you need to use blind techniques to retrieve a small amount of data at a time.
+				1. Run the SQL exploitation tool using an intercepting proxy. Analyze the requests made by the tool as well as the application's responses. Turn on any verbose output options on the tool, and correlate its progress with observed queries and responses.
+				2. Because these kinds of tools rely on preset tests and specific response syntax, it may be necessary to append or prepend data to the string injected by the tool to ensure that the tool gets the expected response. Typical requirements are adding a comment character, balancing the single quotes within the server's SQL query, and appending or prepending closing brackets to the string to match the original query.
+				3. If the syntax appears to be failing regardless of the methods described here, it is often easiest to create a nested subquery that is full under your control, and allow the tool to inject into that. This allow the tool to use inference to extract data. Nested queries work well when you inject into standard SELECT and UPDATE queries. Unser Oracle they work within an INSERT statement. In each of the following cases, prepend the text occurring before [input], and append the closing bracket occurring after that point:
+					- Oracle: ‘||(select 1 from dual where 1=[input])
+					- SQL Server: (select 1 where 1=[input]
+				
+	13. SQL Syntax and Error Reference
+		13.1. SQL Syntax
+		13.2. SQL Error Messages
+		
+	14. Preventing SQL Injection
+		14.1. Partially Effective Measures
+		14.2. Parameterized Queries
+		14.3. Defense in Depth
+
+***********************************************************
+III. Injection into NoSQL
+	Some of the common query methods used by NoSQL data stores:
+	 - Key/Value lookup
+	 - XPath
+	 - Programming languages such as JavaScript
+	
+	1. Injecting into MongoDB
+
+***********************************************************
+IV. Injecting into XPath
+	1. Subverting Application Logic
+	2. Informed XPath Injection
+	3. Blind XPath Injection
+	4. Finding XPath Injection Flaws
+		HACK STEPS:
+			1. Try submitting the following values, and determine whether these result in different application behavior, without causing an error:
+				‘ or count(parent::*[position()=1])=0 or ‘a’=’b
+				‘ or count(parent::*[position()=1])>0 or ‘a’=’b
+			If the parameter is numeric, also try the following test strings:
+				1 or count(parent::*[position()=1])=0
+				1 or count(parent::*[position()=1])>0
+			2. If any of the preceding strings causes differential behavior within the application without causing an error, it is likely that you can extract arbitrary data by crafting test conditions to extract one byte of information at a time. Use a series of conditions with the following form to determine the name of the current node's parent:
+				substring(name(parent::*[position()=1]),1,1)=’a’
+			3. Having extracted the name of the parent node, use a series of conditions with the following form to extract all the data within the XML tree:
+				substring(//parentnodename[position()=1]/child::node()[position()=1]/text(),1,1)=’a’
+	
+	5. Preventing XPath Injection
+	
+*********************************************************************
+V. Injecting into LDAP
+	1. Exploiting LDAP Injection
+		1.1. Disjunctive Queries
+		1.2. Conjunctive Queries
+	
+	2. Finding LDAP Injection Flaws
+		HACK STEPS:
+			1. Try entering just the * character as a search term. This character functions as a wildcard in LDAP, but not in SQL. If a large number of results are returned, this is a good indicator that you are dealing with an LDAP query.
+			2. Try entering a number of closing brackets:
+					))))))))))))))))))))))))))
+				This input closes any brackets enclosing your input, as well as those that encapsulate the main search filter itself. This results in unmatched closing brackets, thus invalidating the query syntax. If an error results, the application may be vulnerable to LDAP injection. (Note that this input may also break many other kinds of application logic, so this provides a strong indicator only if you already confident that you are dealing with an LDAP query).
+			3. Tr entering various expressions designed to interfere with different types of queries, and see if these allow you to influence the results being returned. The cn attribute is supported by all LDAP implementations and is useful to use if you do not know any details about the directory you are querying. For example:
+				)(cn=*
+				*))(|(cn=*
+				*))%0
+	3. Preventing LDAP Injection
+
+
+********************************************************
+SUMMARY
+	We have examined a range of vulnerabilities that allow you to inject into web application data stores. These vulnerabilities may allow you to read or modify sensitive application data, perform other unauthorized actions, or subvert application logic to achieve an objective.
+	As serious as these attacks are, they are only part of a wider range of attacks that involve injecting into interpreted contexts. Other attacks in this category may allow you to execute commands con the server's operating system, retrieve arbitrary files, and interfere with other back-end components. The next chapter examines these attacks and others. It looks at how vulnerabilities within a web application can lead to compromise of key parts of the wider infrastructure that supports the application.
+	
+	
+********************************************************
+QUESTIONS
+
+1. You are trying to exploit a SQL injection flaw by performing a UNION attack to retrieve data. You do not know how many columns the original query returns. How can you find this out?
+ - Answer: You can determine the number of columns in two easy ways.
+ 		+ First, you can SELECT the type-neutral value NULL from each column, increasing the number of columns until the application return data, indicating that correct number of columns were specified, for example:
+ 				' UNION SELECT NULL --
+ 				' UNION SELECT NULL, NULL --
+ 			Note: on Oracle, you will need add FROM DUAL after the final NULL in each case
+ 		+ Second, you can inject ORDER BY clauses and increment the specified column until an error occurs, indicating that an invalid column was requested:
+ 				' ORDER BY 1 --
+ 				' ORDER BY 2 --
+	
+2. You have located a SQL injection vulnerability in a string parameter. You believe the database is either SQL Server or Oracle, but you can’t retrieve any data or an error message to confirm which database is running. How can you find this out?
+	- Answer: An easy way to confirm the database type is to use database-specific string concatenation syntax to construct some benign input within the query you control. For example, if the original value of the parameter is London you can submit the following items in turn:
+				+ '||'London
+				+ '+'London
+			If the first results in the same behavior as the original, the database is probably Oracle. If the second results in the same behavior, the database is probably SQL Server.
+
+3. You have submitted a single quotation mark at numerous locations throughout the application. From the resulting error messages you have diagnosed several potential SQL injection flaws. Which one of the following would be the safest location to test whether more crafted input has an effect on the application’s processing?
+		(a) Registering a new user
+		(b) Updating your personal details
+		(c) Unsubscribing from the service
+	- Answer: While it may seem counterintuitive, the user registration function is probably the safest. Registration functions normally use INSERT statements, which are unlikely to affect other records if you modify them. A function to update personal records is probably using conditional UPDATE statements. If you inject a payload like 'or 1=1-- you may cause all records in the table to be modified. Similarly, the function to unsubscribe is probably using conditional DELETE statements, and could impact on other users if you are not careful.
+			That said, it is impossible to be completely certain in advance which statements are being carried out by any kind of functionality, and you should advise the application owner of the risks before you perform the test.
+		
+		
+4. You have found a SQL injection vulnerability in a login function, and you try to use the input ‘ or 1=1-- to bypass the login. Your attack fails, and the resulting error message indicates that the -- characters are being stripped by the application’s input filters. How could you circumvent this problem?
+	- Answer: An easy way to achieve the same effect without using comment character is with the input 'or 'a'='a. 
+
+5. You have found a SQL injection vulnerability but have been unable to carry out any useful attacks, because the application rejects any input containing whitespace. How can you work around this restriction?
+	- Answer: You can SQL comment characters to separate keywords and other items in your injected payloads, for example:
+			'/**/UNION/**/SELECT/**/username,password/**/FROM/**/users--
+
+6. The application is doubling up all single quotation marks within user input before these are incorporated into SQL queries. You have found a SQL injection vulnerability in a numeric field, but you need to use a string value in one of your attack payloads. How can you place a string in your query without using any quotation marks?
+	- Answer: You can use the CHAR command to return a string value from a numeric ASCII character code. For example, on Oracle the string FOO can be represented as:
+			CHAR(70)||CHAR(79)||CHAR(79)
+
+7. In some rare situations, applications construct dynamic SQL queries from user-supplied input in a way that cannot be made safe using parameterized queries. When does this occur?
+	- Answer: This situation arises where user-supplied input is being placed into other elements of a query, such as table and columns names, rather than the query's parameters. A parameterized query cannot be precompiled with placeholders for these items, so a different solution needs to be used, probably based on very stringent input validation.
+
+8. You have escalated privileges within an application such that you now have full administrative access. You discover a SQL injection vulnerability within a user administration function. How can you leverage this vulnerability to further advance your attack?
+	- Answer: Because you already have administrative access, it is likely you can retrieve any data you desire using the application itself, meaning that a SQL injection attack to retrieve the application's own data may be redundant. However, you can still leverage the attack to access any data relating to other applications that is held within the same database, or to escalate privileges within the database or the underlying operating system, to compromise the database server and extend your attack into the wider internal network.
+	
+	
+9. You are attacking an application that holds no sensitive data and contains no authentication or access control mechanisms. In this situation, how should you rank the significance of the following vulnerabilities?
+		(a) SQL injection
+		(b) XPath injection
+		(c) OS command injection
+	- Answer: XPath injection can only be used to retrieve data from the targeted XML file. Hence, if the application contains no sensitive data this is likely to a low impact issue. Similarly, SQL injection flaws may not enable you to extract any sensitive data from the database. However, they can sometimes be leveraged to escalate privileges within the database and develop your attack in other ways. Depending on the situation, SQL injection may be more significant vulnerability. OS command injection, on the other hand, is almost always a high impact vulnerability, because it usually enables you to directly compromise the underlying server and use it as the launch point for further attacks against internal systems.
+	 
+10. You are probing an application function that enables you to search personnel details. You suspect that the function is accessing either a database or an Active Directory back end. How could you try to determine which of these is the case?	
+ - Answer: If the function accessing a database, then submitting the SQL wildcard % as the search query is likely to return a large number of records. Similarly, if the function is accessing an Active Directory, then submitting the wildcard * is likely to return a large number of records. Neither wildcard should have the same effect on the other system.
+				
+				
+				
+				
+				
+   	
+

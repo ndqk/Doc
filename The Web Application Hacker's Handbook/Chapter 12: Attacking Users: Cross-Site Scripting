@@ -1,0 +1,212 @@
+
+
+*********************************************************************
+I. Varieties of XSS
+	1. Reflected XSS Vulnerabilities
+		1.1. Exploiting the Vulnerabilities
+	2. Stored XSS Vulnerabilities
+	3. DOM-Based XSS Vulnerabilities
+
+********************************************************************* 
+II. XSS Attacks in Action
+	1. Real-World XSS Attacks
+	2. Payloads for XSS Attacks
+		2.1. Virtual Defacement
+		2.2. Injecting Trojan Functionality
+		2.3. Inducing User Actions
+		2.4. Exploiting Any Trust Relationships
+		2.5. Escalating the Client-Side Attack
+		
+	3. Delivery Mechanisms for XSS Attacks	
+		3.1. Delivering Refl ected and DOM-Based XSS Attacks
+		3.2. Delivering Stored XSS Attacks
+		3.3. Chaining XSS and Other Attacks
+		
+**********************************************************************
+III. Finding and Exploiting XSS Vulnerabilities
+	1. Finding and Exploiting Reflected XSS Vulnerabilities
+		1.1. Identifying Reflections of User Input
+			HACK STEPS:
+				1. Choose a unique arbitrary string that does not appear anywhere within the application and that contains only alphabetical character and therefore is unlikely to be affected by any XSS-specific filters. For example:
+							myxsstestdmg1wp
+					Submit this string as every parameter to every page, targeting only one parameter at a time.
+				2. Monitor the application's responses for any appearance of this same string. Make a note of every parameter whose value is being copied into the application's response. These are not necessarily vulnerable, but each instance identified is a candidate for further investigation, as described in the next section.
+				3. Note that both GET and POST requests need to be tested. You should include every parameter within both the URL query string and the message body. Although a smaller range of delivery mechanisms exists for XSS vulnerabilities that can be triggered only by a POST request, exploitation is still possible, as previous described.
+				4. In any cases where XSS was found in a POST request, use the "change request method" option in Burp to determine whether the same attack could be performed as a GET request.
+				5. In addition to standard request parameters, you should test every instance in which the application processes the contents of an HTTP request header. A common XSS vulnerability arises in error messages, where items such as the Referer and User-Agent headers are copied into the message's contents. These headers are valid vehicles for delivering a reflected XSS attack, because an attacker can use a Flash object to induce a victim to issue a request containing arbitrary HTTP headers.
+		
+		1.2. Testing Reflections to Introduce Script
+			1.2.1. Example 1: A Tag Attribute Value
+			1.2.1. Example 2: A JavaScript String
+			1.2.3. Example 3: An Attribute Containing a URL
+			
+			HACK STEPS:
+				Do the following for each reflected input identified in the previous steps:
+					1. Review the HTML source to identify the location(s) where your unique string is being reflected.
+					2. If the string appears more than once, each occurrence needs to be treated as a separate potential vulnerability and investigated individually.
+					3. Determine, from the location within the HTML of the user-controllable string, how you need to modify it to cause execution of arbitrary script. Typically, numerous different methods will be potential vehicles for an attack, as described later in this chapter.
+					4. Test your exploit by submitting it to the application. If your crafted string is still returned unmodified, the application is vulnerable. Double-check that your syntax is correct by using a proof-of-concept script to display an alert dialog, and confirm that this actually appears in your browser when the response is rendered.
+					
+		1.3. Probing Defensive Filters
+		1.4. Beating Signature-Based Filters
+			1.4.1. Ways to Introducing Script Code
+				- Script Tags
+				- Event Handlers
+				- Script Pseudo-Protocols
+				- Dynamically Evaluated Styles
+				- Bypassing Filters: HTML
+				- The Tag Name
+				- Space Following the Tag Name
+				- Attribute Names
+				- Attribute Delimiters
+				- Attribute Values
+				- Tag Brackets
+				- Character Sets
+					+ UTF-7
+					+ US-ASCII
+					+ UTF-16
+					
+			1.4.2. Bypassing Filters: Script Code
+				- Using JavaScript Escaping
+				- Dynamically Constructing Strings
+				- Alternatives to eval
+				- Alternatives to Dots
+				- Combining Multiple Techniques
+				- Using VBScript
+				- Combining VBScript and JavaScript
+				- Using Encoded Scripts
+		
+		1.5. Beating Sanitization
+		1.6. Beating Length Limits
+		1.7. Delivering Working XSS Exploits
+			1.7.1. Escalating an Attack to Other Application Pages
+			1.7.2. Modifying the Request Method
+			1.7.3. Exploiting XSS Via Cookies
+			1.7.4. Exploiting XSS in the Referer Header
+			1.7.5. Exploiting XSS in Nonstandard Request and Response Content
+				- Sending XML Requests Cross-Domain
+				- Executing JavaScript from Within XML Responses
+			1.7.6. Attacking Browser XSS Filters
+				
+	2. Finding and Exploiting Stored XSS Vulnerabilities
+		HACK STEPS: 
+			1. Having submitted a unique string to every possible location within the application, you must review all of the application's content and functionality once more to identify any instances where this string is displayed back to the browser. User-controllable data entered in one location (for example, a name field on a personal information page) may be displayed in numerous places throughout the application. (For example, it could be on the user's home page, in a listing of registered users, in work flow items such as task, on other user's contact lists, in messages or questions posted by the user, or in application logs). Each appearance of the string may be subject to different protective filters and therefore needs to be investigated separately.
+			2. If possible, all areas of the application accessible by  administrators should be reviewed to identify the appearance of any data controllable by non-administrative users. For example, the application may allow administrators to review log files in-browser. It is extremely common for this type of functionality to contain XSS vulnerabilities that an attacker can exploit by generating log entries containing malicious HTML.
+			3. When submitting a test string to each location within the application, it is sometimes insufficient simply to post it as each parameter to each page. Many application functions need to be followed through several stages before the submitted data is actually stored. For example, actions such as registering new user, placing a shopping order, and making a funds transfer often involve submitting several different requests in a defined sequence. To avoid missing any vulnerabilities, it is necessary to see each test case through to completion.
+			4. When probing for reflected XSS, you are interested in every aspect of a victim's request that you can control. This includes all parameters to the request, every HTTP header, and so on. In the case of stored XSS, you should also investigate any out-of-band channels through which the application receives and processes input you can control. Any such channels are suitable attack vectors for introducing stored XSS attacks. Review the results of your application mapping exercise to identify every possible area of attack surface.
+			5. If the application allows files to be uploaded and downloaded, always probe this functionality for stored XSS attacks. Details techniques for testing this type of functionality are discussed later in this chapter.
+			6. Think imaginatively about any other possible means by which data you control may be stored by the application and displayed to other users. For example, if the application search function shows a list of popular search items, you may be able to introduce a stored XSS payload by searching for it numerous times, even though the primary search functionality itself handles your input safely.
+			
+			
+		2.1. Testing for XSS in Web Mail Applications
+		2.2. Testing for XSS in Uploaded Files
+			2.2.1. Hybrid File Attacks
+			2.2.2. XSS in Files Loaded Via Ajax
+			
+	3. Finding and Exploiting DOM-Based XSS Vulnerabilities
+		HACK STEPS:
+			Using the results of your application mapping exercises from Chapter 4, review every piece of client-side JavaScript for the following APIs, which may be used to access DOM data that can be controlled via a crafted URL:
+				- document.location
+				- document.URL
+				- document.URLUnencoded
+				- document.referrer
+				- window.location
+			Be sure to include scripts appear in static HTML pages as well as dynamically generated pages. DOM-based XSS bugs exist in any location where client-side scripts are used, regardless of the type of page or whether you see parameters being submitted to the page.
+			In every instance where one of the preceding APIs is being used, closely review the code to identify what is being done with the user-controllable data, and whether crafted input could be used to cause execution of arbitrary JavaScript. In particular, review and test any instance where data is being passed to any of the following APIs:
+					- document.write()
+					- document.writeln()
+					- document.body.innerHtml
+					- eval()
+					- window.execScript()
+					- window.setInterval()
+					- window.setTimeout()
+
+
+**************************************************************************************8
+IV. Preventing XSS Attacks
+	1. Preventing Refl ected and Stored XSS
+		1.1. Validate Input
+		1.2. Validate Ouput
+		1.3. Eliminate Dangerous Insertion Points
+		1.4. Allowing Limited HTML
+	
+	2. Preventing DOM-Based XSS
+		2.1. Validate Input
+		2.2. Validate Ouput
+		
+****************************************************************************************
+SUMMARY
+	This chapter has examined the various ways in which XSS vulnerabilities can arise and ways in which common filter-based defense can be circumvented. Because XSS vulnerabilities are so prevalent, it is often straightforward to find several bugs within an application that are easy to exploit. XSS becomes more interesting, form a research perspective at least, when various defenses are in place that force you to devise some highly crafted input, or leverage some little-known feature of HTML, JavaScript, or VBScript, to deliver a working exploit. 
+	
+****************************************************************************************
+QUESTIONS
+
+1. What standard “signature” in an application’s behavior can be used to identify most instances of XSS vulnerabilities?
+	- Answer: User-supplied input is returned unmodified within the application's response to that input.
+
+2. You discover a reflected XSS vulnerability within the unauthenticated area of an application’s functionality. State two different ways in which the vulnerability could be used to compromise an authenticated session within the application.
+	- Answer: 
+			In most cases, XSS flaws within unauthenticated functionality work just as effective against authenticated users - the functionality behaves in the same way, resulting in arbitrary JavaScript execution within the context of the authenticated user's session.
+			Even if a target user is not logged in at the time of the attack, they may still be compromised. If the application is vulnerable to session fixation, then an attacker can capture their token and wait for them to log in. An attacker can inject code into the login page to capture keystrokes, or even present a Trojan login form which sends their credentials elsewhere.
+
+3. You discover that the contents of a cookie parameter are copied without any filters or sanitization into the application’s response. Can this behavior be used to inject arbitrary JavaScript into the returned page? Can it be exploited to perform an XSS attack against another user?
+	- Answer: The answer to the first question is "yes". The behavior of course enables arbitrary JavaScript to be injected via a crafted request. The answer to the second is "maybe". Historically, various ways have existed of injecting arbitrary HTTP headers into cross-domain requests, to inject a malicious cookie. Older version of Flash and XMLHttpRequest have been vulnerable in this way. Further, many applications designed to use a cookie will in fact accept the same named parameter in other locations, such as the query string or message body.
+
+4. You discover stored XSS behavior within data that is only ever displayed back to yourself. Does this behavior have any security significance?
+ - Answer: In isolation, it appears that this behavior could only ever be used by a user to attack themselves. However, in conjunction with another suitable vulnerability, such as an access control flaw, or cross-site request forgery vulnerability, it could be highly significant, and could enable an attacker to inject stored JavaScript into the pages displayed to other application users.
+
+5. You are attacking a web mail application that handles file attachments and displays these in-browser. What common vulnerability should you immediately check for?
+	- Answer: If the application displays HTML or text files without any sanitization, then JavaScript contained within these will execute within the browser of any user who views the attachment. Further, if a JPEG file contains HTML, then this will be automatically processed as HTML within some browser. Many web mail applications do not adequately defend agains XSS in message attachments.
+
+6. How does the same-origin policy impinge upon the use of the Ajax technology XMLHttpRequest ?		
+ - Answer: Because XMLHttpRequest can be used to retrieve the full response from an HTTP request, it can only normally be used to make requests to the same domain as the one that is invoking its. However, HTML5 has introduced the facility for XMLHttpRequest to make cross-domain requests, and retrieve responses, with the permission of the requested domain.
+ 
+
+7. Name three possible attack payloads for XSS exploits (that is, the malicious actions that you can perform within another user’s browser, not the methods by which you deliver the attacks).
+	- Answer: There are countless different attack payloads for XSS exploits. Some of the more commonly discussed payload are:
+				+ Stealing the session cookie;
+				+ Inducing user action;
+				+ Injecting Trojan functionality;
+				+ Stealing cached autocomplete data;
+				+ log logging keystrokes
+
+8. You have discovered a reflected XSS vulnerability where you can inject arbitrary data into a single location within the HTML of the returned page. The data inserted is truncated to 50 bytes, but you want to inject a lengthy script. You prefer not to call out to a script on an external server. How can you work around the length limit?
+	- Answer: You can "convert" the reflected XSS flaws into a DOM-based one. For example, if the vulnerable parameter is called vuln, you can use the following URL to execute an arbitrarily long script:
+			/script.asp?vuln=<script>eval(location.hash.substr(1))</script>#alert('long script here ......')
+
+9. You discover a reflected XSS flaw in a request that must use the POST method. What delivery mechanisms are feasible for performing an attack?	
+	- Answer: if the POST method is mandatory, you cannot simply construct a crafted URL within the application that will execute an attack when a user visits it. However, you can create a third-party web page that submit to the vulnerable application a form using the POST method and relevant parameters in hidden fields. You can use JavaScript to automatically submit the form when a user view your page.
+			
+			
+			
+			
+			
+				
+	
+		
+		
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 
