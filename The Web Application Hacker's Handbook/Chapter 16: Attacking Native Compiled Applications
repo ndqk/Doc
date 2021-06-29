@@ -1,0 +1,72 @@
+
+**********************************************************************
+I. Buffer Overflow Vulnerabilities
+	1. Stack Overflows
+	2. Heap Overflows
+	3. “Off-by-One” Vulnerabilities
+	4. Detecting Buffer Overflow Vulnerabilities
+		HACK STEPS:
+			1. For each item of data being targeted, submit a range of long strings with lengths somewhat longer than common buffer sizes. For example:
+						1100
+						4200
+						33000
+			2. Target one item of data at a time to maximize the coverage of code paths within the application
+			3. You can use the character blocks payload source in Burp Intruder to automatically generate payloads of various sizes.
+			4. Monitoring the application's responses to identify any anomalies. An uncontrolled overflow is almost certain to cause an exception in the application. Detecting when this has occurred in a remote process is difficult, but here are some anomalous events to look for:
+				- An HTTP 500 status code or error message, where other malformed (but no overlong) input does not have the same effect
+				- An information message, indicating that a failure occurred in some native code component
+				- A partial or malformed response is received from the server
+				- The TCP connection to the server closes abruptly without returning a response
+				- The entire web application stops responding
+			5. Note that when a heap-based overflow is triggered, this may result in a crash at some future point, rather than immediately. You may need to experiment to identify one or more test cases that are causing heap corruption.
+			6. An off-by-one vulnerability may not cause a crash, but it may be result in anomalous behavior such as unexpected data being returned by the application.
+	
+**********************************************************
+II. Integer Vulnerabilities
+	1. Integer Overflows
+	2. Signedness Errors
+	3. Detecting Integer Vulnerabilities
+		HACK STEPS:
+		
+	
+**********************************************************
+III. Format String Vulnerabilities
+	1. Detecting Format String Vulnerabilities
+		HACK STEPS:
+	
+**********************************************************
+SUMMARY
+
+**********************************************************
+QUESTIONS
+
+1. Unless any special defenses are in place, why are stack-based buffer overflows generally easier to exploit than heap-based overflows?
+
+2. In the C and C++ languages, how is a string’s length determined?
+
+3. Why would a buffer overflow vulnerability in an off-the-shelf network device normally have a much higher likelihood of exploitation than an overflow in a proprietary web application running on the Internet?
+
+4. Why would the following fuzz string fail to identify many instances of format string vulnerabilities?
+			%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n%n...
+			
+5. You are probing for buffer overflow vulnerabilities in a web application that makes extensive use of native code components. You find a request that may contain a vulnerability in one of its parameters; however, the anomalous behavior you have observed is difficult to reproduce reliably. Sometimes submitting a long value causes an immediate crash. Sometimes you need to submit it several times in succession to cause a crash. And sometimes a crash occurs after a large number of benign requests. What is the most likely cause of the application’s behavior?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

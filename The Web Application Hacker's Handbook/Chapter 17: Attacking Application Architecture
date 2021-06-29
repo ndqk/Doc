@@ -1,0 +1,74 @@
+
+********************************************************************
+I. Tiered Architectures
+	1. Attacking Tiered Architectures
+		1.1. Exploiting Trust Relationships Between Tiers
+		1.2. Subverting Other Tiers
+			1.2.1. Accessing Decryption Algorithms
+			1.2.2. Using File Read Access to Extract MySQL Data
+			1.2.3. Using Local File Inclusion to Execute Commands
+			
+	2. Securing Tiered Architectures
+		2.1. Minimize Trust Relationships
+		2.2. Segregate Different Components
+		2.3. Apply Defense in Depth
+
+*********************************************************************
+II. Shared Hosting and Application Service Providers
+	1. Virtual Hosting
+	2. Shared Application Services
+	3. Attacking Shared Environments
+		3.1. Attacks Against Access Mechanisms
+		3.2. Attacks Between Applications
+			3.2.1. Deliberate Backdoors
+			3.2.2. Attacks Between Vulnerable Applications
+			3.2.3. Attacks Between ASP Application Components
+		3.3. Attacking the Cloud
+			3.3.1. Cloud Security from a Web Application Perspective
+			3.3.2. Cloned Systems
+			3.3.3. Migration of Management Tools to the Cloud
+			3.3.4. Feature-First Approach
+			3.3.5. Token-Based Access
+			3.3.6. Web Storage
+	4. Securing Shared Environments
+		4.1. Secure Customer Access
+		4.2. Segregate Customer Functionality
+		4.3. Segregate Components in a Shared Application
+
+*********************************************************************
+SUMMARY
+
+*********************************************************************
+QUESTIONS
+
+1. You are attacking an application that employs two different servers: an application server and a database server. You have discovered a vulnerability that allows you to execute arbitrary operating system commands on the application server. Can you exploit this vulnerability to retrieve sensitive application data held within the database?
+
+2. In a different case, you have discovered a SQL injection fl aw that can be exploited to execute arbitrary operating system commands on the database server. Can you leverage this vulnerability to compromise the application server? For example, could you modify the application’s scripts held on the application server, and the content returned to users?
+
+3. You are attacking a web application that is hosted in a shared environment. By taking out a contract with the ISP, you can acquire some web space on the same server as your target, where you are permitted to upload PHP scripts. Can you exploit this situation to compromise the application you are targeting?
+
+4. The architecture components Linux, Apache, MySQL, and PHP are often found installed on the same physical server. Why can this diminish the security posture of the application’s architecture?
+
+5. How could you look for evidence that the application you are attacking is part of a wider application managed by an application service provider?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

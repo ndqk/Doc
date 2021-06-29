@@ -1,0 +1,80 @@
+**
+1. What is an OAuth grant type?
+	The OAuth grant type: 
+		- determines the exact sequence of steps that are involved in the OAuth process.
+		- affects how the client application communicates with the OAuth service at each stage, including how the access token itself is sent
+		 => often referred to as "OAuth flows"
+	
+	An OAuth service must be configured to support a particular grant type before a client application can initiate the corresponding flow. The client application specifies which grant type it wants to use in the initial authorization request it sends to the OAuth service.
+	
+	There are several different grant types, each with varying levels of complexity and security considerations.
+	
+**
+2. OAuth scopes
+	Any OAuth grant type, the client application has to specif:
+		- which data it wants to access
+		- what kind of operations it wants to perform
+	It does this use the scope parameter of the authorization request it sends to the OAuth service.
+	
+	Basic OAuth, the scopes for which a client application can request access are unique to each OAuth service. As the same of the scope is just an arbitrary text string, the format can vary dramatically between providers. Some even use a full URL as the scope name, similar to a REST API endpoint. For example, when requesting read access to a user's contact list, the scope name might take any of the following forms depending on the OAuth service being used:
+			scope = contacts
+			scope = contacts.read
+			scope = contact-list-r
+			scope=https://oauth-authorization-server.com/auth/scopes/user/contacts.readonly
+			
+	When OAuth is used for authentication, however, the standardized OpenID Connect scopes are often used instead. For example, the 'scope openid profile' will grant the client application read access to a perdefined set of basic information about the use, such as their email address, username, and so on.
+	
+**
+3. Authorization code grant type
+	3.1. Authorization request
+	3.2. User login and consent
+	3.3. Authorization code grant
+	3.4. Access token request
+	3.5. Access token grant
+	3.6. API call
+	3.7. Resource grant
+
+**
+4. Implicit grant type
+	4.1. Authorization request
+	4.2. User login and consent
+ 	4.3. Access token grant
+	4.4. Access token grant
+	4.5. Resource grant
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			

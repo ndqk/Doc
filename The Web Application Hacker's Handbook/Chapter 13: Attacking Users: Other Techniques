@@ -1,0 +1,142 @@
+
+
+
+********************************************************************************************
+I. Inducing User Actions
+	1. Request Forgery
+		1.1. On-Site Request Forgery
+			HACK STEPS:
+				1. In every location where data submitted by one user is displayed to other users but you cannot perform a stored XSS attack, review whether the application's behavior leaves it vulnerable to OSRF
+				2. The vulnerability typically arises where user-supplied data is inserted into the target of a hyperlink or other URL within the returned page. Unless the application specifically blocks any characters you require (typically dots, slashes, and the delimiters used in the query string), it is almost certainly vulnerable.
+				3. If you discover an OSRF vulnerability, look for a suitable request to target in you exploit, as described in the next section for cross-site request forgery.
+				
+		1.2. Cross-Side Request Forgery
+			1.2.1. Exploiting CSRF Flaws
+				HACK STEPS:
+					1. Review the key functionality within the application, as identified in your application mapping exercises.
+					2. Find an application function that can be used to perform some sensitive action on behalf of an unwitting user, that relies solely on cookies for tracking user sessions, and that employs request parameters that an attacker can fully determine in advance - that is, that do not contain any other tokens or unpredictable items.
+					3. Create an HTML page that issues the desired request without any user interaction. For GET requests, you can place an <img> tag with the src attribute set to the vulnerable URL. For POST requests, you can create a form that contains hidden field for all the relevant parameters required for the attack an that has its target set to the vulnerable URL. You can use JavaScript to autosubmit the form as soon as the page loads.
+					4. While logged in to the application, use the same browser to load you crafted HTML page. Verify that the desired action is carried out within the application.
+					
+			1.2.2. Authentication and CSRF
+			1.2.3. Preventing CSRF Flaws
+			1.2.4. Defeating Anti-CSRF Defenses Via XSS
+
+	2. UI Redress
+		2.1. Framebusting Defenses
+		2.2. Preventing UI Redress
+
+******************************************************************************
+II. Capturing Data Cross-Domain
+	1. Capturing Data by Injecting HTML
+	2. Capturing Data by Injecting CSS
+	3. JavaScript Hijacking	
+		3.1. Function Callbacks
+		3.2. JSON
+		3.3. Variable Assignment
+		3.4. E4X
+		3.5. Preventing JavaScript Hijacking
+
+*******************************************************************************
+III. The Same-Origin Policy Revisited
+	1. The Same-Origin Policy and Browser Extensions
+		1.1. The Same-Origin Policy and Flash
+		1.2. The Same-Origin Policy and Silverlight
+		1.3. The Same-Origin Policy and Java
+
+	2. The Same-Origin Policy and HTML5
+	
+	3. Crossing Domains with Proxy Service Applications
+
+*******************************************************************************
+IV. Other Client-Side Injection Attacks
+	1. HTTP Header Injection
+		1.1. Exploiting Header Injection Vulnerabilities
+			1.1.1. Injecting Cookies
+			1.1.2. Delivering Other Attacks
+			1.1.3. HTTP Response Splitting
+
+		1.2. Preventing Header Injection Vulnerabilities
+		
+	2. Cookie Injection
+		2.1. Session Fixation
+			2.1.1. Finding and Exploiting Session Fixation Vulnerabilities
+			2.1.2. Preventing Session Fixation Vulnerabilities
+			
+	3. Open Redirection Vulnerabilities
+		3.1. Finding and Exploiting Open Redirection Vulnerabilities
+			3.1.1. Blocking of Absolute URLs
+			3.1.2. Addition of an Absolute Prefix
+	
+		3.2. Preventing Open Redirection Vulnerabilities
+	
+	4. Client-Side SQL Injection	
+
+	5. Client-Side HTTP Parameter Pollution
+
+********************************************************************************
+V. Local Privacy Attacks
+	1. Persistent Cookies
+	2. Cached Web Content
+	3. Browsing History
+	4. Autocomplete
+	5. Flash Local Shared Objects
+	6. Silverlight Isolated Storage
+	7. Internet Explorer userData
+	8. HTML5 Local Storage Mechanisms
+	9. Preventing Local Privacy Attacks
+	
+********************************************************************************
+VI. Attacking ActiveX Controls
+	1. Finding ActiveX Vulnerabilities
+	2. Preventing ActiveX Vulnerabilities
+	
+********************************************************************************
+VII. Attacking the Browser
+	1. Logging Keystrokes
+	2. Stealing Browser History and Search Queries
+	3. Enumerating Currently Used Applications
+	4. Port Scanning
+	5. Attacking Other Network Hosts
+	6. Exploiting Non-HTTP Services
+	8. Exploiting Browser Bugs
+	9. DNS Rebinding
+	10. Browser Exploitation Frameworks
+	11. Man-in-the-Middle Attacks
+	
+********************************************************************************
+SUMMARY
+
+********************************************************************************
+QUESTIONS
+
+1. You discover an application function where the contents of a query string parameter are inserted into the Location header in an HTTP redirect. What three different types of attacks can this behavior potentially be exploited to perform?
+
+2. What main precondition must exist to enable a CSRF attack against a sensitive function of an application?
+
+3. What three defensive measures can be used to prevent JavaScript hijacking attacks?
+
+4. For each of the following technologies, identify the circumstances, if any, in which the technology would request /crossdomain.xml to properly enforce domain segregation:
+		(a) Flash
+		(b) Java
+		(c) HTML5
+		(d) Silverlight
+		
+5. “We’re safe from clickjacking attacks because we don’t use frames.” What, if anything, is wrong with this statement?
+
+6. You identify a persistent XSS vulnerability within the display name caption used by an application. This string is only ever displayed to the user who configured it, when they are logged in to the application. Describe the steps that an attack would need to perform to compromise another user of the application.
+
+7. How would you test whether an application allows cross-domain requests using XMLHttpRequest ?
+
+8. Describe three ways in which an attacker might induce a victim to use an arbitrary cookie.
+
+
+
+
+
+	
+
+
+
+
+

@@ -1,0 +1,100 @@
+
+
+*************************************************************************
+I. Uses for Customized Automation
+
+*************************************************************************
+II. Enumerating Valid Identifiers
+	1. The Basic Approach
+	2. Detecting Hits
+		2.1. HTTP Status Code
+		2.2. Response Length
+		2.3. Response Body
+		2.4. Location Header
+		2.5. Set-Cookie Header
+		2.6. Time Delays
+	
+	3. Scripting the Attack
+	4. JAttack
+
+**************************************************************************
+III. Harvesting Useful Data
+
+**************************************************************************
+IV. Fuzzing for Common Vulnerabilities
+
+**************************************************************************
+V. Putting It All Together: Burp Intruder
+	1. Positioning Payloads
+	2. Choosing Payloads
+	3. Configuring Response Analysis
+
+**************************************************************************
+VI. Barriers to Automation
+	1. Session-Handling Mechanisms
+		1.1. Session-Handling Support in Burp Suite
+			1.1.1. Cookie Jar
+			1.1.2. Request Macros
+			1.1.3. Session-Handling Rules
+	
+	2. CAPTCHA Controls
+		2.1. Attacking CAPTCHA Implementations
+		2.2. Automatically Solving CAPTCHA Puzzles
+		2.3. Using Human Solvers
+
+**************************************************************************
+SUMMARY
+
+**************************************************************************
+QUESTIONS
+
+1. Name three identifiers of hits when using automation to enumerate identifiers within an application.
+
+2. For each of the following categories, identify one fuzz string that can often be used to identify it:
+			(a) SQL injection
+			(b) OS command injection
+			(c) Path traversal
+			(d) Script file inclusion
+			
+3. When you are fuzzing a request that contains a number of different parameters, why is it important to perform requests targeting each parameter in turn and leaving the others unmodified?
+
+4. You are formulating an automated attack to brute-force a login function to discover additional account credentials. You find that the application returns an HTTP redirection to the same URL regardless of whether you submit valid or invalid credentials. In this situation, what is the most likely means you can use to detect hits?
+
+5. When you are using an automated attack to harvest data from within the application, you will often find that the information you are interested in is preceded by a static string that enables you to easily capture the data following it. For example:
+			<input type=”text” name=”LastName” value=”
+			
+		On other occasions, you may find that this is not the case and that the data preceding the information you need is more variable. In this situation, how can you devise an automated attack that still fulfills your needs?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

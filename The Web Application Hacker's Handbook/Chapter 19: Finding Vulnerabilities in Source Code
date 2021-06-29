@@ -1,0 +1,167 @@
+
+***************************************************************************
+I. Approaches to Code Review
+	1. Black-Box Versus White-Box Testing
+	2. Code Review Methodology
+
+***************************************************************************
+II. Signatures of Common Vulnerabilities
+	1. Cross-Site Scripting
+	2. SQL Injection
+	3. Path Traversal
+	4. Arbitrary Redirection
+	5. OS Command Injection
+	6. Backdoor Passwords
+	7. Native Software Bugs
+		7.1. Buffer Overflow Vulnerabilities
+		7.2. Integer Vulnerabilities
+		7.3. Format String Vulnerabilities
+	8. Source Code Comments
+
+**************************************************************************
+III. The Java Platform
+	1. Identifying User-Supplied Data
+	2. Session Interaction
+	3. Potentially Dangerous APIs
+		3.1. File Access
+		3.2. Database Access
+		3.3. Dynamic Code Execution
+		3.4. OS Command Execution
+		3.5. URL Redirection
+		3.6. Sockets
+	4. Configuring the Java Environment
+
+**************************************************************************
+IV. ASP.NET
+	1. Identifying User-Supplied Data
+	2. Session Interaction
+	3. Potentially Dangerous APIs
+		3.1. File Access
+		3.2. Database Access
+		3.3. Dynamic Code Execution
+		3.4. OS Command Execution
+		3.5. URL Redirection
+		3.6. Sockets
+	4. Configuring the ASP.NET Environment
+		
+***********************************************************************
+V. PHP
+	1. Identifying User-Supplied Data
+	2. Session Interaction
+	3. Potentially Dangerous APIs
+		3.1. File Access
+		3.2. Database Access
+		3.3. Dynamic Code Execution
+		3.4. OS Command Execution
+		3.5. URL Redirection
+		3.6. Sockets
+	4. Configuring the PHP Environment
+		4.1. Register Globals
+		4.2. Safe Mode
+		4.3. Magic Quotes
+		4.4. Miscellaneous
+		
+*****************************************************************************
+VI. Perl			
+	1. Identifying User-Supplied Data
+	2. Session Interaction
+	3. Potentially Dangerous APIs
+		3.1. File Access
+		3.2. Database Access
+		3.3. Dynamic Code Execution
+		3.4. OS Command Execution
+		3.5. URL Redirection
+		3.6. Sockets
+	4. Configuring the Perl Environment
+		
+****************************************************************************
+VII. JavaScript
+		
+****************************************************************************
+VIII. Database Code Components
+	1. SQL Injection
+	2. Calls to Dangerous Functions
+		
+****************************************************************************
+IX. Calls to Dangerous Functions
+
+
+****************************************************************************
+SUMMARY
+
+****************************************************************************
+QUESTIONS
+
+1. List three categories of common vulnerabilities that often have easily recognizable signatures within source code.
+
+2. Why can identifying all sources of user input sometimes be challenging when reviewing a PHP application?
+
+3. Consider the following two methods of performing a SQL query that incorporates user-supplied input:
+			// method 1
+			String artist = request.getParameter(“artist”).replaceAll(“’”, “’’”);
+			String genre = request.getParameter(“genre”).replaceAll(“’”, “’’”);
+			String album = request.getParameter(“album”).replaceAll(“’”, “’’”);
+			Statement s = connection.createStatement();
+			s.executeQuery(“SELECT * FROM music WHERE artist = ‘” + artist +
+			‘” AND genre = ‘” + genre + ‘” AND album = ‘” + album + “’”);
+			
+			// method 2
+			String artist = request.getParameter(“artist”);
+			String genre = request.getParameter(“genre”);
+			String album = request.getParameter(“album”);
+			Statement s = connection.prepareStatement(
+			“SELECT * FROM music WHERE artist = ‘” + artist +
+			“’ AND genre = ? AND album = ?”);
+			s.setString(1, genre);
+			s.setString(2, album);
+			s.executeQuery();
+			
+			Which of these methods is more secure, and why?
+			
+4. You are reviewing the codebase of a Java application. During initial reconnaissance, you search for all uses of the HttpServletRequest.getParameter API. The following code catches your eye:
+
+			private void setWelcomeMessage(HttpServletRequest request) throws ServletException
+			{
+				String name = request.getParameter(“name”);
+				if (name == null)
+						name = “”;
+				m_welcomeMessage = “Welcome “ + name +”!”;
+			}
+	
+		What possible vulnerability might this code indicate? What further code analysis would you need to perform to confirm whether the application is indeed vulnerable?
+		
+5. You are reviewing the mechanism that an application uses to generate session tokens. The relevant code is as follows:
+			public class TokenGenerator
+			{
+					private java.util.Random r = new java.util.Random();
+					public synchronized long nextToken()
+					{
+							long l = r.nextInt();
+							long m = r.nextInt();
+							return l + (m << 32);
+					}
+			}
+			
+		Are the application’s session tokens being generated in a predictable way? Explain your answer fully.
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
